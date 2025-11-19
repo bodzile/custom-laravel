@@ -1,0 +1,98 @@
+Koraci:
+
+1. Rutiranje
+*view metoda ++
+*get metoda ++
+    *prosledjivanje na funkciju u kontroleru ++
+    *prosledjivanje parametra preko url-a ++
+*post metoda ++
+    *prosledjivanje parametra preko post-a ++
+*named rute ++
+    *funkcija koja vraca pravi url za rutu ++
+*prosledjivanje kontroleru preko putanje rute (/admin/delete/{id}) ++
+
+-Group
+    *funkcija group u Route koja grupise rute i moze joj se dodati middleware i prefix ++
+
+-Request
+    *dodavanje klase Request i setovanje polja sa forme ++ 
+    *dodavanje funkcije validate ++
+        **treba da se doda unique,exist i min max za stringove
+    *funkcija has
+        *vraca true ako postoji vrednost u poljima request-a
+
+-Middleware
+    *dodavanje funckije u Route za postavljanja middleware-a u rutu ++
+
+2. Kontroleri
+*klasa Controller i funkcija view ++
+*funkcija redirect i with ++
+
+3. Modeli
+*klasa Model 
+    *funckija all ++
+    *funkcija where 
+    *funkcija find ++
+    *funkcija create
+    *funckija update
+    *funkcija delete
+    *chained funkcije
+        -take
+            *limit na query koliko uzima redova
+        -orderBy
+            *sortiranje upita
+        -groupBy
+            *grupisanje u query-ju
+            
+4. Middleware
+*klasa Middleware
+    *funkcija run 
+        *pokrece se pre kontrolera u ruti i odlucuje da li se nastavlja izvrsavanje kontrolera ili ne
+    *u klasi Route mora da se doda pokretanje middleware pre kontrolera
+
+
+5. Error handling
+*Front end za greske (gotovi view-ovi sa prepoznatljivim dizajnom za izbacivanje gresaka)
+*Rutiranje
+    *Izbacivanje specificne greske ako je u formi jedna metoda, a u web.php ruta postavljena na drugu metodu
+    *Greska pri prosledjivanju vrednosti preko url-a (odnosno sa {test} a postavljena je vrednost {test2},
+     moraju da se poklapaju imena)
+
+*Upiti
+    *bacanje izuzetaka za sve upite i izbacivanje na frond end
+
+
+6. Migracije
+
+7. Meta programiranje
+*php echo "neka komanda"
+    *pravljenje ugradjene funkcije echo u sam php koji utice na specifican projekat
+
+*php echo make-controller "Ime"
+*php echo make-model "Ime"
+*php echo make-migration "Ime"
+*php echo make-middleware "Ime"
+*php echo migrate
+
+8. Pomocne klase
+
+*Carbon ili Data klasa
+    *moze se dobiti danasnji datum, vreme
+    *dodavanje dana na datum
+    *Tajmer neki za vreme 
+
+*Session ++
+    -has ++
+    -set ++
+    -get ++
+    -destroy ++
+
+
+Ideje:
+
+*trait Accessor koji daje funkcije get i set koji moze da se koristi za query-je i jos neke klase
+*trait za funkcije view, redirect, itd -- losa ideja?
+
+
+
+    
