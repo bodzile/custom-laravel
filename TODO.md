@@ -15,3 +15,10 @@
 [ROUTE-02] - Create RouteHelper class for helper functions +
 [ROUTE-03] - Create web.php for testing of Route methods +
 [ROUTE-04] - Create index.php with Router and use of web.php +
+
+[CONTROLLER-01] - Create parent Controller class +
+[CONTROLLER-02] - Create MyController for test +
+[CONTROLLER-03] - Create MyController2 for test +
+
+[MODEL-01] - Create parent Model class +
+[MODEL-02] - Create MyModel for test +
