@@ -7,4 +7,6 @@
 [GLOBALFUNCTIONS-01] - Create Global functions for project +
 
 
-[REQUEST-01] - Create Request class with setting field and basic validations
+[REQUEST-01] - Create Request class with setting field and basic validations +
+[REDIRECT-01] - Create RedirectTrait for functions for redirect +
+[SESSION-01] - Create Session class with all session methods +
