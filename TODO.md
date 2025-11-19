@@ -26,5 +26,5 @@
 [VIEW-01] - Create header page with includes +
 [VIEW-02] - Create footer page for end of header page +
 [VIEW-03] - Create navigation page +
-[VIEW-04] - Create welcome page for test
-[VIEW-05] - Create test page for test
+[VIEW-04] - Create welcome page for test +
+[VIEW-05] - Create test page for test +
