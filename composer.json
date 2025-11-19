@@ -1,0 +1,21 @@
+{
+    "name": "laravel/laravel",
+    "type": "project",
+    "autoload": {
+        "files": [
+            "src/global_functions.php"
+        ],
+        "psr-4": {
+            "App\\": "app/",
+            "Src\\": "src/",
+            "Routes\\": "routes/",
+            "Requests\\": "app/Requests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Bogdan Stajic"
+        }
+    ],
+    "require": {}
+}
