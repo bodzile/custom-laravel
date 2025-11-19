@@ -10,3 +10,8 @@
 [REQUEST-01] - Create Request class with setting field and basic validations +
 [REDIRECT-01] - Create RedirectTrait for functions for redirect +
 [SESSION-01] - Create Session class with all session methods +
+
+[ROUTE-01] - Create Route class for handling all pages +
+[ROUTE-02] - Create RouteHelper class for helper functions +
+[ROUTE-03] - Create web.php for testing of Route methods +
+[ROUTE-04] - Create index.php with Router and use of web.php +
