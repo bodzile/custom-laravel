@@ -19,7 +19,7 @@ Route::post("/admin/add-user","MyController","addUser")
 Route::post("/admin/delete/{id}","MyController","delete")
   ->name("admin.deleteUser");
 
-Route::middleware("auth")->prefix("/admin/rnd")->group(function(){
+Route::middleware(["Auth","Log"])->prefix("/admin/rnd")->group(function(){
 
   Route::get("/random","MyController","index")
     ->name("admin.testPage2");
