@@ -28,3 +28,34 @@
 [VIEW-03] - Create navigation page +
 [VIEW-04] - Create welcome page for test +
 [VIEW-05] - Create test page for test +
+
+[FEATURE][MIDDLEWARE-01] - Implement middleware feature
+*Create Middleware interface for every middleware class to implement
+*Create logic for calling multiple middlewares
+*Add middleware calls on router
+
+
+[FIX][MODEL-03] - Exception handling
+*Put all current function inside try catch
+*Create custom exceptions??
+*Use transactions??
+
+[FEATURE][MODEL-04] - Add all model functions
+*Use chain queries
+*OrderBy
+*WhereLike
+*Take
+
+[FEATURE][MODEL-05] - Create relations logic
+
+[FEATURE][ROUTE-05] - Add logic for custom url's in web.php
+*In web.php by adding {value} it finds passed value and put's it into url
+*Add error handling
+
+[FEATURE][API-01] - Add features for API calls
+
+[FEATURE][REQUEST-02] - Add custom requests
+
+[FEATURE][FILE-01] - Add file management
+*File uploads
+*Directory management
