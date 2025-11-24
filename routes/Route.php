@@ -70,7 +70,31 @@ class Route
 
     public static function middleware(array|string $all_middlewares):Route
     {
-        self::$middlewares=$all_middlewares;
+        $temp=[];
+        $class_prefix="App\\Http\\Middlewares\\";
+        if(is_array($all_middlewares))
+        {
+            $i=0;
+            foreach($all_middlewares as $middleware)
+            {
+                // $class=$class_prefix . $middleware;
+                // $temp[$i++]=new $class>handle();
+                $temp[$i++]=$class_prefix . $middleware;
+            }
+            ///print_r($temp);
+            //die();
+            //$class=$class_prefix . 
+            self::$middlewares=$temp;
+            
+        }
+        else
+        {
+            // $class=$class_prefix . $all_middlewares;
+            // $instance=new $class();
+            //self::$middlewares=$instance->handle();
+            self::$middlewares=$class_prefix . $all_middlewares;
+        }
+        
         return new self();
     }
 

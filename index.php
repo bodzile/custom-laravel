@@ -2,6 +2,7 @@
 use Routes\Route;
 use Routes\RouteHelper;
 use App\Http\Requests\Request;
+use Src\Pipeline;
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -84,17 +85,21 @@ return new class  {
         switch($route["method"])
         {
             case "get": case "post":
-                
-            
                 $pipeline=$middlewares;
-                // Pipeline::send($this->request,$this->url_value)
-                //     ->through($pipeline)
-                //     ->to(function($data) {
-                //         $controller->$function($this->request,$this->url_value);
-                //     });
-
-
-                $controller->$function($this->request,$this->url_value);
+                if($pipeline)
+                {
+                    Pipeline::send($this->request,$this->url_value)
+                    ->through($pipeline)
+                    ->to(function($data) use($controller,$function) {
+                        $controller->$function($this->request,$this->url_value);
+                    });
+                }
+                
+                else
+                {
+                    $controller->$function($this->request,$this->url_value);
+                }
+                
                 break;
             case "view":
                 $view=$route["view"];
