@@ -6,11 +6,11 @@ use Src\Redirect;
 use Src\RedirectTrait;
 use Src\Sessions\Session;
 
-class Controller
+abstract class Controller
 {
     use RedirectTrait;
     //funckija ucitava view i ucitava podatke
-    public function view($view,$data=[])
+    public function view($view,$data=[]):void
     {
         //extract otpakuje sve podatke
         extract($data);

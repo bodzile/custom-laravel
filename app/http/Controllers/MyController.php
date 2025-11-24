@@ -36,4 +36,9 @@ class MyController extends Controller
     {
         die($id);
     }
+
+    public function rnd()
+    {
+        echo "rnd";
+    }
 }

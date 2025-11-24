@@ -20,6 +20,15 @@ function root()
     return Project::$project_name;
 }
 
+function redirect($path="")
+{
+    if($path != "")
+    {
+        header("Location: " . root() . $path);
+    }   
+    return $this;
+}
+
 function route($route_name, array $param=[])
 {
     $value_passed="";
