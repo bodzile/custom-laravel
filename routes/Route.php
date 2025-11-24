@@ -77,21 +77,13 @@ class Route
             $i=0;
             foreach($all_middlewares as $middleware)
             {
-                // $class=$class_prefix . $middleware;
-                // $temp[$i++]=new $class>handle();
                 $temp[$i++]=$class_prefix . $middleware;
             }
-            ///print_r($temp);
-            //die();
-            //$class=$class_prefix . 
             self::$middlewares=$temp;
             
         }
         else
         {
-            // $class=$class_prefix . $all_middlewares;
-            // $instance=new $class();
-            //self::$middlewares=$instance->handle();
             self::$middlewares=$class_prefix . $all_middlewares;
         }
         
