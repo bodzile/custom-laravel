@@ -29,10 +29,14 @@
 [VIEW-04] - Create welcome page for test +
 [VIEW-05] - Create test page for test +
 
-[FEATURE][MIDDLEWARE-01] - Implement middleware feature
-*Create Middleware interface for every middleware class to implement
-*Create logic for calling multiple middlewares
-*Add middleware calls on router
+[FEATURE][MIDDLEWARE-01] - Implement middleware feature +
+*Create Middleware interface for every middleware class to implement +
+*Create logic for calling multiple middlewares +
+*Add middleware calls on router +
+
+[FIX][DATABASE-01] - Change database connection to PDO
+[FEATURE][QUERYBUILDER-01] - Create Query Builder class
+*chained function for queries
 
 
 [FIX][MODEL-03] - Exception handling
