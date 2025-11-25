@@ -2,35 +2,35 @@
 
 namespace Src;
 
-trait Database
+class Database
 {
-    public static \mysqli $conn;
+    protected static \PDO $pdo;
     //cela klasa sluzi samo da bi na jednom mestu definisali podatke o bazi
-    public static $db_info=[
+    private static array $db_info=[
         "host" => "localhost",
         "username" => "root",
         "password" => "",
         "db_name" => "crud-vezbanje"
     ];
 
-    public static function getConnection():void
+    protected static array $options=[
+        \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
+    ];
+
+    public static function getConnection():\PDO
     {
-        if(!isset(self::$conn))
+        if(!self::$pdo)
         {
-            $db=Database::$db_info;
-            static::$conn=new \mysqli(
-                $db["host"],
-                $db["username"],
-                $db["password"],
-                $db["db_name"]
+            $dsn="mysql:host=" . static::$db_info["host"] . ";dbname=" . static::$db_info["db_name"] . ";charset=utf8mb4";
+            static::$pdo=new \PDO(
+                $dsn,
+                static::$db_info["username"],
+                static::$db_info["password"],
+                static::$options
             );
         }
+        return self::$pdo;
     }
 
-    public static function closeConnection():void
-    {
-        //if(isset(self::$conn))
-            //Database::$conn->close();
-    }
     
 }
