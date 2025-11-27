@@ -14,12 +14,13 @@ class Database
     ];
 
     protected static array $options=[
+        \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_OBJ,
         \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
     ];
 
     public static function getConnection():\PDO
     {
-        if(!self::$pdo)
+        if(!isset(self::$pdo))
         {
             $dsn="mysql:host=" . static::$db_info["host"] . ";dbname=" . static::$db_info["db_name"] . ";charset=utf8mb4";
             static::$pdo=new \PDO(
