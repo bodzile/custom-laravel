@@ -39,10 +39,9 @@
 *chained function for queries
 
 
-[FIX][MODEL-03] - Exception handling
-*Put all current function inside try catch
-*Create custom exceptions??
-*Use transactions??
+[FIX][MODEL-03] - Fixed model logic and added use of QueryBuilder
+*Delete current query functions from model
+*Add functions for query that call QueryBuilder
 
 [FEATURE][MODEL-04] - Add all model functions
 *Use chain queries
