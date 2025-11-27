@@ -43,6 +43,8 @@
 *Delete current query functions from model
 *Add functions for query that call QueryBuilder
 
+[FIX][REQUEST-01] - Added getAll function
+
 [FEATURE][MODEL-04] - Add all model functions
 *Use chain queries
 *OrderBy

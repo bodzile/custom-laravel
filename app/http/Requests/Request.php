@@ -22,6 +22,11 @@ class Request{
         return $this->fields[$key];
     }
 
+    public function getAll():array 
+    {
+        return $this->fields;
+    }
+
     public function validate(array $inputs):void
     {
         try 
@@ -93,7 +98,7 @@ class Request{
         {
             return array(
                 "error" => "true",
-                "message" => $field_key . " must me letters only"
+                "message" => $field_key . " must be letters only"
             );
         }
         return array("error" => "false");
