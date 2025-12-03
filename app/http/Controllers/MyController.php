@@ -9,8 +9,37 @@ class MyController extends Controller
 {
     public function index(Request $request)
     {
+        //$users=MyModel::create(["name" => "barbel row", "difficulty" => "medium", "type" => "ledja"]);
 
-        $users=MyModel::find(1);
+
+        //trebalo bi da vrati ili objekat ili niz objekata instance MyModel ili Model da mogu da se setuju polja
+        $users=MyModel::query()->where(["difficulty" => "easy"])->get();
+
+        $user=MyModel::find(6);
+
+        //print_r($user); die();
+
+        echo $user->id . "<br>";
+        echo $user->name . "<br>";
+        echo $user->difficulty . "<br>";
+
+        $user->name="novo";
+        $user->difficulty="hard";
+        $user->save();
+
+        echo $user->id . "<br>";
+        echo $user->name . "<br>";
+        echo $user->difficulty . "<br>";
+
+        echo "--------------------------";
+
+        //$user->delete();
+
+        // MyModel::update($users->id,[
+        //     "name" => "mikara",
+        //     "type" => "rame"
+        // ]);
+
 
         return $this->view("test",compact("users"));
     }
