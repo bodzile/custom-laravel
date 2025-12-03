@@ -34,16 +34,21 @@
 *Create logic for calling multiple middlewares +
 *Add middleware calls on router +
 
-[FIX][DATABASE-01] - Change database connection to PDO
-[FEATURE][QUERYBUILDER-01] - Create Query Builder class
-*chained function for queries
+[FIX][DATABASE-01] - Change database connection to PDO +
+[FEATURE][QUERYBUILDER-01] - Create Query Builder class +
+*chained function for queries +
 
 
-[FIX][MODEL-03] - Fixed model logic and added use of QueryBuilder
-*Delete current query functions from model
-*Add functions for query that call QueryBuilder
+[FIX][MODEL-03] - Fixed model logic and added use of QueryBuilder +
+*Delete current query functions from model +
+*Add functions for query that call QueryBuilder +
 
-[FIX][REQUEST-01] - Added getAll function
+[FIX][REQUEST-01] - Added getAll function+
+
+[FEATURE][QUERYBUILDER-01] - Add QueryBuilder
+*create QuerySqlBuilder
+*create QuerySqlExecutor
+*create QueryBuilder for using all these classes
 
 [FEATURE][MODEL-04] - Add all model functions
 *Use chain queries
