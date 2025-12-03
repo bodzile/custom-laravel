@@ -8,9 +8,15 @@ class QueryExecutor{
     {   
         try 
         {
+            $columns=[];
             $stmt=$pdo->prepare($sql);
             $stmt->execute($param);
-            return $stmt->fetchAll();
+            for($i=0;$i<$stmt->columnCount();$i++)
+            {
+                $meta=$stmt->getColumnMeta($i);
+                $columns[]=$meta["name"];
+            }
+            return [$stmt->fetchAll(),$columns];
         }
         catch(\PDOException $e)
         {
@@ -34,8 +40,5 @@ class QueryExecutor{
             return false;
         }
     }
-
-
-    
 
 }
