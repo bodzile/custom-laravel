@@ -25,6 +25,7 @@ class QueryExecutor{
         }
     }
 
+
     public static function executeNonQuery(\PDO $pdo, string $sql, array $param):bool 
     {
         try

@@ -31,6 +31,11 @@ class QuerySqlBuilder{
         return [$sql,$param];
     }
 
+    public static function buildSingleSelect(string $table)
+    {
+        return "SELECT * from $table WHERE id=:id";
+    }
+
     public static function buildInsert(string $table, array $data):string 
     {
         $sql="INSERT INTO ";

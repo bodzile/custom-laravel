@@ -5,6 +5,7 @@ namespace Src\Queries;
 use Src\Queries\QueryExecutor;
 use Src\Queries\QuerySqlBuilder;
 use App\Http\Requests\Request;
+use App\Models\Model;
 
 class QueryBuilder
 {
@@ -48,39 +49,42 @@ class QueryBuilder
         }
         $this->query["where"]["sql"]=$temp;
 
-        //die(get_class($this));
-
         return $this;
     }
 
     public function groupBy(string $param):QueryBuilder
     {
         $this->query["groupBy"]=" GROUP BY " . $param;
-
         return $this;
     }
 
     public function orderBy(string $param,string $direction="ASC"):QueryBuilder
     {
         $this->query["orderBy"]=" ORDER BY " . $param . " " . strtoupper($direction) . "";
-
         return $this;
     }
 
     public function take(int $param):QueryBuilder
     {
         $this->query["limit"]=" LIMIT " . $param;
-
         return $this;
     }
 
-    public function get():array|Object
+    public function get():array|Model
     {
         [$sql,$param]=QuerySqlBuilder::buildSelect($this->table,$this->query);
         [$stdObjects,$columns]=QueryExecutor::executeSelect($this->pdo, $sql, $param);
 
         $res=$this->getModelObjects($stdObjects,$columns);
+        return $res;
+    }
 
+    public function getById(int $id):Model
+    {
+        $sql=QuerySqlBuilder::buildSingleSelect($this->table);
+        [$stdObject,$columns]=QueryExecutor::executeSelect($this->pdo,$sql,["id" => $id]);
+
+        $res=$this->getModelObject($stdObject,$columns);
         return $res;
     }
 
@@ -141,6 +145,22 @@ class QueryBuilder
         }
 
         return $res;
+    }
+
+    private function getModelObject(array $stdObjects, array $columns):array|Object 
+    {
+        $modelObj=null;
+        if(count($stdObjects) == 1)
+        {
+            $modelObj=new $this->modelClass;
+            foreach($columns as $column)
+            {
+                $modelObj->$column=$stdObjects[0]->$column;
+            }
+            return $modelObj;
+        }
+
+        return $modelObj;
     }
 
 }
