@@ -4,14 +4,16 @@ use Src\Sessions\Session;?>
 
 <?php
 if(isset($users))
+    //print_r($users); die();
 {
+    foreach($users as $user){
 ?>    
     <div>
-        <p>Id: <?php echo $users["id"] ?></p>
-        <p>Name: <?php echo $users["name"] ?></p>
+        <p>Id: <?php echo $user->id ?></p>
+        <p>Name: <?php echo $user->name ?></p>
     </div>
 <?php
-}
+    }}
 ?>
 
 <a href="<?php echo route("home") ?>">welcome page</a>
