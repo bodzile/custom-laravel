@@ -59,9 +59,22 @@ class QuerySqlBuilder{
         return $sql;
     }
 
-    public static function buildDelete(string $table, int $id):string 
+    public static function buildDelete(string $table):string 
     {
-        return "DELETE from " . $table . " WHERE id=:id";
+        return "DELETE from $table WHERE id=:id";
+    }
+
+    public static function buildUpdate(string $table, array $values):string 
+    {
+        for($i=0;$i<count($values);$i++)
+        {
+            $values[$i]= $values[$i] . "=:$values[$i]";
+        }
+        $temp=implode(",",$values);
+        //die($temp);
+        
+        $sql="UPDATE $table SET $temp WHERE id=:id";
+        return $sql;
     }
 
 }
