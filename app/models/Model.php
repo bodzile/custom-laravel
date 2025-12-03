@@ -19,6 +19,12 @@ abstract class Model extends Database
         static::$pdo=static::getConnection();
         return static::createQueryBuilder();
     }
+
+    public static function all():array 
+    {
+        static::$pdo=static::getConnection();
+        return static::createQueryBuilder()->getAll();
+    }
     
     public static function create(array|Request $data):bool
     {
@@ -26,7 +32,7 @@ abstract class Model extends Database
         return static::createQueryBuilder()->create($data);
     }
 
-    public static function find(int $id):Object
+    public static function find(int $id):Model
     {
         static::$pdo=static::getConnection();
         return static::createQueryBuilder()->getById($id);

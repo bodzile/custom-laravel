@@ -70,7 +70,16 @@ class QueryBuilder
         return $this;
     }
 
-    public function get():array|Model
+    public function getAll():array 
+    {
+        $sql="SELECT * from $this->table";
+        [$stdObjects,$columns]=QueryExecutor::executeSelect($this->pdo, $sql);
+
+        $res=$this->getModelObjects($stdObjects,$columns);
+        return $res;
+    }
+
+    public function get():array
     {
         [$sql,$param]=QuerySqlBuilder::buildSelect($this->table,$this->query);
         [$stdObjects,$columns]=QueryExecutor::executeSelect($this->pdo, $sql, $param);
@@ -123,16 +132,6 @@ class QueryBuilder
 
     private function getModelObjects(array $stdObjects, array $columns):array|Object 
     {
-        if(count($stdObjects) == 1)
-        {
-            $modelObj=new $this->modelClass;
-            foreach($columns as $column)
-            {
-                $modelObj->$column=$stdObjects[0]->$column;
-            }
-            return $modelObj;
-        }
-
         $res=[];
         foreach($stdObjects as $obj)
         {
