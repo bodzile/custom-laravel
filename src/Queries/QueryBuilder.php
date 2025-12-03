@@ -2,18 +2,12 @@
 
 namespace Src\Queries;
 
-use Src\Queries\QueryExecutor;
-use Src\Queries\QuerySqlBuilder;
 use App\Http\Requests\Request;
 use App\Models\Model;
+use Src\Queries\Repository;
 
 class QueryBuilder
 {
-
-    private string $table;
-    private \PDO $pdo;
-    private array $allowed;
-    private string $modelClass;
 
     private array $query=[
         "where" => [
@@ -25,13 +19,11 @@ class QueryBuilder
         "limit" => 0
     ];
 
-    public function __construct(string $table,\PDO $pdo,string $modelClass,array $allowed)
-    {
-        $this->table=$table;
-        $this->pdo=$pdo;
-        $this->allowed=$allowed;
-        $this->modelClass=$modelClass;
-    }
+    public function __construct(
+        private string $table, 
+        private string $modelClass, 
+        private array $allowed
+    ){}
 
     public function where(array $param):QueryBuilder
     {
@@ -70,96 +62,10 @@ class QueryBuilder
         return $this;
     }
 
-    public function getAll():array 
-    {
-        $sql="SELECT * from $this->table";
-        [$stdObjects,$columns]=QueryExecutor::executeSelect($this->pdo, $sql);
-
-        $res=$this->getModelObjects($stdObjects,$columns);
-        return $res;
-    }
-
     public function get():array
     {
-        [$sql,$param]=QuerySqlBuilder::buildSelect($this->table,$this->query);
-        [$stdObjects,$columns]=QueryExecutor::executeSelect($this->pdo, $sql, $param);
-
-        $res=$this->getModelObjects($stdObjects,$columns);
-        return $res;
+        return new Repository($this->table,$this->allowed, $this->modelClass)->select($this->query);
     }
 
-    public function getById(int $id):Model
-    {
-        $sql=QuerySqlBuilder::buildSingleSelect($this->table);
-        [$stdObject,$columns]=QueryExecutor::executeSelect($this->pdo,$sql,["id" => $id]);
-
-        $res=$this->getModelObject($stdObject,$columns);
-        return $res;
-    }
-
-    public function create(array|Request $data):bool 
-    {
-        $all = $data instanceof Request ? $data->getAll() : $data;
-        
-        if(!$this->inAllowed($all))
-            return false;
-
-        $sql=QuerySqlBuilder::buildInsert($this->table, $all);
-        return QueryExecutor::executeNonQuery($this->pdo, $sql, $all);
-    }
-
-    public function delete(int $id):bool 
-    {
-        $sql=QuerySqlBuilder::buildDelete($this->table);
-        return QueryExecutor::executeNonQuery($this->pdo, $sql, ["id" => $id]);
-    }
-
-    public function update(int $id, array $values):bool 
-    {
-        $sql=QuerySqlBuilder::buildUpdate($this->table, array_keys($values));
-        return QueryExecutor::executeNonQuery($this->pdo, $sql, array_merge(["id" => $id], $values));
-    }
-
-    private function inAllowed(array $data):bool
-    {
-        foreach($data as $key => $value)
-        {
-            if(!in_array($key,$this->allowed))
-                return false;
-        }
-        return true;
-    }
-
-    private function getModelObjects(array $stdObjects, array $columns):array|Object 
-    {
-        $res=[];
-        foreach($stdObjects as $obj)
-        {
-            $modelObj=new $this->modelClass;
-            foreach($columns as $column)
-            {
-                $modelObj->$column=$obj->$column;
-            }
-            $res[]=$modelObj;
-        }
-
-        return $res;
-    }
-
-    private function getModelObject(array $stdObjects, array $columns):array|Object 
-    {
-        $modelObj=null;
-        if(count($stdObjects) == 1)
-        {
-            $modelObj=new $this->modelClass;
-            foreach($columns as $column)
-            {
-                $modelObj->$column=$stdObjects[0]->$column;
-            }
-            return $modelObj;
-        }
-
-        return $modelObj;
-    }
 
 }

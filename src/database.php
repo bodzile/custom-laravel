@@ -4,7 +4,7 @@ namespace Src;
 
 class Database
 {
-    protected static \PDO $pdo;
+    public static \PDO $pdo;
     //cela klasa sluzi samo da bi na jednom mestu definisali podatke o bazi
     private static array $db_info=[
         "host" => "localhost",
