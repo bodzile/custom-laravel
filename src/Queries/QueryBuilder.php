@@ -12,7 +12,7 @@ class QueryBuilder
     private string $table;
     private \PDO $pdo;
     private array $allowed;
-    //private string $modelClass;
+    private string $modelClass;
 
     private array $query=[
         "where" => [
@@ -24,11 +24,12 @@ class QueryBuilder
         "limit" => 0
     ];
 
-    public function __construct(string $table,\PDO $pdo,array $allowed)
+    public function __construct(string $table,\PDO $pdo,string $modelClass,array $allowed)
     {
         $this->table=$table;
         $this->pdo=$pdo;
         $this->allowed=$allowed;
+        $this->modelClass=$modelClass;
     }
 
     public function where(array $param):QueryBuilder
@@ -46,6 +47,8 @@ class QueryBuilder
             $this->query["where"]["columns"][$column]=$value;
         }
         $this->query["where"]["sql"]=$temp;
+
+        //die(get_class($this));
 
         return $this;
     }
@@ -71,10 +74,14 @@ class QueryBuilder
         return $this;
     }
 
-    public function get():array
+    public function get():array|Object
     {
         [$sql,$param]=QuerySqlBuilder::buildSelect($this->table,$this->query);
-        return QueryExecutor::executeSelect($this->pdo, $sql, $param);
+        [$stdObjects,$columns]=QueryExecutor::executeSelect($this->pdo, $sql, $param);
+
+        $res=$this->getModelObjects($stdObjects,$columns);
+
+        return $res;
     }
 
     public function create(array|Request $data):bool 
@@ -90,8 +97,14 @@ class QueryBuilder
 
     public function delete(int $id):bool 
     {
-        $sql=QuerySqlBuilder::buildDelete($this->table, $id);
-        return QueryExecutor::executeNonQuery($this->pdo, $sql, ["id" => "id"]);
+        $sql=QuerySqlBuilder::buildDelete($this->table);
+        return QueryExecutor::executeNonQuery($this->pdo, $sql, ["id" => $id]);
+    }
+
+    public function update(int $id, array $values):bool 
+    {
+        $sql=QuerySqlBuilder::buildUpdate($this->table, array_keys($values));
+        return QueryExecutor::executeNonQuery($this->pdo, $sql, array_merge(["id" => $id], $values));
     }
 
     private function inAllowed(array $data):bool
@@ -102,6 +115,32 @@ class QueryBuilder
                 return false;
         }
         return true;
+    }
+
+    private function getModelObjects(array $stdObjects, array $columns):array|Object 
+    {
+        if(count($stdObjects) == 1)
+        {
+            $modelObj=new $this->modelClass;
+            foreach($columns as $column)
+            {
+                $modelObj->$column=$stdObjects[0]->$column;
+            }
+            return $modelObj;
+        }
+
+        $res=[];
+        foreach($stdObjects as $obj)
+        {
+            $modelObj=new $this->modelClass;
+            foreach($columns as $column)
+            {
+                $modelObj->$column=$obj->$column;
+            }
+            $res[]=$modelObj;
+        }
+
+        return $res;
     }
 
 }
