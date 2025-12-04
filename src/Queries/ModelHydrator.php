@@ -2,9 +2,6 @@
 
 namespace src\Queries;
 
-use Src\Queries\QueryExecutor;
-use Src\Queries\QuerySqlBuilder;
-use App\Http\Requests\Request;
 use App\Models\Model;
 
 class ModelHydrator{

@@ -31,7 +31,12 @@ class QuerySqlBuilder{
         return [$sql,$param];
     }
 
-    public static function buildSingleSelect(string $table)
+    public static function buildSelectAll(string $table):string
+    {
+        return "SELECT * from $table";
+    }
+
+    public static function buildSingleSelect(string $table):string
     {
         return "SELECT * from $table WHERE id=:id";
     }
@@ -64,22 +69,27 @@ class QuerySqlBuilder{
         return $sql;
     }
 
-    public static function buildDelete(string $table):string 
+    public static function buildDelete(string $table, string $idColumn):string 
     {
-        return "DELETE from $table WHERE id=:id";
+        return "DELETE from $table WHERE $idColumn=:$idColumn";
     }
 
-    public static function buildUpdate(string $table, array $values):string 
+    public static function buildUpdate(string $table, string $idColumn, array $columns):string 
     {
-        for($i=0;$i<count($values);$i++)
+        for($i=0;$i<count($columns);$i++)
         {
-            $values[$i]= $values[$i] . "=:$values[$i]";
+            $columns[$i]= $columns[$i] . "=:$columns[$i]";
         }
-        $temp=implode(",",$values);
+        $temp=implode(",",$columns);
         //die($temp);
         
-        $sql="UPDATE $table SET $temp WHERE id=:id";
+        $sql="UPDATE $table SET $temp WHERE $idColumn=:$idColumn";
         return $sql;
+    }
+
+    public static function buildDescribe(string $table):string 
+    {
+        return "DESCRIBE $table";
     }
 
 }

@@ -2,12 +2,13 @@
 
 namespace Src\Queries;
 
-use Src\Queries\QueryBuilder;
 use Src\Queries\ModelHydrator;
+use Src\Queries\QueryBuilder;
 use Src\Queries\QuerySqlBuilder;
 use Src\Queries\QueryExecutor;
+use Src\Queries\TableSchema;
 use Src\Database;
-use App\Http\Requests\Request;
+
 
 class Repository{
 
@@ -35,7 +36,7 @@ class Repository{
 
     public function selectAll():array
     {
-        $sql="SELECT * from $this->table";
+        $sql=QuerySqlBuilder::buildSelectAll($this->table);
         [$stdObjects,$columns]=QueryExecutor::executeSelect(
             $this->pdo, 
             $sql
@@ -47,15 +48,15 @@ class Repository{
     public function selectById(int $id):Object
     {
         $sql=QuerySqlBuilder::buildSingleSelect($this->table);
+        $idColumn=TableSchema::getPrimaryKey($this->table);
+
         [$stdObject,$columns]=QueryExecutor::executeSelect(
             $this->pdo,
             $sql,
-            ["id" => $id]
+            [$idColumn => $id]
         );
 
-        $res= ModelHydrator::hydrateObject($this->modelClass, $stdObject,$columns);
-
-        return $res;
+        return ModelHydrator::hydrateObject($this->modelClass, $stdObject,$columns);
     }
 
     public function insert(array|Request $data):bool 
@@ -64,6 +65,10 @@ class Repository{
         
         if(!$this->inAllowed($all))
             return false;
+
+        $timestamp = date('Y-m-d H:i:s', time());
+        if(TableSchema::createdAtExist($this->table))
+            $all=array_merge($all, ["created_at" => $timestamp, "updated_at" => $timestamp]);
 
         $sql=QuerySqlBuilder::buildInsert($this->table, $all);
         return QueryExecutor::executeNonQuery(
@@ -75,22 +80,44 @@ class Repository{
 
     public function update(int $id, array $values):bool 
     {
-        $sql=QuerySqlBuilder::buildUpdate($this->table, array_keys($values));
+        $columns=array_keys($values);
+        $timestamp = date('Y-m-d H:i:s', time());
+        if(TableSchema::updatedAtExist($this->table))
+        {
+            $values=array_merge($values, ["updated_at" => $timestamp]);
+            $columns=array_merge($columns,["updated_at"]);
+        }
+            
+        $idColumn=TableSchema::getPrimaryKey($this->table);
+        $sql=QuerySqlBuilder::buildUpdate($this->table, $idColumn, $columns);
+
         return QueryExecutor::executeNonQuery(
             $this->pdo, 
             $sql, 
-            array_merge(["id" => $id], $values)
+            array_merge([$idColumn => $id], $values)
         );
     }
 
     public function delete(int $id):bool 
     {
-        $sql=QuerySqlBuilder::buildDelete($this->table);
+        $idColumn=TableSchema::getPrimaryKey($this->table);
+        $sql=QuerySqlBuilder::buildDelete($this->table, $idColumn);
+
         return QueryExecutor::executeNonQuery(
-            Database::getConnection(), 
+            $this->pdo, 
             $sql, 
-            ["id" => $id]
+            [$idColumn => $id]
         );
+    }
+
+    private function inAllowed(array $data):bool 
+    {
+        foreach($data as $key => $value)
+        {
+            if(!in_array($key, $this->allowed))
+                return false;
+        }
+        return true;
     }
 
 }

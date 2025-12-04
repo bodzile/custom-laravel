@@ -20,7 +20,7 @@ class QueryExecutor{
         }
         catch(\PDOException $e)
         {
-            error_log("QueryExecutor Error: " . $e->getMessage());
+            die("QueryExecutor Error: " . $e->getMessage());
             return [];
         }
     }
@@ -36,13 +36,13 @@ class QueryExecutor{
         }
         catch(\PDOException $e)
         {
-            error_log("QueryExecutor Error: " . $e->getMessage());
+            die("QueryExecutor Error: " . $e->getMessage());
             return [];
         }
     }
 
 
-    public static function executeNonQuery(\PDO $pdo, string $sql, array $param):bool 
+    public static function executeNonQuery(\PDO $pdo, string $sql, array $param=[]):bool 
     {
         try
         {
@@ -53,7 +53,7 @@ class QueryExecutor{
         }
         catch(\PDOException $e)
         {
-            error_log("QueryExecutor Error: " . $e->getMessage());
+            die("QueryExecutor Error: " . $e->getMessage());
             return false;
         }
     }
