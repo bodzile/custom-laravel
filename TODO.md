@@ -49,18 +49,43 @@
 *create QuerySqlBuilder
 *create QuerySqlExecutor
 *create QueryBuilder for using all these classes
+<<<<<<< Updated upstream
+=======
 
-[FEATURE][MODEL-04] - Add all model functions
-*Use chain queries
-*OrderBy
-*WhereLike
-*Take
+[FEATURE][MODEL-04] - Add all model functions +
+*update +
+*save +
+*find +
+*delete +
+*query +
+**all this functions call QueryBuilder functions
+
+[REFACTOR][QUERYBUILDER-01] - Clean where statement -
+[FEATURE][QUERYBUILDER-02] - Add metadata handling +
+*add default finding of primary key for getById,delete,update statements +
+*add default finding and handling timestamps +
+
+[TEST][DATABASE,MODEL,QUERYBUILDER] - Test all functionality +
+>>>>>>> Stashed changes
+
 
 [FEATURE][MODEL-05] - Create relations logic
 
 [FEATURE][ROUTE-05] - Add logic for custom url's in web.php
 *In web.php by adding {value} it finds passed value and put's it into url
 *Add error handling
+
+[FEATURE][MIGRATION-01] - Add logic for migrations
+*Migration or Schema class??
+*functions for setting database columns and keys
+*default values
+*constraints
+*timestamps and id
+*use of QueryBuilder and QueryExecutor??
+
+[FEATURE][COMMANDS-01] - Create commands for dynamically building code
+*using terminal type commands
+*commands can create Models,Controllers,Migrations,Requests,Middlewares dynamically with set path,namespace and uses
 
 [FEATURE][API-01] - Add features for API calls
 

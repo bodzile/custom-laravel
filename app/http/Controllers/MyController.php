@@ -51,12 +51,9 @@ class MyController extends Controller
         return $this->view("welcome",compact("name"));
     }
 
-    public function addUser(Request $request)
+    public function addUser(UserRequest $request)
     {
-        $request->validate([
-            "email" => "required|alpha",
-            "password" => "required|numeric|min:5"
-        ]);
+        $request->validate();
 
         $this->redirect()->back()->with("success","uspesno ste poslali");
     }
