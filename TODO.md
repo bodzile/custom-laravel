@@ -49,8 +49,6 @@
 *create QuerySqlBuilder
 *create QuerySqlExecutor
 *create QueryBuilder for using all these classes
-<<<<<<< Updated upstream
-=======
 
 [FEATURE][MODEL-04] - Add all model functions +
 *update +
@@ -66,8 +64,23 @@
 *add default finding and handling timestamps +
 
 [TEST][DATABASE,MODEL,QUERYBUILDER] - Test all functionality +
->>>>>>> Stashed changes
 
+[FEATURE][MODEL-04] - Add all model functions +
+*update +
+*save +
+*find +
+*delete +
+*query +
+**all this functions call QueryBuilder functions
+
+[REFACTOR][QUERYBUILDER-01] - Clean where statement -
+[FEATURE][QUERYBUILDER-02] - Add metadata handling +
+*add default finding of primary key for getById,delete,update statements +
+*add default finding and handling timestamps +
+
+[TEST][DATABASE,MODEL,QUERYBUILDER] - Test all functionality +
+
+[REFACTOR][ROUTE-04] - Creating Router and Router helper classes
 
 [FEATURE][MODEL-05] - Create relations logic
 

@@ -19,17 +19,17 @@ class MyController extends Controller
 
         //print_r($user); die();
 
-        echo $user->id . "<br>";
-        echo $user->name . "<br>";
-        echo $user->difficulty . "<br>";
+        // echo $user->id . "<br>";
+        // echo $user->name . "<br>";
+        // echo $user->difficulty . "<br>";
 
-        $user->name="novo";
-        $user->difficulty="hard";
-        $user->save();
+        // $user->name="novo";
+        // $user->difficulty="hard";
+        // $user->save();
 
-        echo $user->id . "<br>";
-        echo $user->name . "<br>";
-        echo $user->difficulty . "<br>";
+        // echo $user->id . "<br>";
+        // echo $user->name . "<br>";
+        // echo $user->difficulty . "<br>";
 
         echo "--------------------------";
 
@@ -51,9 +51,10 @@ class MyController extends Controller
         return $this->view("welcome",compact("name"));
     }
 
-    public function addUser(UserRequest $request)
+    public function addUser(Request $request)
     {
-        $request->validate();
+        //$request->validate();
+        //die("poz");
 
         $this->redirect()->back()->with("success","uspesno ste poslali");
     }
