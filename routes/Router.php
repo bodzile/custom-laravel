@@ -17,11 +17,11 @@ class Router{
 
     public function __construct()
     {
-        
-        $this->url=RouterObjectBuilder::createUrl();
-        $this->request=RouterObjectBuilder::createRequest();
+        $this->url=RouterObjectBuilder::buildUrl();
+        $this->request=RouterObjectBuilder::buildRequest();
 
-        RouterValidator::validate();
+        RouterValidator::validate($this->url);
+        $this->url_value=RouterObjectBuilder::setUrlValue($this->url);
     }
 
     public function route()

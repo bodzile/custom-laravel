@@ -100,9 +100,9 @@
 *using terminal type commands
 *commands can create Models,Controllers,Migrations,Requests,Middlewares dynamically with set path,namespace and uses
 
-[FEATURE][API-01] - Add features for API calls
-
 [FEATURE][REQUEST-02] - Add custom requests
+
+[FEATURE][API-01] - Add features for API calls
 
 [FEATURE][FILE-01] - Add file management
 *File uploads
