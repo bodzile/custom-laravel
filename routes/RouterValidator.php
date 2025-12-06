@@ -2,65 +2,69 @@
 
 namespace Routes;
 
+use Routes\Router;
 use Routes\RouteHelper;
+use Src\Exceptions\RouterValidationException;
 
 class RouterValidator{
 
-    public static function validate(string $url):void
+    private static int $httpResponseCode;
+
+    public function __construct(
+        private Router $router
+    ){}
+
+    public static function validate(Router $router):void
     {
-        static::handleError404($url);   
+        try
+        {
+            $routerValidator=new RouterValidator($router);
+            $routerValidator->handleError404(); 
+        }
+        catch(RouterValidationException $ex)
+        {
+            http_response_code(static::$httpResponseCode);
+            die(static::$httpResponseCode . ": " . $ex->getMessage());
+        }
+        catch(\Exception $ex)
+        {
+            die($ex->getMessage());
+        }
+          
     }
 
-    private static function handleError404($url):void
+    private function handleError404():void
     {
         foreach(Route::$links as $path => $param)
         {
-            if($url == $path)
+            if($this->router->url == $path)
             {
                 return;
             }
             
             if(isset($param["url_value"]))
             {
-                $url=RouteHelper::cutValueFromUrl($url);
-                if($url == $path)
+                $this->router->url=RouteHelper::cutValueFromUrl($this->router->url);
+                if($this->router->url == $path)
                 {
                     return;
                 }
-                $url_value=null;
+                $this->url_value=null;
             }
         }
 
-        http_response_code(404);
-        die("404 Error: Page not found");
+        static::$httpResponseCode=404;
+        throw new RouterValidationException("Page not found.");
     }
 
+    private function handleHttpMethod()
+    {
 
-    // private static function handleError404($url):void
-    // {
-    //     foreach(Route::$links as $path => $param)
-    //     {
-    //         if($this->url == $path)
-    //         {
-    //             return;
-    //         }
-            
-    //         if(isset($param["url_value"]))
-    //         {
-    //             $this->url_value=RouteHelper::getValueFromUrl($this->url);
-    //             $this->url=RouteHelper::cutValueFromUrl($this->url);
-    //             if($this->url == $path)
-    //             {
-    //                 return;
-    //             }
-    //             $this->url.=$this->url_value;
-    //             $this->url_value=null;
-    //         }
-    //     }
+    }
 
-    //     http_response_code(404);
-    //     die("404 Error: Page not found");
-    // }
+    private function handleUrlValue()
+    {
 
+    }
 
 }

@@ -19,9 +19,10 @@ class Router{
     {
         $this->url=RouterObjectBuilder::buildUrl();
         $this->request=RouterObjectBuilder::buildRequest();
-
-        RouterValidator::validate($this->url);
         $this->url_value=RouterObjectBuilder::setUrlValue($this->url);
+
+        RouterValidator::validate($this);
+        
     }
 
     public function route()
@@ -75,5 +76,31 @@ class Router{
         }
         return true;
     }
+
+    public function __get(string $name)
+    {
+        if($name == "url")
+            return $this->url;
+        else if($name == "url_value")
+            return $this->url_value;
+        else
+            return "";
+    }
+
+    public function __set(string $name, string $value)
+    {
+        $this->$name=$value;
+    }
+
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    public function getUrlValue()
+    {
+        return $this->url_value;
+    }
+
 
 }
