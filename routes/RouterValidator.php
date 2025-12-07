@@ -8,8 +8,6 @@ use Src\Exceptions\RouterValidationException;
 
 class RouterValidator{
 
-    private static int $httpResponseCode;
-
     public function __construct(
         private Router $router
     ){}
@@ -23,8 +21,8 @@ class RouterValidator{
         }
         catch(RouterValidationException $ex)
         {
-            http_response_code(static::$httpResponseCode);
-            die(static::$httpResponseCode . ": " . $ex->getMessage());
+            http_response_code($ex->getCode());
+            die($ex->getCode() . ": " . $ex->getMessage());
         }
         catch(\Exception $ex)
         {
@@ -44,17 +42,15 @@ class RouterValidator{
             
             if(isset($param["url_value"]))
             {
-                $this->router->url=RouteHelper::cutValueFromUrl($this->router->url);
-                if($this->router->url == $path)
+                $url=RouteHelper::cutValueFromUrl($this->router->url);
+                if($url == $path)
                 {
                     return;
                 }
-                $this->url_value=null;
             }
         }
 
-        static::$httpResponseCode=404;
-        throw new RouterValidationException("Page not found.");
+        throw new RouterValidationException("Page not found.", 404);
     }
 
     private function handleHttpMethod()
