@@ -15,7 +15,7 @@ class Pipeline{
         return $pipeline;
     }
 
-    public function through(array $functions):Pipeline
+    public function through(array|null $functions):Pipeline
     {
         $this->pipes=$functions;
         return $this;
@@ -26,12 +26,15 @@ class Pipeline{
         $next=$destination;
         $value=$this->data;
 
-        foreach(array_reverse($this->pipes) as $pipe)
+        if($this->pipes)
         {
-            //$resolved=$this->resolve($pipe);
-            $next=function($value) use ($pipe,$next){
-                return call_user_func([$pipe,"handle"],$value,$next);
-            };
+            foreach(array_reverse($this->pipes) as $pipe)
+            {
+                //$resolved=$this->resolve($pipe);
+                $next=function($value) use ($pipe,$next){
+                    return call_user_func([$pipe,"handle"],$value,$next);
+                };
+            }
         }
 
         return $next($this->data);

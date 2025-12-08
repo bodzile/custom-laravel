@@ -13,9 +13,9 @@ class Auth implements Middleware
     public static function handle(Request $request, \Closure $next)
     {
 
-        if(1==1)
+        if(1==2)
         {
-            return redirect("/admin/test");
+            return redirect("/");
                // header("Location: google.com");
              
         }

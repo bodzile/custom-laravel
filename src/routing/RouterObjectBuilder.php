@@ -45,7 +45,7 @@ class RouterObjectBuilder{
 
     public static function buildRoute(string $url):array 
     {
-        return Route::$links[$url];
+        return isset(Route::$links[$url]) ? Route::$links[$url]:[];
     }
 
     public static function buildController(array $route):Controller
