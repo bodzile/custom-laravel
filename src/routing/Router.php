@@ -1,11 +1,9 @@
 <?php
 
-namespace Routes;
+namespace Src\Routing;
 
-use Routes\RouterObjectBuilder;
-use Routes\RouterValidator;
-use Routes\Route;
-use Routes\RouteHelper;
+use Src\Routing\RouterObjectBuilder;
+use Src\Routing\RouterValidator;
 use App\Http\Requests\Request;
 use Src\Pipeline;
 
@@ -14,39 +12,32 @@ class Router{
     private string $url;
     private Request $request;
     private $url_value;
+    private array $route;
 
     public function __construct()
     {
         $this->url=RouterObjectBuilder::buildUrl();
         $this->request=RouterObjectBuilder::buildRequest();
         $this->url_value=RouterObjectBuilder::setUrlValue($this->url);
+        $this->route=RouterObjectBuilder::buildRoute($this->url);
 
         RouterValidator::validate($this);
-        
     }
 
     public function route()
     {
-        $route = Route::$links[$this->url];
-        $controllerClass="App\\Http\\Controllers\\" . $route["controller"];
-        $function = $route["function"] ?? null;
+        $controller=RouterObjectBuilder::buildController($this->route);
+        $function=RouterObjectBuilder::setControllerFunction($this->route);
+        $middlewares=RouterObjectBuilder::buildMiddlewares($this->route);
 
-        $middlewares=null;
-        if(isset($route["middlewares"]))
-            $middlewares=$route["middlewares"];
-
-        if(!$this->isCorrectMethod($route["method"])) die("wrong method");
-
-        $controller=new $controllerClass;
-
-        switch($route["method"])
+        switch($this->route["method"])
         {
             case "get": case "post":
-                $pipeline=$middlewares;
-                if($pipeline)
+                //$pipeline=$middlewares;
+                if($middlewares)
                 {
                     Pipeline::send($this->request,$this->url_value)
-                    ->through($pipeline)
+                    ->through($middlewares)
                     ->to(function($data) use($controller,$function) {
                         $controller->$function($this->request,$this->url_value);
                     });
@@ -59,22 +50,10 @@ class Router{
                 
                 break;
             case "view":
-                $view=$route["view"];
+                $view=$this->route["view"];
                 $controller->view($view);
                 break;
         }
-    }
-
-    private function isCorrectMethod(string $method)
-    {
-        if(isset($_SERVER["REQUEST_METHOD"]) && $method != "view")
-        {
-            if($method != strtolower($_SERVER["REQUEST_METHOD"]) )
-            {
-                return false;
-            }
-        }
-        return true;
     }
 
     public function __get(string $name)
@@ -83,6 +62,8 @@ class Router{
             return $this->url;
         else if($name == "url_value")
             return $this->url_value;
+        else if($name == "route")
+            return $this->route;
         else
             return "";
     }
@@ -91,16 +72,5 @@ class Router{
     {
         $this->$name=$value;
     }
-
-    public function getUrl()
-    {
-        return $this->url;
-    }
-
-    public function getUrlValue()
-    {
-        return $this->url_value;
-    }
-
 
 }

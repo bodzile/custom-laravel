@@ -1,9 +1,9 @@
 <?php
 
-namespace routes;
+namespace Src\Routing;
 
-use Routes\Route;
-use Routes\RouteHelper;
+use Src\Routing\Route;
+use Src\Routing\RouteHelper;
 use App\Http\Requests\Request;
 use App\Http\Controllers\Controller;
 

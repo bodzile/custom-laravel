@@ -1,9 +1,9 @@
 <?php
 
-namespace Routes;
+namespace Src\Routing;
 
-use Routes\Router;
-use Routes\RouteHelper;
+use Src\Routing\Router;
+use Src\Routing\RouteHelper;
 use Src\Exceptions\RouterValidationException;
 
 class RouterValidator{
@@ -18,6 +18,8 @@ class RouterValidator{
         {
             $routerValidator=new RouterValidator($router);
             $routerValidator->handleError404(); 
+            $routerValidator->handleHttpMethod();
+            $routerValidator->handleUrlValue();
         }
         catch(RouterValidationException $ex)
         {
@@ -28,7 +30,6 @@ class RouterValidator{
         {
             die($ex->getMessage());
         }
-          
     }
 
     private function handleError404():void
@@ -53,14 +54,21 @@ class RouterValidator{
         throw new RouterValidationException("Page not found.", 404);
     }
 
-    private function handleHttpMethod()
+    private function handleHttpMethod():void
     {
-
+        $method=$this->router->route["method"];
+        if(isset($_SERVER["REQUEST_METHOD"]) && $method != "view")
+        {
+            if($method != strtolower($_SERVER["REQUEST_METHOD"]) )
+            {
+                throw new RouterValidationException("Wrong http method.", 405);
+            }
+        }
     }
 
-    private function handleUrlValue()
+    private function handleUrlValue():void
     {
-
+        //throw new RouterValidationException("Wrong type/regex for url value.", 400);
     }
 
 }

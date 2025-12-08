@@ -1,5 +1,5 @@
 <?php
-use Routes\Route;
+use Src\Routing\Route;
 
 require_once "vendor/autoload.php";
 

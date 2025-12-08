@@ -1,7 +1,6 @@
 <?php
-use Routes\Route;
-use Routes\RouteHelper;
-use Routes\Router;
+
+use Src\Routing\Router;
 use App\Http\Requests\Request;
 use Src\Pipeline;
 
