@@ -5,6 +5,7 @@ namespace routes;
 use Routes\Route;
 use Routes\RouteHelper;
 use App\Http\Requests\Request;
+use App\Http\Controllers\Controller;
 
 class RouterObjectBuilder{
 
@@ -40,6 +41,31 @@ class RouterObjectBuilder{
         }
         
         return $url_value;
+    }
+
+    public static function buildRoute(string $url):array 
+    {
+        return Route::$links[$url];
+    }
+
+    public static function buildController(array $route):Controller
+    {
+        $namespace = (new \ReflectionClass(Controller::class))->getNamespaceName();
+        $class=$namespace . "\\" . $route["controller"];
+        return new $class;
+    }
+
+    public static function setControllerFunction(array $route):string 
+    {
+        return $route["function"] ?? null;
+    }
+
+    public static function buildMiddlewares(array $route):array|null 
+    {
+        $middlewares=null;
+        if(isset($route["middlewares"]))
+            $middlewares=$route["middlewares"];
+        return $middlewares;
     }
 
 }
