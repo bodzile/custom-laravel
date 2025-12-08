@@ -16,7 +16,7 @@ class Log implements Middleware
         if(1==2)
         {
 
-            return redirect("/");
+            return $this->redirect("/");
                // header("Location: google.com");
              
         }

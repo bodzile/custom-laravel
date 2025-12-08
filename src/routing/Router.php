@@ -16,11 +16,11 @@ class Router{
 
     public function __construct()
     {
-        $this->url=RouterObjectBuilder::buildUrl();
-        $this->request=RouterObjectBuilder::buildRequest();
-        $this->url_value=RouterObjectBuilder::setUrlValue($this->url);
-        $this->route=RouterObjectBuilder::buildRoute($this->url);
+        $this->buildObjects();
+    }
 
+    public function validate():void
+    {
         RouterValidator::validate($this);
     }
 
@@ -48,12 +48,26 @@ class Router{
                     $controller->$function($this->request,$this->url_value);
                 }
                 
+                // Pipeline::send($this->request,$this->url_value)
+                //     ->through($middlewares)
+                //     ->to(function($data) use($controller,$function) {
+                //         $controller->$function($this->request,$this->url_value);
+                //     });
+
                 break;
             case "view":
                 $view=$this->route["view"];
                 $controller->view($view);
                 break;
         }
+    }
+
+    private function buildObjects()
+    {
+        $this->url=RouterObjectBuilder::buildUrl();
+        $this->request=RouterObjectBuilder::buildRequest();
+        $this->url_value=RouterObjectBuilder::setUrlValue($this->url);
+        $this->route=RouterObjectBuilder::buildRoute($this->url);
     }
 
     public function __get(string $name)
@@ -66,11 +80,6 @@ class Router{
             return $this->route;
         else
             return "";
-    }
-
-    public function __set(string $name, string $value)
-    {
-        $this->$name=$value;
     }
 
 }
