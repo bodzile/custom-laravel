@@ -48,7 +48,6 @@ class Route
 
         static::$links[$path]=[
             "method" => "view",
-            "controller" => "App\\Http\\Controllers\\Controller",
             "view" => $view,
         ];
 

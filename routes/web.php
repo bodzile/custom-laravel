@@ -7,8 +7,10 @@ require_once "vendor/autoload.php";
 //Route::view("/","welcome")
   //  ->name("home");
 
-Route::get("/","MyController","index2")   
-  ->name("home");
+// Route::get("/","MyController","index2")   
+//   ->name("home");
+
+Route::view("/","welcome");
 
 Route::get("/admin/test","MyController","index")
   ->name("admin.testPage");
