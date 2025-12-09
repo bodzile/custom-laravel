@@ -29,9 +29,6 @@ class RouteHelper
     public static function getValueFromUrl(string $path)
     {
         $temp=explode("/",$path);
-        //print_r($temp); 
-        //echo "<br>" . count($temp)-1;
-        //die();
         return $temp[count($temp)-1];
     }
 
@@ -39,13 +36,10 @@ class RouteHelper
     {
         $result="";
         $temp=explode("/",$path);
-        //print_r($temp);
-        //die();
-        
+
         for($i=1;$i<count($temp)-1;$i++)
         {
             $result=$result . "/"  . $temp[$i];
-            //die($result);
         }
 
         $result.="/";
@@ -56,7 +50,7 @@ class RouteHelper
     public static function cutValueFromUrlBrackets(string $path)
     {
         $result = preg_replace('/\s*\{.*?\}\s*/', ' ', $path);
-        $result = trim($result); // To clean up any leading or trailing spaces.
+        $result = trim($result); 
         return $result;
     }
 
@@ -68,4 +62,6 @@ class RouteHelper
         }
         return null;
     }
+
+    
 }

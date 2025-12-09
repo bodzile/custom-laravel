@@ -43,29 +43,24 @@ class RouterObjectBuilder{
         return $url_value;
     }
 
-    public static function buildRoute(string $url):array 
+    public static function buildRoute(string $url):RouteData
     {
-        return isset(Route::$links[$url]) ? Route::$links[$url]:[];
+        return RouteHydrator::hydrateRouteData($url);
     }
 
-    public static function buildController(array $route):Controller
+    public static function buildController(string $controller):Controller|null
     {
+        if(empty($controller))
+            return null;
+
         $namespace = (new \ReflectionClass(Controller::class))->getNamespaceName();
-        $class=$namespace . "\\" . $route["controller"];
+        $class=$namespace . "\\" . $controller;
         return new $class;
     }
 
-    public static function setControllerFunction(array $route):string 
+    public static function getExistingDataOrNull(mixed $data):mixed
     {
-        return $route["function"] ?? null;
-    }
-
-    public static function buildMiddlewares(array $route):array|null 
-    {
-        $middlewares=null;
-        if(isset($route["middlewares"]))
-            $middlewares=$route["middlewares"];
-        return $middlewares;
+        return $data ?? null;
     }
 
 }

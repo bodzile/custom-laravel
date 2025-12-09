@@ -4,15 +4,16 @@ namespace Src\Routing;
 
 use Src\Routing\RouterObjectBuilder;
 use Src\Routing\RouterValidator;
+use Src\Routing\RouteData;
 use App\Http\Requests\Request;
 use Src\Pipeline;
 
 class Router{
 
     private string $url;
-    private Request $request;
     private $url_value;
-    private array $route;
+    private Request $request;
+    private RouteData $route;
 
     public function __construct()
     {
@@ -24,50 +25,36 @@ class Router{
         RouterValidator::validate($this);
     }
 
-    public function route()
+    public function route():void
     {
-        $controller=RouterObjectBuilder::buildController($this->route);
-        $function=RouterObjectBuilder::setControllerFunction($this->route);
-        $middlewares=RouterObjectBuilder::buildMiddlewares($this->route);
-
-        switch($this->route["method"])
+        $controller=RouterObjectBuilder::buildController($this->route->controller);
+        $function=RouterObjectBuilder::getExistingDataOrNull($this->route->function);
+        $middlewares=RouterObjectBuilder::getExistingDataOrNull(null);
+        
+        switch($this->route->method)
         {
             case "get": case "post":
-                //$pipeline=$middlewares;
-                if($middlewares)
-                {
-                    Pipeline::send($this->request,$this->url_value)
+
+                Pipeline::send($this->request)
                     ->through($middlewares)
                     ->to(function($data) use($controller,$function) {
-                        $controller->$function($this->request,$this->url_value);
+                        $controller->$function($this->request);
                     });
-                }
-                
-                else
-                {
-                    $controller->$function($this->request,$this->url_value);
-                }
-                
-                // Pipeline::send($this->request,$this->url_value)
-                //     ->through($middlewares)
-                //     ->to(function($data) use($controller,$function) {
-                //         $controller->$function($this->request,$this->url_value);
-                //     });
 
                 break;
             case "view":
-                $view=$this->route["view"];
-                $controller->view($view);
+                $view=$this->route->view;
+                view($view);
                 break;
         }
     }
 
-    private function buildObjects()
+    private function buildObjects():void
     {
         $this->url=RouterObjectBuilder::buildUrl();
-        $this->request=RouterObjectBuilder::buildRequest();
         $this->url_value=RouterObjectBuilder::setUrlValue($this->url);
         $this->route=RouterObjectBuilder::buildRoute($this->url);
+        $this->request=RouterObjectBuilder::buildRequest();
     }
 
     public function __get(string $name)

@@ -56,7 +56,7 @@ class RouterValidator{
 
     private function handleHttpMethod():void
     {
-        $method=$this->router->route["method"];
+        $method=$this->router->route->method;
         if(isset($_SERVER["REQUEST_METHOD"]) && $method != "view")
         {
             if($method != strtolower($_SERVER["REQUEST_METHOD"]) )
