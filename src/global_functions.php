@@ -10,6 +10,14 @@ enum Purpose:string {
     case SINGLE_USE ="single";
 }
 
+
+function view($view,$data=[]):void
+{
+    //extract otpakuje sve podatke
+    extract($data);
+    require_once "resources/views/{$view}.php";
+}
+
 function getDatabaseParam()
 {
     return Database::$db_info;
