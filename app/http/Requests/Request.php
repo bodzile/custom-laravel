@@ -8,6 +8,10 @@ use Src\Sessions\Session;
 class Request{
     
     private array $fields=[];
+    private array $routeParam=[
+        "routeParamName" => "",
+        "routeParamValue" => ""
+    ];
 
     public function setRequestFields(array $method):void
     {
@@ -15,6 +19,12 @@ class Request{
         {
             $this->fields[$key]=$value;
         }
+    }
+
+    public function setRouteParam(string $routeParamName, string $routeParamValue):void 
+    {
+        $this->$routeParam["routeParamName"]=$routeParamName;
+        $this->routeParam["routeParamValue"]=$routeParamValue;
     }
 
     public function get($key):mixed

@@ -63,7 +63,14 @@ class RouteHelper
         return null;
     }
 
-    public static function containRouteParam(string $path)
+    public static function containRouteParamInRoutes(string $path)
+    {
+        if (preg_match('/\{[^}]+\}/', $path))
+            return true;
+        return false;
+    }
+
+    public static function containRouteParamInUrl(string $path)
     {
         if (preg_match('/\{[^}]+\}/', $path))
             return true;

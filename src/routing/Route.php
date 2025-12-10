@@ -15,7 +15,7 @@ class Route
         $instance->currentRoute=$path;
 
         $routeParamName="";
-        if(RouteHelper::containRouteParam($path))
+        if(RouteHelper::containRouteParamInRoutes($path))
         {
             $routeParamName=RouteHelper::getRouteParamNameFromUrl($path);
             $path=RouteHelper::cutRouteParamNameFromUrl($path);
