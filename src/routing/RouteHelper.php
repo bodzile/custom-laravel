@@ -47,20 +47,27 @@ class RouteHelper
         return $result;
     }
 
-    public static function cutValueFromUrlBrackets(string $path)
+    public static function cutRouteParamNameFromUrl(string $path)
     {
         $result = preg_replace('/\s*\{.*?\}\s*/', ' ', $path);
         $result = trim($result); 
         return $result;
     }
 
-    public static function getValueNameFromUrl(string $path)
+    public static function getRouteParamNameFromUrl(string $path)
     {
         if(preg_match("/\{(.*?)\}/",$path,$matches))
         {
             return $matches[1];
         }
         return null;
+    }
+
+    public static function containRouteParam(string $path)
+    {
+        if (preg_match('/\{[^}]+\}/', $path))
+            return true;
+        return false;
     }
 
     

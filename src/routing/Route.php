@@ -14,18 +14,21 @@ class Route
         $instance=new Route;
         $instance->currentRoute=$path;
 
+        $routeParamName="";
+        if(RouteHelper::containRouteParam($path))
+        {
+            $routeParamName=RouteHelper::getRouteParamNameFromUrl($path);
+            $path=RouteHelper::cutRouteParamNameFromUrl($path);
+        }
+            
         static::$links[$path]=[
             "method" => $method,
             "controller" => $controller_class,
             "function" => $function,
         ];
 
-        $value_name=RouteHelper::getValueNameFromUrl($path);
-        if($value_name)
-        {
-            $path=RouteHelper::cutValueFromUrlBrackets($path);
-            static::$links[$path]["url_value"]=$value_name;
-        }
+        if(!empty($routeParamName))
+            static::$links[$path]["routeParamName"]=$routeParamName;
         
         return $instance;
     }
