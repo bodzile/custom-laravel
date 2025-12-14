@@ -2,7 +2,7 @@
 
 use Src\Database;
 use Src\Project;
-use Routes\Route;
+use Src\Routing\Route;
 
 require_once "vendor/autoload.php";
 
@@ -43,22 +43,19 @@ function route($route_name, array $param=[])
     if(!empty($param))
     {
         $value_passed=$param[array_key_first($param)];
-        //die($value);
     }
-    foreach(Route::$links as $path => $value)
+    foreach(Route::$routes as $route)
     {
-        if( isset($value["name"]))
+        if(!empty($route->name) && $route->name == $route_name)
         {
-            if($value["name"] == $route_name)
-            {
-                if($value_passed != "")
-                    return root() . $path . $value_passed ;
-                return root() . $path;
-            }
+            if($value_passed != "")
+                return root() . $route->url . $value_passed ;
+            return root() . $route->url;
+            
         }
     }
 
-    return null;
+    return root() . "/";
 }
 
 function compact2(...$keys)
