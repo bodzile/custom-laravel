@@ -4,33 +4,30 @@ namespace Src\Routing;
 
 class Route
 {
-    public static array $links=[];
-    public string $currentRoute;
-    public static string $prefix_name="";
-    public static array|string $middlewares=[];
+    public static array $routes=[];
+    public static $groupActive=false;
+    private static array $tempRouteData=[
+        "url" => "",
+        "method" => "",
+        "prefix" => "",
+        "name" => "",
+        "controller" => "",
+        "function" => "",
+        "view" => "",
+        "middlewares" => []
+    ];
+    private static array $tempRouteGroupData;
 
     private static function setMethodValues(string $method,string $path,string $controller_class,string $function):Route
     {
-        $instance=new Route;
-        $instance->currentRoute=$path;
-
-        $routeParamName="";
-        if(RouteHelper::containRouteParamInRoutes($path))
-        {
-            $routeParamName=RouteHelper::getRouteParamNameFromUrl($path);
-            $path=RouteHelper::cutRouteParamNameFromUrl($path);
-        }
-            
-        static::$links[$path]=[
+        static::$tempRouteData=array_replace(static::$tempRouteData,[
+            "url" => $path,
             "method" => $method,
             "controller" => $controller_class,
             "function" => $function,
-        ];
-
-        if(!empty($routeParamName))
-            static::$links[$path]["routeParamName"]=$routeParamName;
+        ]);
         
-        return $instance;
+        return new self();
     }
 
     //funkcija koja setuje niz linkova i do kojih kontrolera i funkcija vodi
@@ -46,27 +43,29 @@ class Route
 
     public static function view(string $path,string $view):Route
     {
-        $instance=new Route;
-        $instance->currentRoute=$path;
-
-        static::$links[$path]=[
+        static::$tempRouteData=array_replace(static::$tempRouteData,[
+            "url" => $path,
             "method" => "view",
-            "view" => $view,
-        ];
+            "view" => $view
+        ]);
 
-        return $instance;
+        return new self();
     }
 
-    public function name(string $name):Route
+    public static function name(string $name):Route
     {
-        $path=$this->currentRoute;
-        static::$links[$path]["name"]=$name;
-        return $this;
+        static::$tempRouteData=array_replace(static::$tempRouteData,[
+            "name" => $name
+        ]);
+
+        return new self();
     }
 
     public static function prefix(string $prefix):Route
     {
-        self::$prefix_name=$prefix;
+        static::$tempRouteData=array_replace(static::$tempRouteData, [
+            "prefix" => $prefix
+        ]);
         return new self();
     }
 
@@ -81,52 +80,68 @@ class Route
             {
                 $temp[$i++]=$class_prefix . $middleware;
             }
-            self::$middlewares=$temp;
-            
         }
         else
         {
-            self::$middlewares=$class_prefix . $all_middlewares;
+            $temp=$class_prefix . $all_middlewares;
         }
+
+        static::$tempRouteData=array_replace(static::$tempRouteData, [
+            "middlewares" => $temp
+        ]);
         
         return new self();
     }
 
     public static function group($function):void
     {
-        //prosledjuju se podaci preko chained funkcija middleware i prefix ili samo middleware ili samo prefix
-        //prvo uzme sve kljuceve odnosno putanje iz linkova
-        //pozove se funkcija koja setuje nove rute
-        //onda uzimamo sve rute koji se ne nalaze u nizu kljuceva
-        //preradjujemo link tako sto dodajemo prefix i middleware
-
-        $old_links=static::$links;
+        static::$groupActive=true;
+        static::$tempRouteGroupData=static::$tempRouteData;
         
         $function();
-        $group_keys=array_keys(array_diff_key(static::$links,$old_links));
 
-        foreach(static::$links as $path => $values)
+        static::$groupActive=false;
+    }
+
+    public function build():void
+    {
+        $tmp=static::$tempRouteData;
+        static::$routes[]=new RouteData(
+            $tmp["prefix"] . $tmp["url"],
+            $tmp["method"],
+            $tmp["name"],
+            $tmp["controller"],
+            $tmp["function"],
+            $tmp["view"],
+            $tmp["middlewares"]
+        );
+
+        $this->resetRouteData();
+    }
+
+    private function resetRouteData():void 
+    {
+        // if routes from group are called 
+        // all cummulated routes data will be saved
+        if(static::$groupActive)
         {
-            if(in_array($path,$group_keys))
-            {
-                $route=$path;
-                if(static::$prefix_name!="")
-                {
-                    $route=static::$prefix_name . $path;
-                    static::$links[$route]=$values; 
-                    unset(static::$links[$path]);
-                }
-
-                if(!empty(static::$middlewares))
-                {
-                    static::$links[$route]["middlewares"]=static::$middlewares;
-                }    
-
-            }
+            static::$tempRouteData=static::$tempRouteGroupData;
         }
-
-        self::$middlewares=[];
-        self::$prefix_name="";
+        else
+        {
+            static::$tempRouteData=[
+                "url" => "",
+                "method" => "",
+                "prefix" => "",
+                "name" => "",
+                "controller" => "",
+                "function" => "",
+                "view" => "",
+                "middlewares" => []
+            ];
+            static::$tempRouteGroupData=static::$tempRouteData;
+        }
+        
     }
 
 }

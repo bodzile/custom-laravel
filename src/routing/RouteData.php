@@ -4,11 +4,15 @@ namespace Src\Routing;
 
 class RouteData{
 
-    public string $url;
-    public string $method;
-    public string $controller="";
-    public string $view="";
-    public string $function="";
-    public array $middlewares=[];
+    public function __construct(
+        public string $url,
+        public string $method,
+        //public string $prefix,
+        public string $name="",
+        public string $controller="",
+        public string $function="",
+        public string $view="",
+        public array|string $middlewares=[]
+    ){}
 
 }
