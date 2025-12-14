@@ -27,8 +27,6 @@ Route::post("/delete/{id}","MyController","delete")
   ->name("admin.deleteUser")
   ->build();
 
-
-
 Route::middleware(["Auth","Log"])->prefix("/admin/rnd")->group(function(){
 
   Route::get("/random","MyController","index")

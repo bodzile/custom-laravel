@@ -88,6 +88,11 @@
 *In web.php by adding {value} it finds passed value and put's it into url
 *Add error handling
 
+[FEATURE][ROUTE-06] - Add validations in Route
+*Add validations when adding routes in Route
+*Check for existing route
+*Ensure all required data are created
+
 [FEATURE][MIGRATION-01] - Add logic for migrations
 *Migration or Schema class??
 *functions for setting database columns and keys

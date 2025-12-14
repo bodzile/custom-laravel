@@ -2,6 +2,9 @@
 
 namespace Src\Routing;
 
+use Src\Routing\RouteValidator;
+
+
 class Route
 {
     public static array $routes=[];
@@ -93,7 +96,7 @@ class Route
         return new self();
     }
 
-    public static function group($function):void
+    public static function group(callable $function):void
     {
         static::$groupActive=true;
         static::$tempRouteGroupData=static::$tempRouteData;
@@ -105,8 +108,17 @@ class Route
 
     public function build():void
     {
+        $route=$this->buildRouteData();
+        $this->resetRouteData();
+        RouteValidator::validate($route);
+
+        static::$routes[]=$route;
+    }
+
+    private function buildRouteData():RouteData 
+    {
         $tmp=static::$tempRouteData;
-        static::$routes[]=new RouteData(
+        return new RouteData(
             $tmp["prefix"] . $tmp["url"],
             $tmp["method"],
             $tmp["name"],
@@ -115,8 +127,6 @@ class Route
             $tmp["view"],
             $tmp["middlewares"]
         );
-
-        $this->resetRouteData();
     }
 
     private function resetRouteData():void 
