@@ -59,7 +59,7 @@ class MyController extends Controller
         $this->redirect()->back()->with("success","uspesno ste poslali");
     }
 
-    public function delete(Request $request,$id)
+    public function delete(Request $request, $id)
     {
         die($id);
     }
