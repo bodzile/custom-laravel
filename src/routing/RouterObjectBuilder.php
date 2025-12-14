@@ -4,12 +4,13 @@ namespace Src\Routing;
 
 use Src\Routing\Route;
 use Src\Routing\RouteHelper;
+use Src\Routing\RouteData;
 use App\Http\Requests\Request;
 use App\Http\Controllers\Controller;
 
 class RouterObjectBuilder{
 
-    public static function buildRequest():Request 
+    public static function buildRequest(mixed $routeParamValue):Request 
     {
         $request=new Request;
         switch($_SERVER["REQUEST_METHOD"])
@@ -19,6 +20,8 @@ class RouterObjectBuilder{
             case "POST":
                 $request->setRequestFields($_POST); break;
         }
+        if($routeParamValue)
+            $request->setRouteParamValue($routeParamValue);
 
         return $request;
     }
@@ -48,14 +51,16 @@ class RouterObjectBuilder{
         // return $url_value;
     }
 
-    public static function buildRoute(string $url):RouteData|null
+    public static function buildRouteAndParamValue(string $url):array
     {
         foreach(Route::$routes as $route)
         {
             if($route->url == $url)
-                return $route;
+                return [$route,""];
+            if(RouteHelper::containRouteParamInUrl($route->url) && RouteHelper::matchRouteParam($url,$route->url))
+                return [$route, RouteHelper::getRouteParamValue($url, $route->url)];
         }
-        return null;
+        return [new RouteData(),""];
     }
 
     public static function buildController(string $controller):Controller|null

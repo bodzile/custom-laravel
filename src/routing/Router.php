@@ -11,9 +11,8 @@ use Src\Pipeline;
 
 class Router{
 
-    private $url_value;
     private Request $request;
-    private RouteData|null $route;
+    private RouteData $route;
 
     public function __construct()
     {
@@ -38,6 +37,8 @@ class Router{
                 Pipeline::send($this->request)
                     ->through($middlewares)
                     ->to(function($data) use($controller,$function) {
+                        if(!empty($this->request->getRouteParamValue()))
+                            $controller->$function($this->request, $this->request->getRouteParamValue());
                         $controller->$function($this->request);
                     });
 
@@ -52,8 +53,8 @@ class Router{
     private function buildObjects():void
     {
         $url=RouterObjectBuilder::buildUrl();
-        $this->route=RouterObjectBuilder::buildRoute($url);
-        $this->request=RouterObjectBuilder::buildRequest($this->route->url);
+        [$this->route, $routeParamValue]=RouterObjectBuilder::buildRouteAndParamValue($url);
+        $this->request=RouterObjectBuilder::buildRequest($routeParamValue);
     }
 
     public function __get(string $name)

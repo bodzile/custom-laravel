@@ -54,29 +54,4 @@ class RouterValidator{
             }
         }
     }
-
-    private function handleUrlValue():void
-    {
-        //throw new RouterValidationException("Wrong type/regex for url value.", 400);
-    }
-
-    // private function routeParamUrlValid(string $url, string $route):bool
-    // {
-    //     if($route == $url)
-    //         return false;
-    //     $urlSplit=explode("/",$url);
-    //     $routeSplit=explode("/",$route);
-        
-    //     if( (count($routeSplit)+1 == count($urlSplit)) && !empty($urlSplit[count($urlSplit)-1]) )
-    //     {   
-    //         for($i=0;$i<count($routeSplit);$i++)
-    //         {
-    //             if($urlSplit[$i] != $routeSplit[$i])
-    //                 return false;
-    //         }
-    //         return true;
-    //     }
-    //     return false;
-    // }
-
 }

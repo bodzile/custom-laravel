@@ -70,11 +70,55 @@ class RouteHelper
         return false;
     }
 
-    public static function containRouteParamInUrl(string $path)
+    public static function containRouteParamInUrl(string $path):bool
     {
         if (preg_match('/\{[^}]+\}/', $path))
             return true;
         return false;
+    }
+
+    public static function matchRouteParam(string $url, string $routeUrl):bool 
+    {
+        $urlSplit=explode("/",$url);
+        $routeUrlSplit=explode("/",$routeUrl);
+
+        if(count($urlSplit) != count($routeUrlSplit) || empty($urlSplit[count($urlSplit)-1]))
+            return false;
+
+        $j=0;
+        for($i=0;$i<count($routeUrlSplit);$i++)
+        {
+            if(preg_match('/^\{[^}]+\}$/',$routeUrlSplit[$i]))
+            {
+                $j=$i;
+            }
+        }
+        unset($routeUrlSplit[$j]);
+        unset($urlSplit[$j]);
+        $routeUrlSplit=array_values($routeUrlSplit);
+        $urlSplit=array_values($urlSplit);
+
+        if($routeUrlSplit === $urlSplit)
+            return true;
+            
+        return false;
+    }
+
+    public static function getRouteParamValue(string $url, string $routeUrl):string
+    {
+        $urlSplit=explode("/",$url);
+        $routeUrlSplit=explode("/",$routeUrl);
+
+        $j=0;
+        for($i=0;$i<count($routeUrlSplit);$i++)
+        {
+            if(preg_match('/^\{[^}]+\}$/',$routeUrlSplit[$i]))
+            {
+                $j=$i;
+            }
+        }
+
+        return $urlSplit[$j] ?? "";
     }
 
     
