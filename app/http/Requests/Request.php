@@ -21,7 +21,17 @@ class Request{
         }
     }
 
-    public function setRouteParam(string $routeParamName, string $routeParamValue):void 
+    public function setRouteParamValue(mixed $value):void 
+    {
+        $this->routeParam["routeParamValue"]=$value;
+    }
+
+    public function getRouteParamValue()
+    {
+        return $this->routeParam["routeParamValue"];
+    }
+
+    public function setRouteParam(string $routeParamName, mixed $routeParamValue):void 
     {
         $this->$routeParam["routeParamName"]=$routeParamName;
         $this->routeParam["routeParamValue"]=$routeParamValue;

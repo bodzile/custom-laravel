@@ -2,12 +2,11 @@
 
 namespace Src\Routing;
 
-class RouteData{
+readonly class RouteData{
 
     public function __construct(
-        public string $url,
-        public string $method,
-        //public string $prefix,
+        public string $url="",
+        public string $method="",
         public string $name="",
         public string $controller="",
         public string $function="",
