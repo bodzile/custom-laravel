@@ -6,14 +6,14 @@ use Src\Routing\RouterObjectBuilder;
 use Src\Routing\RouterValidator;
 use Src\Routing\RouteData;
 use App\Http\Requests\Request;
+use Src\Routing\Route;
 use Src\Pipeline;
 
 class Router{
 
-    private string $url;
     private $url_value;
     private Request $request;
-    private RouteData $route;
+    private RouteData|null $route;
 
     public function __construct()
     {
@@ -22,15 +22,15 @@ class Router{
 
     public function validate():void
     {
-        RouterValidator::validate($this);
+        RouterValidator::validate($this->route);
     }
 
     public function route():void
     {
         $controller=RouterObjectBuilder::buildController($this->route->controller);
         $function=RouterObjectBuilder::getExistingDataOrNull($this->route->function);
-        $middlewares=RouterObjectBuilder::getExistingDataOrNull(null);
-        
+        $middlewares=RouterObjectBuilder::getExistingDataOrNull($this->route->middlewares);
+
         switch($this->route->method)
         {
             case "get": case "post":
@@ -51,16 +51,15 @@ class Router{
 
     private function buildObjects():void
     {
-        $this->url=RouterObjectBuilder::buildUrl();
-        $this->url_value=RouterObjectBuilder::setUrlValue($this->url);
-        $this->route=RouterObjectBuilder::buildRoute($this->url);
-        $this->request=RouterObjectBuilder::buildRequest();
+        $url=RouterObjectBuilder::buildUrl();
+        $this->route=RouterObjectBuilder::buildRoute($url);
+        $this->request=RouterObjectBuilder::buildRequest($this->route->url);
     }
 
     public function __get(string $name)
     {
         if($name == "url")
-            return $this->url;
+            return $this->route->url;
         else if($name == "url_value")
             return $this->url_value;
         else if($name == "route")

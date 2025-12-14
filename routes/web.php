@@ -42,11 +42,11 @@ Route::middleware(["Auth","Log"])->prefix("/admin/rnd")->group(function(){
 
 Route::get("/admin/nesto","MyController","index")->build();
 
-foreach(Route::$routes as $route)
-{
-   print_r($route); echo "<br>";
-}
-die();
+// foreach(Route::$routes as $route)
+// {
+//    print_r($route); echo "<br>";
+// }
+// die();
 
 
 

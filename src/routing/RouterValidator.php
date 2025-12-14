@@ -3,20 +3,21 @@
 namespace Src\Routing;
 
 use Src\Routing\Router;
+use Src\Routing\RouteData;
 use Src\Routing\RouteHelper;
 use Src\Exceptions\RouterValidationException;
 
 class RouterValidator{
 
     public function __construct(
-        private Router $router
+        private RouteData $route
     ){}
 
-    public static function validate(Router $router):void
+    public static function validate(RouteData $route):void
     {
         try
         {
-            $routerValidator=new RouterValidator($router);
+            $routerValidator=new RouterValidator($route);
             $routerValidator->handleError404(); 
             $routerValidator->handleHttpMethod();
             $routerValidator->handleUrlValue();
@@ -30,33 +31,21 @@ class RouterValidator{
         {
             die($ex->getMessage());
         }
-    }
+    }    
 
     private function handleError404():void
     {
-        foreach(Route::$links as $path => $param)
+        foreach(Route::$routes as $route)
         {
-            if($this->router->url == $path)
-            {
+            if($this->route->url == $route->url)
                 return;
-            }
-            
-            if(isset($param["url_value"]))
-            {
-                $url=RouteHelper::cutValueFromUrl($this->router->url);
-                if($url == $path)
-                {
-                    return;
-                }
-            }
         }
-
         throw new RouterValidationException("Page not found.", 404);
     }
 
     private function handleHttpMethod():void
     {
-        $method=$this->router->route->method;
+        $method=$this->route->method;
         if(isset($_SERVER["REQUEST_METHOD"]) && $method != "view")
         {
             if($method != strtolower($_SERVER["REQUEST_METHOD"]) )
@@ -70,5 +59,24 @@ class RouterValidator{
     {
         //throw new RouterValidationException("Wrong type/regex for url value.", 400);
     }
+
+    // private function routeParamUrlValid(string $url, string $route):bool
+    // {
+    //     if($route == $url)
+    //         return false;
+    //     $urlSplit=explode("/",$url);
+    //     $routeSplit=explode("/",$route);
+        
+    //     if( (count($routeSplit)+1 == count($urlSplit)) && !empty($urlSplit[count($urlSplit)-1]) )
+    //     {   
+    //         for($i=0;$i<count($routeSplit);$i++)
+    //         {
+    //             if($urlSplit[$i] != $routeSplit[$i])
+    //                 return false;
+    //         }
+    //         return true;
+    //     }
+    //     return false;
+    // }
 
 }
