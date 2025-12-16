@@ -80,18 +80,23 @@
 
 [TEST][DATABASE,MODEL,QUERYBUILDER] - Test all functionality +
 
-[REFACTOR][ROUTE-04] - Creating Router and Router helper classes
+[REFACTOR][ROUTE-04] - Creating Router and Router helper classes +
 
-[FEATURE][MODEL-05] - Create relations logic
 
-[FEATURE][ROUTE-05] - Add logic for custom url's in web.php
+[FEATURE][ROUTE-05] - Add logic for custom url's in web.php ++
 *In web.php by adding {value} it finds passed value and put's it into url
 *Add error handling
 
-[FEATURE][ROUTE-06] - Add validations in Route
+[FEATURE][ROUTE-06] - Add validations in Route ++
 *Add validations when adding routes in Route
 *Check for existing route
 *Ensure all required data are created
+
+[FEATURE][ROUTE-07] - Add all http response code needed
+
+[FEATURE][MODEL-BINDING-01] - Add model binding 
+*creating objects from passed route parametere value
+*passing to controller
 
 [FEATURE][MIGRATION-01] - Add logic for migrations
 *Migration or Schema class??
@@ -100,6 +105,8 @@
 *constraints
 *timestamps and id
 *use of QueryBuilder and QueryExecutor??
+
+[FEATURE][MODEL-05] - Create relations logic
 
 [FEATURE][COMMANDS-01] - Create commands for dynamically building code
 *using terminal type commands
