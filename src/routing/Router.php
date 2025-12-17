@@ -38,8 +38,14 @@ class Router{
                     ->through($middlewares)
                     ->to(function($data) use($controller,$function) {
                         if(!empty($this->request->getRouteParamValue()))
+                        {
+                            //print_r($this->request); die();
                             $controller->$function($this->request, $this->request->getRouteParamValue());
-                        $controller->$function($this->request);
+                        }
+                            
+                        else
+                            $controller->$function($this->request);
+                        
                     });
 
                 break;

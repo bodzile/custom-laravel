@@ -15,10 +15,11 @@ Route::post("/admin/add-user","MyController","addUser")
   ->build();
 
   // /admin/delete/1
-Route::get("/delete/{id}","MyController","delete")
+Route::get("/delete/{id:Users}","MyController","delete")
   ->prefix("/admin")
   ->name("admin.deleteUser")
   ->build();
+
 
 Route::middleware(["Auth","Log"])->prefix("/admin/rnd")->group(function(){
 

@@ -59,9 +59,13 @@ class MyController extends Controller
         $this->redirect()->back()->with("success","uspesno ste poslali");
     }
 
-    public function delete(Request $request, $id)
+    public function delete(Request $request, int $id)
     {
-        die($id);
+        // $post=Post::where(["id" => $id])->get();
+        die((string)$id);
+
+        // $post->delete();
+        //$post->delete();
     }
 
     public function rnd()

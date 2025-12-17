@@ -20,7 +20,6 @@ class RouterValidator{
             $routerValidator=new RouterValidator($route);
             $routerValidator->handleError404(); 
             $routerValidator->handleHttpMethod();
-            $routerValidator->handleUrlValue();
         }
         catch(RouterValidationException $ex)
         {

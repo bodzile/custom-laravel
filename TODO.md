@@ -92,11 +92,20 @@
 *Check for existing route
 *Ensure all required data are created
 
-[FEATURE][ROUTE-07] - Add all http response code needed
+[FEATURE][ROUTE-07] - Add all http response code needed --
 
 [FEATURE][MODEL-BINDING-01] - Add model binding 
 *creating objects from passed route parametere value
-*passing to controller
+*passing to 
+
+[FIX][ROUTE-08] - Fix nested groups bug
+
+[FEATURE][QUERYBUILDER,MODEL] - Add expansion of model functionality 
+*using like
+*add >,<, <=, >=
+*add functions SUM, COUNT, AVG, MIN, MAX
+*add group by functionality
+*add join
 
 [FEATURE][MIGRATION-01] - Add logic for migrations
 *Migration or Schema class??
