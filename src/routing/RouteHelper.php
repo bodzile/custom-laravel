@@ -47,27 +47,17 @@ class RouteHelper
         return $result;
     }
 
-    public static function cutRouteParamNameFromUrl(string $path)
-    {
-        $result = preg_replace('/\s*\{.*?\}\s*/', ' ', $path);
-        $result = trim($result); 
-        return $result;
-    }
-
-    public static function getRouteParamNameFromUrl(string $path)
+    public static function getRouteParamNameFromUrl(string $path):array|string
     {
         if(preg_match("/\{(.*?)\}/",$path,$matches))
         {
+            if(str_contains($matches[1],":"))
+            {
+                return explode(":", $matches[1]);
+            }
             return $matches[1];
         }
-        return null;
-    }
-
-    public static function containRouteParamInRoutes(string $path)
-    {
-        if (preg_match('/\{[^}]+\}/', $path))
-            return true;
-        return false;
+        return "";
     }
 
     public static function containRouteParamInUrl(string $path):bool
@@ -121,7 +111,17 @@ class RouteHelper
         return $urlSplit[$j] ?? "";
     }
 
-    
-
+    public static function getRouteParamMetadata(string $routeUrl):array
+    {
+        $params=[];
+        if(RouteHelper::containRouteParamInUrl($routeUrl))
+        {
+            $param=RouteHelper::getRouteParamNameFromUrl($routeUrl);
+            $params= [
+                (string)$param[0] => $param[1]
+            ];
+        }
+        return $params;
+    }
     
 }

@@ -17,18 +17,33 @@ class Route
         "controller" => "",
         "function" => "",
         "view" => "",
-        "middlewares" => []
+        "middlewares" => [],
+        "params" => []
     ];
     private static array $tempRouteGroupData;
 
     private static function setMethodValues(string $method,string $path,string $controller_class,string $function):Route
     {
+        $params=RouteHelper::getRouteParamMetadata($path);
+
         static::$tempRouteData=array_replace(static::$tempRouteData,[
             "url" => $path,
             "method" => $method,
             "controller" => $controller_class,
             "function" => $function,
-        ]);
+            "params" => $params
+        ]);        
+
+        // if(RouteHelper::containRouteParamInUrl($path))
+        // {
+        //     $params=RouteHelper::getRouteParamNameFromUrl($path);
+        //     //print_r($params); die();
+        //     static::$tempRouteData=array_replace(static::$tempRouteData,[
+        //         "params" => [
+        //             (string)$params[0] => $params[1]
+        //         ]
+        //     ]);
+        // }
         
         return new self();
     }
@@ -125,7 +140,8 @@ class Route
             $tmp["controller"],
             $tmp["function"],
             $tmp["view"],
-            $tmp["middlewares"]
+            $tmp["middlewares"],
+            $tmp["params"]
         );
     }
 
@@ -147,7 +163,8 @@ class Route
                 "controller" => "",
                 "function" => "",
                 "view" => "",
-                "middlewares" => []
+                "middlewares" => [],
+                "params" => []
             ];
             static::$tempRouteGroupData=static::$tempRouteData;
         }
