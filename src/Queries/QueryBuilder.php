@@ -5,6 +5,7 @@ namespace Src\Queries;
 use App\Http\Requests\Request;
 use App\Models\Model;
 use Src\Queries\Repository;
+use Src\Queries\QueryValidator;
 
 class QueryBuilder
 {
@@ -29,10 +30,11 @@ class QueryBuilder
     {
         $temp=" WHERE ";
         $i=0;
+
+        QueryValidator::validateAllowedParameters($param, $this->allowed, $this->table);
+        
         foreach($param as $column => $value)
         {
-            if(!in_array($column,$this->allowed))
-                throw new \Exception("Column is not inside allowed array");
             if($i>0)
                 $temp.="AND ";
             $temp.=$column . "=:" . $column . " ";
@@ -65,6 +67,11 @@ class QueryBuilder
     public function get():array
     {
         return new Repository($this->table,$this->allowed, $this->modelClass)->select($this->query);
+    }
+
+    public function first():Model
+    {
+        return new Repository($this->table,$this->allowed, $this->modelClass)->select($this->query)[0];
     }
 
 

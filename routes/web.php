@@ -15,7 +15,7 @@ Route::post("/admin/add-user","MyController","addUser")
   ->build();
 
   // /admin/delete/1
-Route::get("/delete/{id:Users}","MyController","delete")
+Route::get("/delete/{id:MyModel}","MyController","delete")
   ->prefix("/admin")
   ->name("admin.deleteUser")
   ->build();

@@ -100,6 +100,9 @@
 
 [FIX][ROUTE-08] - Fix nested groups bug
 
+[FIX][QUERY-VALIDATOR-01] - Create all query validations
+*Check for allowed columns if timestamps exist
+
 [FEATURE][QUERYBUILDER,MODEL] - Add expansion of model functionality 
 *using like
 *add >,<, <=, >=

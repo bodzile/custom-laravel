@@ -29,6 +29,9 @@ class Router{
         $controller=RouterObjectBuilder::buildController($this->route->controller);
         $function=RouterObjectBuilder::getExistingDataOrNull($this->route->function);
         $middlewares=RouterObjectBuilder::getExistingDataOrNull($this->route->middlewares);
+        $value=1;
+        $modelObject=RouterObjectBuilder::buildModelObject($this->route->params, $value);
+        //print_r($modelObject); die();
 
         switch($this->route->method)
         {
@@ -62,17 +65,5 @@ class Router{
         [$this->route, $routeParamValue]=RouterObjectBuilder::buildRouteAndParamValue($url);
         $this->request=RouterObjectBuilder::buildRequest($routeParamValue);
     }
-
-    public function __get(string $name)
-    {
-        if($name == "url")
-            return $this->route->url;
-        else if($name == "url_value")
-            return $this->url_value;
-        else if($name == "route")
-            return $this->route;
-        else
-            return "";
-    }
-
+    
 }

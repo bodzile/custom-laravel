@@ -32,18 +32,7 @@ class Route
             "controller" => $controller_class,
             "function" => $function,
             "params" => $params
-        ]);        
-
-        // if(RouteHelper::containRouteParamInUrl($path))
-        // {
-        //     $params=RouteHelper::getRouteParamNameFromUrl($path);
-        //     //print_r($params); die();
-        //     static::$tempRouteData=array_replace(static::$tempRouteData,[
-        //         "params" => [
-        //             (string)$params[0] => $params[1]
-        //         ]
-        //     ]);
-        // }
+        ]);     
         
         return new self();
     }
