@@ -20,6 +20,11 @@ Route::get("/delete/{id:MyModel}","MyController","delete")
   ->name("admin.deleteUser")
   ->build();
 
+Route::get("/pull/{name:MyModelsaaa}","MyController","showPull")
+  ->prefix("/admin")
+  ->name("admin.showPull")
+  ->build();
+
 
 Route::middleware(["Auth","Log"])->prefix("/admin/rnd")->group(function(){
 

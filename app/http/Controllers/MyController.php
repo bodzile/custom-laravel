@@ -68,6 +68,13 @@ class MyController extends Controller
         //$post->delete();
     }
 
+    public function showPull(Request $request, MyModel $exercise)
+    {
+        //echo $exercise->id . "<br>" . $exercise->name . " " . $exercise->difficulty;
+        print_r($exercise);
+
+    }
+
     public function rnd()
     {
         echo "rnd";
