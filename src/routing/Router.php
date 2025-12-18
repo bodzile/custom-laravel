@@ -5,10 +5,11 @@ namespace Src\Routing;
 use Src\Routing\RouterObjectBuilder;
 use Src\Routing\RouterValidator;
 use Src\Routing\RouteData;
-use App\Http\Requests\Request;
-use Src\Routing\Route;
 use Src\Routing\Dispatcher;
-use Src\Pipeline;
+
+use App\Http\Requests\Request;
+use Src\Exceptions\ModelNotFoundException;
+use Src\Exceptions\ControllerMethodlNotFoundException;
 
 class Router{
 
@@ -30,10 +31,21 @@ class Router{
         switch($this->route->method)
         {
             case "get": case "post":
-                $dispatcher=$this->createDispatcher();
-                $dispatcher->dispatch();
-
+                try
+                {
+                    $dispatcher=$this->createDispatcher();
+                    $dispatcher->dispatch();
+                }
+                catch(ModelNotFoundException $ex)
+                {
+                    die($ex->getMessage());
+                }
+                catch(ControllerMethodlNotFoundException $ex)
+                {
+                    die($ex->getMessage());
+                }
                 break;
+                
             case "view":
                 $view=$this->route->view;
                 view($view);

@@ -26,7 +26,7 @@ class ArgumentResolver{
             $controller
         );
 
-        if(!empty($value))
+        if($value)
             $res=array_merge($res,[$value]);
 
         return $res;
@@ -35,7 +35,7 @@ class ArgumentResolver{
     private static function buildRouteParamValue(mixed $value, array $params, string $function, Controller $controller):mixed
     {
         if(empty($value))
-            return "";
+            return null;
 
         $parameters=ControllerMetaData::getParameters($controller, $function);
         if(count($parameters)>1)

@@ -4,8 +4,6 @@ namespace Src\Exceptions;
 
 use Exception;
 
-class RouterValidationException extends Exception{
-
+class ModelNotFoundException extends Exception{
     
-
 }
