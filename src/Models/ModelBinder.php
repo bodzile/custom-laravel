@@ -9,8 +9,7 @@ class ModelBinder{
 
     public static function resolve(string $modelName, string $param, mixed $value):Model
     {
-        $modelClass="App\\Models\\" . $modelName;
-        $ref=new ReflectionClass($modelClass);
+        $ref=new ReflectionClass($modelName);
 
         $modelObj=$ref->newInstance();
         return $modelObj->query()->where([$param => $value])->first();
