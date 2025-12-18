@@ -98,6 +98,8 @@
 *creating objects from passed route parametere value
 *passing to 
 
+[REFACTOR][ROUTE] - Set all classes with namespace in Route
+
 [FIX][ROUTE-08] - Fix nested groups bug
 
 [FIX][QUERY-VALIDATOR-01] - Create all query validations

@@ -9,6 +9,7 @@ use Src\Models\ModelBinder;
 use App\Models\Model;
 use App\Http\Requests\Request;
 use App\Http\Controllers\Controller;
+use Src\Controllers\ControllerMetaData;
 
 class RouterObjectBuilder{
 
@@ -57,11 +58,6 @@ class RouterObjectBuilder{
         $namespace = (new \ReflectionClass(Controller::class))->getNamespaceName();
         $class=$namespace . "\\" . $controller;
         return new $class;
-    }
-
-    public static function buildModelObject(array $params, mixed $value):Model
-    {
-        return ModelBinder::resolve($params[array_key_first($params)], array_key_first($params), $value);
     }
 
     public static function getExistingDataOrNull(mixed $data):mixed
