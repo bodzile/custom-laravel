@@ -94,9 +94,14 @@
 
 [FEATURE][ROUTE-07] - Add all http response code needed --
 
-[FEATURE][MODEL-BINDING-01] - Add model binding 
+[FEATURE][MODEL-BINDING-01] - Add model binding ++
 *creating objects from passed route parametere value
 *passing to 
+
+[FEATURE][ERROR-HANDLING-01] - Add error handling ecosystem
+*Add ErrorData
+*Add ErrorResolver (Taking error data and sending to error view)
+*Add error views (Specific views for displaying errors)
 
 [REFACTOR][ROUTE] - Set all classes with namespace in Route
 
