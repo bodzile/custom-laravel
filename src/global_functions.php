@@ -18,6 +18,12 @@ function view($view,$data=[]):void
     require_once "resources/views/{$view}.php";
 }
 
+function viewRelative(string $viewPath, $data=[]):void
+{
+    extract($data);
+    require_once  "/" . $viewPath . ".php";
+}
+
 function getDatabaseParam()
 {
     return Database::$db_info;

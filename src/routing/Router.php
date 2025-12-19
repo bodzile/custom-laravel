@@ -12,6 +12,10 @@ use Src\Exceptions\ModelNotFoundException;
 use Src\Exceptions\ControllerMethodlNotFoundException;
 use Src\Exceptions\ModelNotMatchInRouteException;
 
+use Src\Errors\ErrorData;
+use Src\Errors\ErrorDataBuilder;
+use Src\Errors\ErrorResolver;
+
 class Router{
 
     private Request $request;
@@ -29,6 +33,9 @@ class Router{
 
     public function route():void
     {
+        $errorData=new ErrorData(406, "Database", "Connection is not secured.");
+        ErrorResolver::resolve($errorData);
+
         switch($this->route->method)
         {
             case "get": case "post":
