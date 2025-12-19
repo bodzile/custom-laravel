@@ -33,9 +33,6 @@ class Router{
 
     public function route():void
     {
-        $errorData=new ErrorData(406, "Database", "Connection is not secured.");
-        ErrorResolver::resolve($errorData);
-
         switch($this->route->method)
         {
             case "get": case "post":

@@ -4,7 +4,7 @@ namespace Src\Errors;
 
 use Src\Errors\ErrorData;
 
-class ErrorResolver{
+class ErrorDataResolver{
 
 
     public static function resolve(ErrorData $data):void
