@@ -117,10 +117,14 @@ class RouteHelper
         if(RouteHelper::containRouteParamInUrl($routeUrl))
         {
             $param=RouteHelper::getRouteParamNameFromUrl($routeUrl);
+            $table="";
+            if(isset($param[1]))
+                $table=$param[1];
             $params= [
-                (string)$param[0] => $param[1]
+                (string)$param[0] => $table
             ];
         }
+        
         return $params;
     }
     

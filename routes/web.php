@@ -20,7 +20,7 @@ Route::get("/delete/{id:MyModel}","MyController","delete")
   ->name("admin.deleteUser")
   ->build();
 
-Route::get("/pull/{name:MyModelsaaa}","MyController","showPull")
+Route::get("/pull/{s:MyModel}","MyController","showPull")
   ->prefix("/admin")
   ->name("admin.showPull")
   ->build();

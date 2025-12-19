@@ -69,9 +69,12 @@ class QueryBuilder
         return new Repository($this->table,$this->allowed, $this->modelClass)->select($this->query);
     }
 
-    public function first():Model
+    public function first():?Model
     {
-        return new Repository($this->table,$this->allowed, $this->modelClass)->select($this->query)[0];
+        $res=new Repository($this->table,$this->allowed, $this->modelClass)->select($this->query);
+        if(!empty($res))
+            return $res[0];
+        return null;
     }
 
 

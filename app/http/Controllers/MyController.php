@@ -68,7 +68,7 @@ class MyController extends Controller
         //$post->delete();
     }
 
-    public function showPull(Request $request, MyModel $exercise)
+    public function showPull(Request $request, string $exercise)
     {
         //echo $exercise->id . "<br>" . $exercise->name . " " . $exercise->difficulty;
         print_r($exercise);

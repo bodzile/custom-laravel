@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Request;
 use Src\Models\ModelBinder;
 use Src\Controllers\ControllerMetaData;
+use Src\Exceptions\ModelNotMatchInRouteException;
 
 class ArgumentResolver{
 
@@ -18,6 +19,7 @@ class ArgumentResolver{
         array $params
     ):array
     {
+        
         $res=[$request];
         $value=ArgumentResolver::buildRouteParamValue(
             $request->getRouteParamValue(),
@@ -25,6 +27,7 @@ class ArgumentResolver{
             $function,
             $controller
         );
+        
 
         if($value)
             $res=array_merge($res,[$value]);
@@ -43,7 +46,15 @@ class ArgumentResolver{
             $type=$parameters[1]->getType();
             // different than int, string, float, bool, array,...
             if(!$type->isBuiltin())
-                return ModelBinder::resolve($type->getName(), array_key_first($params), $value);   
+            {
+                $modelClassSplit=explode("\\",$type->getName());
+                $controllerModelClassName= $modelClassSplit[array_key_last($modelClassSplit)];
+                if($controllerModelClassName != $params[array_key_first($params)])
+                    throw new ModelNotMatchInRouteException("Model in routes don't match controller argument type");
+                
+                return ModelBinder::resolve($type->getName(), array_key_first($params), $value); 
+            }
+                  
         }
 
         return $value;

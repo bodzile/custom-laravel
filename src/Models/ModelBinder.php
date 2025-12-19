@@ -9,7 +9,7 @@ use Src\Exceptions\ModelNotFoundException;
 
 class ModelBinder{
 
-    public static function resolve(string $modelName, string $param, mixed $value):Model
+    public static function resolve(string $modelName, string $param, mixed $value):?Model
     {
         try
         {

@@ -10,6 +10,7 @@ use Src\Routing\Dispatcher;
 use App\Http\Requests\Request;
 use Src\Exceptions\ModelNotFoundException;
 use Src\Exceptions\ControllerMethodlNotFoundException;
+use Src\Exceptions\ModelNotMatchInRouteException;
 
 class Router{
 
@@ -41,6 +42,10 @@ class Router{
                     die($ex->getMessage());
                 }
                 catch(ControllerMethodlNotFoundException $ex)
+                {
+                    die($ex->getMessage());
+                }
+                catch(ModelNotMatchInRouteException $ex)
                 {
                     die($ex->getMessage());
                 }

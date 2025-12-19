@@ -25,6 +25,8 @@ class Dispatcher{
             $this->request,
             $this->params
         );
+
+        //print_r($this->params); die();
         
         Pipeline::send($this->request)
             ->through($this->middlewares)
