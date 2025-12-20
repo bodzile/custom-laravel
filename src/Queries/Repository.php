@@ -9,10 +9,12 @@ use Src\Queries\QueryExecutor;
 use Src\Queries\TableSchema;
 use Src\Database;
 
+use PDO;
+
 
 class Repository{
 
-    private \PDO $pdo;
+    private PDO $pdo;
 
     public function __construct(
         private string $table,
@@ -45,7 +47,7 @@ class Repository{
         return ModelHydrator::hydrateObjects($this->modelClass, $stdObjects, $columns);
     }
 
-    public function selectById(int $id):Object
+    public function selectById(int $id):?Object
     {
         $sql=QuerySqlBuilder::buildSingleSelect($this->table);
         $idColumn=TableSchema::getPrimaryKey($this->table);

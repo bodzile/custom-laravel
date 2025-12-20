@@ -22,7 +22,7 @@ class ModelHydrator{
         return $res;
     }
 
-    public static function hydrateObject(string $modelClass, array $stdObjects, array $columns):Model
+    public static function hydrateObject(string $modelClass, array $stdObjects, array $columns):?Model
     {
         $modelObj=null;
         if(count($stdObjects)<=1)

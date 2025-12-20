@@ -29,7 +29,7 @@ abstract class Model
         return static::createRepository()->insert($data);
     }
 
-    public static function find(int $id):Model
+    public static function find(int $id):?Model
     {
         return static::createRepository()->selectById($id);
     }

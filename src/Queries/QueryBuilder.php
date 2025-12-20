@@ -66,6 +66,7 @@ class QueryBuilder
 
     public function get():array
     {
+        print_r($this->query); die();
         return new Repository($this->table,$this->allowed, $this->modelClass)->select($this->query);
     }
 
