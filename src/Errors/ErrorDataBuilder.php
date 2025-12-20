@@ -3,6 +3,7 @@
 namespace Src\Errors;
 
 use Src\Errors\ErrorData;
+
 use Throwable;
 
 
@@ -20,11 +21,11 @@ class ErrorDataBuilder{
         $errorData=new ErrorData();
         foreach(ErrorDataBuilder::$providers as $providerName)
         {
-            $providerClass=ErrorDatabBuilder::$providerPrefix . $providerName;
+            $providerClass=ErrorDataBuilder::$providerPrefix . $providerName;
             $provider=new $providerClass;
             if($provider->support($e))
             {
-                $errorData=$provider->build();
+                $errorData=$provider->build($e);
             }
         }
         return $errorData;

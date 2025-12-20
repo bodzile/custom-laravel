@@ -36,23 +36,22 @@ class Router{
         switch($this->route->method)
         {
             case "get": case "post":
-                try
-                {
+                
                     $dispatcher=$this->createDispatcher();
                     $dispatcher->dispatch();
-                }
-                catch(ModelNotFoundException $ex)
-                {
-                    die($ex->getMessage());
-                }
-                catch(ControllerMethodlNotFoundException $ex)
-                {
-                    die($ex->getMessage());
-                }
-                catch(ModelNotMatchInRouteException $ex)
-                {
-                    die($ex->getMessage());
-                }
+                
+                // catch(ModelNotFoundException $ex)
+                // {
+                //     die($ex->getMessage());
+                // }
+                // catch(ControllerMethodlNotFoundException $ex)
+                // {
+                //     die($ex->getMessage());
+                // }
+                // catch(ModelNotMatchInRouteException $ex)
+                // {
+                //     die($ex->getMessage());
+                // }
                 break;
                 
             case "view":

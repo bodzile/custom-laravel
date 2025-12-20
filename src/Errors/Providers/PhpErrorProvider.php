@@ -13,7 +13,7 @@ class PhpErrorProvider implements ErrorProviderInterface {
         return $e instanceof Error;
     }
     
-    public function build(Error $e):ErrorData
+    public function build(Throwable $e):ErrorData
     {
         echo "z"; die();
         //print_r($e); die();
