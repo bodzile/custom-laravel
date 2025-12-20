@@ -9,7 +9,7 @@ class ErrorDataAdapter{
 
     public static function find(string $exceptionClassName):?ErrorModel 
     {
-        return ErrorModel::query()->where(["instance" => $exceptionClassName])->first();
+        return ErrorModel::query()->where(["exception_name" => $exceptionClassName])->first();
     }
 
 }

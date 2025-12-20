@@ -6,15 +6,7 @@ use Src\Routing\RouterObjectBuilder;
 use Src\Routing\RouterValidator;
 use Src\Routing\RouteData;
 use Src\Routing\Dispatcher;
-
 use App\Http\Requests\Request;
-use Src\Exceptions\ModelNotFoundException;
-use Src\Exceptions\ControllerMethodlNotFoundException;
-use Src\Exceptions\ModelNotMatchInRouteException;
-
-use Src\Errors\ErrorData;
-use Src\Errors\ErrorDataBuilder;
-use Src\Errors\ErrorResolver;
 
 class Router{
 
@@ -37,22 +29,10 @@ class Router{
         {
             case "get": case "post":
                 
-                    $dispatcher=$this->createDispatcher();
-                    $dispatcher->dispatch();
-                
-                // catch(ModelNotFoundException $ex)
-                // {
-                //     die($ex->getMessage());
-                // }
-                // catch(ControllerMethodlNotFoundException $ex)
-                // {
-                //     die($ex->getMessage());
-                // }
-                // catch(ModelNotMatchInRouteException $ex)
-                // {
-                //     die($ex->getMessage());
-                // }
-                break;
+                $dispatcher=$this->createDispatcher();
+                $dispatcher->dispatch();
+            
+            break;
                 
             case "view":
                 $view=$this->route->view;

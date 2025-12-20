@@ -17,7 +17,7 @@ class QueryValidator{
                     continue;
                 
                 if(!in_array($column,$allowed) && $column != TableSchema::getPrimaryKey($table))
-                    throw new \Exception("Column is not inside allowed array");
+                    throw new Exception("Column is not inside allowed array");
             }
         }
         catch(Exception $ex)
