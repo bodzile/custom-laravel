@@ -2,8 +2,9 @@
 
 namespace Src\Exceptions;
 
-use Exception;
+use Src\Exceptions\FrameworkException;
 
-class ModelNotFoundException extends Exception{
+
+class ModelNotFoundException extends FrameworkException{
     
 }

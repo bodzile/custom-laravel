@@ -2,8 +2,8 @@
 
 namespace Src\Exceptions;
 
-use Exception;
+use Src\Exceptions\FrameworkException;
 
-class ControllerMethodNotFoundException extends Exception{
+class ControllerMethodNotFoundException extends FrameworkException{
     
 }

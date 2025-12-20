@@ -9,7 +9,7 @@ use Throwable;
 
 class ErrorDataBuilder{
 
-    final static string $providerPrefix="Src\\Errors\\Providers\\";
+    static string $providerPrefix="Src\\Errors\\Providers\\";
 
     private static array $providers=[
         "PhpErrorProvider",

@@ -2,9 +2,10 @@
 
 namespace Src\Exceptions;
 
-use Exception;
+use Src\Exceptions\FrameworkException;
 
-class RouterValidationException extends Exception{
+
+class RouterValidationException extends FrameworkException{
 
     
 
