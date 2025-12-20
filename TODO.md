@@ -107,6 +107,10 @@
 *FrameworkExceptionProvider (framework use errors)
 *PhpErrorProvider (basic php errors)
 
+[FEATURE][ERROR-HANDLING-03] - Add Exception parenting
+*Add main Exception FrameworkException
+*Extend all custom exception
+
 [REFACTOR][ROUTE] - Set all classes with namespace in Route
 
 [FIX][ROUTE-08] - Fix nested groups bug
