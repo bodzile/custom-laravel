@@ -103,6 +103,10 @@
 *Add ErrorResolver (Taking error data and sending to error view)
 *Add error views (Specific views for displaying errors)
 
+[FEATURE][ERROR-HANDLING-02] - Add error providers
+*FrameworkExceptionProvider (framework use errors)
+*PhpErrorProvider (basic php errors)
+
 [REFACTOR][ROUTE] - Set all classes with namespace in Route
 
 [FIX][ROUTE-08] - Fix nested groups bug

@@ -2,15 +2,32 @@
 
 namespace Src\Errors;
 
-use Src\Errors;
+use Src\Errors\ErrorData;
 use Throwable;
 
 
 class ErrorDataBuilder{
 
-    public static function build(Throwable $e)
-    {
+    final static string $providerPrefix="Src\\Errors\\Providers\\";
 
+    private static array $providers=[
+        "PhpErrorProvider",
+        "FrameworkExceptionErrorProvider"
+    ];
+
+    public static function build(Throwable $e):ErrorData
+    {
+        $errorData=new ErrorData();
+        foreach(ErrorDataBuilder::$providers as $providerName)
+        {
+            $providerClass=ErrorDatabBuilder::$providerPrefix . $providerName;
+            $provider=new $providerClass;
+            if($provider->support($e))
+            {
+                $errorData=$provider->build();
+            }
+        }
+        return $errorData;
     }
 
 }
