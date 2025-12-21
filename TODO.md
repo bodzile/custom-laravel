@@ -103,20 +103,17 @@
 *Add ErrorResolver (Taking error data and sending to error view)
 *Add error views (Specific views for displaying errors)
 
-[FEATURE][ERROR-HANDLING-02] - Add error providers
+[FEATURE][ERROR-HANDLING-02] - Add error providers ++
 *FrameworkExceptionProvider (framework use errors)
 *PhpErrorProvider (basic php errors)
 
-[FEATURE][ERROR-HANDLING-03] - Add Exception parenting
+[FEATURE][ERROR-HANDLING-03] - Add Exception parenting ++
 *Add main Exception FrameworkException
 *Extend all custom exception
 
-[REFACTOR][ROUTE] - Set all classes with namespace in Route
-
-[FIX][ROUTE-08] - Fix nested groups bug
-
-[FIX][QUERY-VALIDATOR-01] - Create all query validations
-*Check for allowed columns if timestamps exist
+[FEATURE][ERROR-HANDLING-04] - Create and throw all FrameworkExceptions
+*add all errors in database with right status code
+[FEATURE][ERROR-HANDLING-05] - Handle PHP errors
 
 [FEATURE][QUERYBUILDER,MODEL] - Add expansion of model functionality 
 *using like
@@ -124,6 +121,15 @@
 *add functions SUM, COUNT, AVG, MIN, MAX
 *add group by functionality
 *add join
+
+[FIX] - buildSingleSelect in QuerySqlBuilder must equal primary key of table not id
+
+[REFACTOR][ROUTE] - Set all classes with namespace in Route
+
+[FIX][ROUTE-08] - Fix nested groups bug
+
+[FIX][QUERY-VALIDATOR-01] - Create all query validations
+*Check for allowed columns if timestamps exist
 
 [FEATURE][MIGRATION-01] - Add logic for migrations
 *Migration or Schema class??

@@ -16,6 +16,16 @@ class PhpErrorProvider implements ErrorProviderInterface {
     public function build(Throwable $e):ErrorData
     {
         print_r($e); die();
+        // $exceptionName=(new ReflectionClass($e))->getShortName();
+        // $errorData=ErrorDataAdapter::find($exceptionName);
+        // if(!$errorData)
+        //     return new ErrorData(900, "Unknown error data","");
+
+        // return new ErrorData(
+        //     $errorData->status_code,
+        //     $errorData->title,
+        //     $errorData->description
+        // );   
     }
 
 }
