@@ -111,7 +111,7 @@
 *Add main Exception FrameworkException
 *Extend all custom exception
 
-[FEATURE][ERROR-HANDLING-04] - Create and throw all FrameworkExceptions
+[FEATURE][ERROR-HANDLING-04] - Create and throw all FrameworkExceptions ++
 *add all errors in database with right status code
 [FEATURE][ERROR-HANDLING-05] - Handle PHP errors
 

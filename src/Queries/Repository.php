@@ -2,7 +2,7 @@
 
 namespace Src\Queries;
 
-use Src\Queries\ModelHydrator;
+use Src\Models\ModelHydrator;
 use Src\Queries\QueryBuilder;
 use Src\Queries\QuerySqlBuilder;
 use Src\Queries\QueryExecutor;

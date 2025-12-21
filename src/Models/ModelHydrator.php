@@ -1,6 +1,6 @@
 <?php
 
-namespace src\Queries;
+namespace Src\Models;
 
 use App\Models\Model;
 

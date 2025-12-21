@@ -6,7 +6,7 @@ require_once "vendor/autoload.php";
 
 Route::view("/","welcome")->build();
 
-Route::get("/admin/test","MyCotroller","index")
+Route::get("/admin/test","MyController","index")
   ->name("admin.testPage")
   ->build();
 
