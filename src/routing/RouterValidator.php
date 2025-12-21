@@ -6,6 +6,8 @@ use Src\Routing\Router;
 use Src\Routing\RouteData;
 use Src\Routing\RouteHelper;
 use Src\Exceptions\RouterValidationException;
+use Src\Exceptions\RouterPageNotFoundException;
+use Src\Exceptions\RouterWrongHttpMethodException;
 
 class RouterValidator{
 
@@ -27,7 +29,7 @@ class RouterValidator{
             if($this->route->url == $route->url)
                 return;
         }
-        throw new RouterValidationException("Page not found.", 404);
+        throw new RouterPageNotFoundException();
     }
 
     private function handleHttpMethod():void
@@ -37,7 +39,7 @@ class RouterValidator{
         {
             if($method != strtolower($_SERVER["REQUEST_METHOD"]) )
             {
-                throw new RouterValidationException("Wrong http method.", 405);
+                throw new RouterWrongHttpMethodException();
             }
         }
     }
