@@ -50,7 +50,7 @@ class ArgumentResolver{
                 $modelClassSplit=explode("\\",$type->getName());
                 $controllerModelClassName= $modelClassSplit[array_key_last($modelClassSplit)];
                 if($controllerModelClassName != $params[array_key_first($params)])
-                    throw new ModelNotMatchInRouteException("Model in routes don't match controller argument type");
+                    throw new ModelNotMatchInRouteException;
                 
                 return ModelBinder::resolve($type->getName(), array_key_first($params), $value); 
             }

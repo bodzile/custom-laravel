@@ -5,6 +5,7 @@ use Src\Errors\Providers\ErrorProviderInterface;
 use Src\Errors\ErrorData;
 use Throwable;
 use Error;
+use ReflectionClass;
 
 class PhpErrorProvider implements ErrorProviderInterface {
     
@@ -15,17 +16,19 @@ class PhpErrorProvider implements ErrorProviderInterface {
     
     public function build(Throwable $e):ErrorData
     {
-        print_r($e); die();
-        // $exceptionName=(new ReflectionClass($e))->getShortName();
-        // $errorData=ErrorDataAdapter::find($exceptionName);
-        // if(!$errorData)
-        //     return new ErrorData(900, "Unknown error data","");
+        $className=(new ReflectionClass($e))->getShortName();
+        $message=$e->getMessage();
+        $line=(string)$e->getLine();
+        $file=$e->getFile();
+        $stackTrace=$e->getTraceAsString();
 
-        // return new ErrorData(
-        //     $errorData->status_code,
-        //     $errorData->title,
-        //     $errorData->description
-        // );   
+        $description="<b style='color:white'>$className</b> | $message <br> <b style='color:white'>File:</b> $file , <b style='color:white'>line:</b> $line <br> <b style='color:white'>Trace:</b> $stackTrace";
+
+        return new ErrorData(
+            500,
+            "PHP",
+            $description
+        );   
     }
 
 }
