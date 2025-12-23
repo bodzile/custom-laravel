@@ -29,7 +29,7 @@ class RouterValidator{
             if($this->route->url == $route->url)
                 return;
         }
-        throw new RouterPageNotFoundException();
+        throw new RouterPageNotFoundException;
     }
 
     private function handleHttpMethod():void
@@ -39,7 +39,7 @@ class RouterValidator{
         {
             if($method != strtolower($_SERVER["REQUEST_METHOD"]) )
             {
-                throw new RouterWrongHttpMethodException();
+                throw new RouterWrongHttpMethodException;
             }
         }
     }

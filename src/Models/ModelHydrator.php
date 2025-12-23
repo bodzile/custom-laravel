@@ -3,6 +3,7 @@
 namespace Src\Models;
 
 use App\Models\Model;
+use Src\Exceptions\ModelNotFoundException;
 
 class ModelHydrator{
 
@@ -10,7 +11,7 @@ class ModelHydrator{
     {
         $res=[];
         if (!class_exists($modelClass)) 
-            throw new ReflectionException("Class $modelName not found");
+            throw new ModelNotFoundException;
             
         foreach($stdObjects as $obj)
         {
@@ -29,7 +30,7 @@ class ModelHydrator{
     {
         $modelObj=null;
         if (!class_exists($modelClass)) 
-            throw new ReflectionException("Class $modelName not found");
+            throw new ModelNotFoundException;
         if(count($stdObjects)<=1)
         {
             $modelObj=new $modelClass;

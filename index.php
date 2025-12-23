@@ -7,10 +7,12 @@ use Src\Routing\Router;
 use Src\Errors\ErrorHandler;
 
 require_once "vendor/autoload.php";
-require_once "routes/web.php";
+
 
 try
 {
+    require_once "routes/web.php";
+
     $router=new Router();
     $router->validate();
     $router->route();

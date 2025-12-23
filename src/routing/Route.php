@@ -25,11 +25,6 @@ class Route
     private static function setMethodValues(string $method,string $path,string $controller_class,string $function):Route
     {
         $params=RouteHelper::getRouteParamMetadata($path);
-        // if(!empty($params) && $path!= "/delete/{id:MyModel}")
-        // {
-        //     echo $path . "<br>";
-        //     print_r($params); die();
-        // }
 
         static::$tempRouteData=array_replace(static::$tempRouteData,[
             "url" => $path,
@@ -70,6 +65,7 @@ class Route
             "name" => $name
         ]);
 
+
         return new self();
     }
 
@@ -95,7 +91,7 @@ class Route
         }
         else
         {
-            $temp=$class_prefix . $all_middlewares;
+            $temp=[$class_prefix . $all_middlewares];
         }
 
         static::$tempRouteData=array_replace(static::$tempRouteData, [

@@ -3,7 +3,14 @@
 namespace Src\Routing;
 
 use Src\Routing\Route;
-use Src\Exceptions\RouteValidationException;
+use Src\Exceptions\RouteAlreadyExistException;
+use Src\Exceptions\RouteNameAlreadyExistException;
+use Src\Exceptions\RouteDataNotSetException;
+use Src\Exceptions\MiddlewareNotFoundException;
+use Src\Exceptions\ViewNotFoundException;
+
+use Exception;
+use Throwable;
 
 class RouteValidator{
 
@@ -13,30 +20,23 @@ class RouteValidator{
 
     public static function validate(RouteData $route):void
     {
-        try 
-        {
-            $validator=new RouteValidator($route);
-            $validator->checkDuplicateRoute();
-            $validator->checkRequiredRouteData();
-        }
-        catch(RouteValidationException $ex)
-        {
-            die($ex->getMessage());
-        }
-        catch(\Exception $ex)
-        {
-            die($ex->getMessage());
-        }
+        $validator=new RouteValidator($route);
+        $validator->checkRoute();
+        $validator->checkRequiredRouteData();   
+        $validator->checkMiddlewaresExist();
     }
 
-    private function checkDuplicateRoute():void 
+    private function checkRoute():void
     {
         if(count(Route::$routes) < 1)
             return;
+
         foreach(Route::$routes as $route)
         {
             if($this->route->url == $route->url)
-                throw new RouteValidationException("There is duplicate of route with same url!");;
+                throw new RouteAlreadyExistException;
+            if( !empty($route->name) && ($this->route->name == $route->name) )
+                throw new RouteNameAlreadyExistException;       
         }
     }
 
@@ -48,8 +48,24 @@ class RouteValidator{
         foreach($required as $property)
         {
             if(empty($this->route->$property))
-                throw new RouteValidationException("Not all required data are set in routes!");
+                throw new RouteDataNotSetException();
         }
+    }
+
+    private function checkMiddlewaresExist():void
+    {   
+        foreach($this->route->middlewares as $middleware)
+        {
+            if(!class_exists($middleware))
+                throw new MiddlewareNotFoundException();
+        }
+    }
+
+    private function checkViewExist():void 
+    {
+        if(!empty($this->route->view) && !file_exists(view($this->route->view)))
+            throw new ViewNotFoundException;
+
     }
 
 }
