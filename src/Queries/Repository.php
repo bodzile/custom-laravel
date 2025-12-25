@@ -8,6 +8,11 @@ use Src\Queries\QuerySqlBuilder;
 use Src\Queries\QueryExecutor;
 use Src\Queries\TableSchema;
 use Src\Database;
+use Src\Exceptions\RecordNotFoundException;
+use Src\Exceptions\ColumnNotInsideAllowedException;
+use Src\Exceptions\DeleteFailedException;
+use Src\Exceptions\InsertFailedException;
+use Src\Exceptions\UpdateFailedException;
 
 use PDO;
 
@@ -32,6 +37,8 @@ class Repository{
             $sql, 
             $param
         );
+        if(!$stdObjects)
+            throw new RecordNotFoundException;
 
         return ModelHydrator::hydrateObjects($this->modelClass, $stdObjects, $columns);
     }
@@ -43,6 +50,8 @@ class Repository{
             $this->pdo, 
             $sql
         );
+        if(!$stdObjects)
+            throw new RecordNotFoundException;
 
         return ModelHydrator::hydrateObjects($this->modelClass, $stdObjects, $columns);
     }
@@ -58,30 +67,34 @@ class Repository{
             $sql,
             [$idColumn => $id]
         );
+        if(!$stdObject)
+            throw new RecordNotFoundException;
 
         return ModelHydrator::hydrateObject($this->modelClass, $stdObject,$columns);
     }
 
-    public function insert(array|Request $data):bool 
+    public function insert(array|Request $data):void 
     {
         $all = $data instanceof Request ? $data->getAll() : $data;
         
         if(!$this->inAllowed($all))
-            return false;
+            throw new ColumnNotFoundInAllowedException;
 
         $timestamp = date('Y-m-d H:i:s', time());
         if(TableSchema::createdAtExist($this->table))
             $all=array_merge($all, ["created_at" => $timestamp, "updated_at" => $timestamp]);
 
         $sql=QuerySqlBuilder::buildInsert($this->table, $all);
-        return QueryExecutor::executeNonQuery(
+        $res= QueryExecutor::executeNonQuery(
             $this->pdo, 
             $sql, 
             $all
         );
+        if(!$res)
+            throw new InsertFailedException;
     }
 
-    public function update(int $id, array $values):bool 
+    public function update(int $id, array $values):void 
     {
         $columns=array_keys($values);
         $timestamp = date('Y-m-d H:i:s', time());
@@ -94,23 +107,27 @@ class Repository{
         $idColumn=TableSchema::getPrimaryKey($this->table);
         $sql=QuerySqlBuilder::buildUpdate($this->table, $idColumn, $columns);
 
-        return QueryExecutor::executeNonQuery(
+        $res=QueryExecutor::executeNonQuery(
             $this->pdo, 
             $sql, 
             array_merge([$idColumn => $id], $values)
         );
+        if(!$res)
+            throw new UpdateFailedException;
     }
 
-    public function delete(int $id):bool 
+    public function delete(int $id):void 
     {
         $idColumn=TableSchema::getPrimaryKey($this->table);
         $sql=QuerySqlBuilder::buildDelete($this->table, $idColumn);
 
-        return QueryExecutor::executeNonQuery(
+        $res=QueryExecutor::executeNonQuery(
             $this->pdo, 
             $sql, 
             [$idColumn => $id]
         );
+        if(!$res)
+            throw new DeleteFailedException;
     }
 
     private function inAllowed(array $data):bool 
