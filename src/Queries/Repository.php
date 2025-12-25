@@ -49,8 +49,9 @@ class Repository{
 
     public function selectById(int $id):?Object
     {
-        $sql=QuerySqlBuilder::buildSingleSelect($this->table);
+        
         $idColumn=TableSchema::getPrimaryKey($this->table);
+        $sql=QuerySqlBuilder::buildSingleSelect($this->table, $idColumn);
 
         [$stdObject,$columns]=QueryExecutor::executeSelect(
             $this->pdo,

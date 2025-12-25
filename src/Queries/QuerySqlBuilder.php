@@ -36,9 +36,9 @@ class QuerySqlBuilder{
         return "SELECT * from $table";
     }
 
-    public static function buildSingleSelect(string $table):string
+    public static function buildSingleSelect(string $table, string $idColumn):string
     {
-        return "SELECT * from $table WHERE id=:id";
+        return "SELECT * from $table WHERE $idColumn=:$idColumn";
     }
 
     public static function buildInsert(string $table, array $data):string 
