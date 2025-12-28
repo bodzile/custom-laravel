@@ -122,7 +122,7 @@
 *add group by functionality
 *add join
 
-[FIX] - buildSingleSelect in QuerySqlBuilder must equal primary key of table not id
+[FIX] - buildSingleSelect in QuerySqlBuilder must equal primary key of table not id ++
 
 [REFACTOR][ROUTE] - Set all classes with namespace in Route
 

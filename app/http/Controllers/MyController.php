@@ -15,7 +15,7 @@ class MyController extends Controller
         //trebalo bi da vrati ili objekat ili niz objekata instance MyModel ili Model da mogu da se setuju polja
         $users=MyModel::query()->where(["difficulty" => "easy"])->get();
 
-        //$user=MyModel::find(6);
+        //$user=MyModel::find(100);
 
         //print_r($user); die();
 
