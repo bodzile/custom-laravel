@@ -18,8 +18,11 @@ class FrameworkExceptionErrorProvider implements ErrorProviderInterface{
     
     public function build(Throwable $e):ErrorData
     {
+        
         $exceptionName=(new ReflectionClass($e))->getShortName();
+        //print_r($e); die();
         $errorData=ErrorDataAdapter::find($exceptionName);
+        
         if(!$errorData)
             return new ErrorData(900, "Unknown erro data","");
 

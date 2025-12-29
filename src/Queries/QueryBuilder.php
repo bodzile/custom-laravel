@@ -26,25 +26,36 @@ class QueryBuilder
         private array $allowed
     ){}
 
+
     public function where(array $param):QueryBuilder
     {
         $temp=" WHERE ";
         $i=0;
 
-        QueryValidator::validateAllowedParameters($param, $this->allowed, $this->table);
+        QueryValidator::validateAllowedParameters(array_keys($param), $this->allowed, $this->table);
+        $param=QueryNormalizer::normalizeWhere($param);
+        //print_r($param); die();
         
-        foreach($param as $column => $value)
+        foreach($param as $array)
         {
             if($i>0)
                 $temp.="AND ";
-            $temp.=$column . "=:" . $column . " ";
+
+            $value=$array[2];
+            // if(is_array($value))
+            //     $valueS
+
+            $temp.=$array[0] . " " . $array[1] . " :" . $array[0] . " ";
             $i++;
-            $this->query["where"]["columns"][$column]=$value;
+            $this->query["where"]["columns"][$array[0]]=$value;
         }
         $this->query["where"]["sql"]=$temp;
 
+        //print_r($this->query["where"]); die();
+
         return $this;
     }
+
 
     public function groupBy(string $param):QueryBuilder
     {

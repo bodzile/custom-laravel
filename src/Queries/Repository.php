@@ -9,7 +9,7 @@ use Src\Queries\QueryExecutor;
 use Src\Queries\TableSchema;
 use Src\Database;
 use Src\Exceptions\RecordNotFoundException;
-use Src\Exceptions\ColumnNotInsideAllowedException;
+use Src\Exceptions\ColumnNotInAllowedException;
 use Src\Exceptions\DeleteFailedException;
 use Src\Exceptions\InsertFailedException;
 use Src\Exceptions\UpdateFailedException;
@@ -32,6 +32,7 @@ class Repository{
     public function select(array $query):array
     {
         [$sql,$param]=QuerySqlBuilder::buildSelect($this->table,$query);
+        die($sql);
         [$stdObjects,$columns]=QueryExecutor::executeSelect(
             $this->pdo, 
             $sql, 

@@ -23,3 +23,19 @@ catch(Throwable $e)
 }
 
 
+// MyModel::select()
+//    ->where([
+//       "name" => "pera",
+//       "id" => [">",3],
+//       "difficulty" => ["like","%s"],
+//       "number" => ["in", [1,2,3]]
+//     ]);
+
+
+// MyModel::select()
+//    ->where(
+//       ["name","pera"],
+//       ["id",">",3],
+//       ["difficulty","like","%s"],
+//       ["number","in",[1,2,3]]
+//     );
