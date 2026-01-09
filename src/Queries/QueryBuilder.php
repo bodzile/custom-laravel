@@ -6,6 +6,7 @@ use App\Http\Requests\Request;
 use App\Models\Model;
 use Src\Queries\Repository;
 use Src\Queries\QueryValidator;
+use Src\Queries\WhereBuilder;
 
 class QueryBuilder
 {
@@ -29,50 +30,10 @@ class QueryBuilder
 
     public function where(array $param):QueryBuilder
     {
-        $temp=" WHERE ";
-        $i=0;
-
         QueryValidator::validateAllowedParameters(array_keys($param), $this->allowed, $this->table);
-        $param=QueryNormalizer::normalizeWhere($param);
-        
-        foreach($param as $row)
-        {
-            if($i>0)
-                $temp.=$row["bridge"]. " ";
-            
-            $i++;
-            
-            if( in_array(strtolower($row["operator"]),["in","any"]) )
-            {
-                $j=0;
-                $temp.=$row["column"] . " " . $row["operator"] . " (";
-                foreach($row["value"] as $val)
-                {
-                    $comma="";
-                    if($j>0)
-                        $comma=",";
+        $normalizedParam=QueryNormalizer::normalizeWhere($param);
 
-                    $newColumn=$row["column"] . "_" . $j ;
-                    $temp.=$comma . ":" . $newColumn ;  
-                    $this->query["where"]["columns"][$newColumn]=$val;
-                
-                    $j++;
-                }
-                $temp.=")";
-                
-                // print_r($this->query["where"]); die();
-            }
-            else
-            {
-                $temp.=$row["column"] . " " . $row["operator"] . " :" . $row["column"] . " ";
-                $this->query["where"]["columns"][$row["column"]]=$row["value"];
-            }
-                
-        }
-        $this->query["where"]["sql"]=$temp;
-
-        //print_r($this->query["where"]); die();
-
+        $this->query["where"]=WhereBuilder::build($normalizedParam);
         return $this;
     }
 

@@ -92,4 +92,5 @@ class QuerySqlBuilder{
         return "DESCRIBE $table";
     }
 
+
 }
