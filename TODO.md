@@ -116,7 +116,7 @@
 [FEATURE][ERROR-HANDLING-05] - Handle PHP errors ++
 
 [FEATURE][QUERYBUILDER,MODEL] - Add expansion of model functionality 
-*using like
+*using like +
 *add >,<, <=, >=
 *add functions SUM, COUNT, AVG, MIN, MAX
 *add group by functionality

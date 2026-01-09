@@ -34,7 +34,7 @@ class QueryBuilder
 
         QueryValidator::validateAllowedParameters(array_keys($param), $this->allowed, $this->table);
         $param=QueryNormalizer::normalizeWhere($param);
-        //print_r($param); die();
+        print_r($param); die();
         
         foreach($param as $array)
         {
