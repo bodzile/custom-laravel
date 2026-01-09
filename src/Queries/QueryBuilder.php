@@ -34,20 +34,40 @@ class QueryBuilder
 
         QueryValidator::validateAllowedParameters(array_keys($param), $this->allowed, $this->table);
         $param=QueryNormalizer::normalizeWhere($param);
-        print_r($param); die();
         
-        foreach($param as $array)
+        foreach($param as $row)
         {
             if($i>0)
-                $temp.="AND ";
-
-            $value=$array[2];
-            // if(is_array($value))
-            //     $valueS
-
-            $temp.=$array[0] . " " . $array[1] . " :" . $array[0] . " ";
+                $temp.=$row["bridge"]. " ";
+            
             $i++;
-            $this->query["where"]["columns"][$array[0]]=$value;
+            
+            if( in_array(strtolower($row["operator"]),["in","any"]) )
+            {
+                $j=0;
+                $temp.=$row["column"] . " " . $row["operator"] . " (";
+                foreach($row["value"] as $val)
+                {
+                    $comma="";
+                    if($j>0)
+                        $comma=",";
+
+                    $newColumn=$row["column"] . "_" . $j ;
+                    $temp.=$comma . ":" . $newColumn ;  
+                    $this->query["where"]["columns"][$newColumn]=$val;
+                
+                    $j++;
+                }
+                $temp.=")";
+                
+                // print_r($this->query["where"]); die();
+            }
+            else
+            {
+                $temp.=$row["column"] . " " . $row["operator"] . " :" . $row["column"] . " ";
+                $this->query["where"]["columns"][$row["column"]]=$row["value"];
+            }
+                
         }
         $this->query["where"]["sql"]=$temp;
 

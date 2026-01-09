@@ -17,7 +17,7 @@ class MyController extends Controller
         $users=MyModel::query()->where([
             "difficulty" => "hard",
             "name" => ["like","%s%"],
-            "id" => [">=",9]
+            "id" => ["in",[15,13]]
         ])->take(3)->orderBy("id","DESC")->get();
 
         //$user=MyModel::find(100);

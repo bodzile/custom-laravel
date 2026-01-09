@@ -9,6 +9,8 @@ class QueryExecutor{
     public static function executeSelect(PDO $pdo, string $sql, array $param=[]):array
     {   
         $columns=[];
+        //print_r($param); die();
+        //die($sql);
         $stmt=$pdo->prepare($sql);
         $stmt->execute($param);
         for($i=0;$i<$stmt->columnCount();$i++)
@@ -16,6 +18,7 @@ class QueryExecutor{
             $meta=$stmt->getColumnMeta($i);
             $columns[]=$meta["name"];
         }
+        
         return [$stmt->fetchAll(),$columns];
     }
 

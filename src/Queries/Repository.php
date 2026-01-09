@@ -33,11 +33,13 @@ class Repository{
     {
         [$sql,$param]=QuerySqlBuilder::buildSelect($this->table,$query);
         //die($sql);
+        //print_r($param); die();
         [$stdObjects,$columns]=QueryExecutor::executeSelect(
             $this->pdo, 
             $sql, 
             $param
         );
+        //die("proslo");
         if(!$stdObjects)
             throw new RecordNotFoundException;
 
