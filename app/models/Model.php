@@ -14,6 +14,11 @@ abstract class Model
     //polja koja ce se kreirati kao posebne varijable u child klasi
     protected array $fields;
 
+    public static function select(...$columns):QueryBuilder
+    {
+
+    }
+
     public static function query():QueryBuilder
     {
         return static::createQueryBuilder();

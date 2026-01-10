@@ -12,11 +12,12 @@ class QueryBuilder
 {
 
     private array $query=[
+        "select" => [],
         "where" => [
             "columns" => [],
             "sql" => ""
         ],
-        "groupBy" => "",
+        "groupBy" => "", 
         "orderBy" => "",
         "limit" => 0
     ];
