@@ -39,11 +39,12 @@ class Repository{
             $sql, 
             $param
         );
+        //print_r($columns); die();
         //die("proslo");
         if(!$stdObjects)
             throw new RecordNotFoundException;
 
-        return ModelHydrator::hydrateObjects($this->modelClass, $stdObjects, $columns);
+        return ModelHydrator::hydrateObjects($this->table, $this->modelClass, $stdObjects, $columns);
     }
 
     public function selectAll():array
