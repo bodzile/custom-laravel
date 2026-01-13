@@ -31,6 +31,7 @@ class QueryBuilder
 
     public function select(array $columns):QueryBuilder 
     {
+        QueryValidator::validateAllowedParameters($columns, $this->allowed, $this->table);
         $this->query["select"]=$columns;
 
         return $this;

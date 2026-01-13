@@ -9,8 +9,6 @@ class QueryExecutor{
     public static function executeSelect(PDO $pdo, string $sql, array $param=[]):array
     {   
         $columns=[];
-        //print_r($param); die();
-        //die($sql);
         $stmt=$pdo->prepare($sql);
         $stmt->execute($param);
         for($i=0;$i<$stmt->columnCount();$i++)
@@ -29,7 +27,6 @@ class QueryExecutor{
         
         return $stmt->fetchAll();
     }
-
 
     public static function executeNonQuery(PDO $pdo, string $sql, array $param=[]):bool 
     {

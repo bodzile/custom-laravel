@@ -32,15 +32,11 @@ class Repository{
     public function select(array $query):array
     {
         [$sql,$param]=QuerySqlBuilder::buildSelect($this->table,$query);
-        //die($sql);
-        //print_r($param); die();
         [$stdObjects,$columns]=QueryExecutor::executeSelect(
             $this->pdo, 
             $sql, 
             $param
         );
-        //print_r($columns); die();
-        //die("proslo");
         if(!$stdObjects)
             throw new RecordNotFoundException;
 
