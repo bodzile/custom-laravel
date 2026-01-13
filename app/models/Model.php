@@ -16,12 +16,17 @@ abstract class Model
 
     public static function select(...$columns):QueryBuilder
     {
-
+        return static::createQueryBuilder()->select($columns);
     }
 
-    public static function query():QueryBuilder
+    // public static function query():QueryBuilder
+    // {
+    //     return static::createQueryBuilder();
+    // }
+
+    public static function where(array $param):QueryBuilder 
     {
-        return static::createQueryBuilder();
+        return static::createQueryBuilder()->where($param);
     }
 
     public static function all():array 

@@ -6,7 +6,22 @@ class QuerySqlBuilder{
 
     public static function buildSelect(string $table, array $query):array
     {
-        $sql="SELECT * from $table";
+        if(!empty($query["select"]))
+        {
+            $sql="SELECT ";
+            $i=0;
+            foreach($query["select"] as $column)
+            {
+                if($i>0)
+                    $sql.=",";
+                $sql.= " $column";
+                $i++;
+            }
+            $sql.=" from $table";
+        }
+        else
+            $sql="SELECT * from $table";
+        
         $param=[];
 
         foreach($query as $key => $value)
@@ -22,7 +37,7 @@ class QuerySqlBuilder{
                     }
                 }
                     
-                else
+                else if($key != "select")
                     $sql.=$value;
             }
         }

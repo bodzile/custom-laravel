@@ -29,6 +29,13 @@ class QueryBuilder
     ){}
 
 
+    public function select(array $columns):QueryBuilder 
+    {
+        $this->query["select"]=$columns;
+
+        return $this;
+    }
+
     public function where(array $param):QueryBuilder
     {
         QueryValidator::validateAllowedParameters(array_keys($param), $this->allowed, $this->table);
