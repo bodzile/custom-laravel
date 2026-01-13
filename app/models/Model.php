@@ -19,6 +19,11 @@ abstract class Model
         return static::createQueryBuilder()->select($columns);
     }
 
+    public static function selectRaw(string $sql):QueryBuilder 
+    {
+        return static::createQueryBuilder()->selectRaw($sql);
+    }
+
     // public static function query():QueryBuilder
     // {
     //     return static::createQueryBuilder();

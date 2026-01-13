@@ -19,6 +19,8 @@ class QuerySqlBuilder{
             }
             $sql.=" from $table";
         }
+        else if(!empty($query["selectRaw"]))
+            $sql="SELECT "  . $query["selectRaw"] . " from $table";
         else
             $sql="SELECT * from $table";
         
@@ -37,7 +39,7 @@ class QuerySqlBuilder{
                     }
                 }
                     
-                else if($key != "select")
+                else if($key != "select" && $key != "selectRaw")
                     $sql.=$value;
             }
         }

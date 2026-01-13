@@ -13,6 +13,8 @@ class QueryBuilder
 
     private array $query=[
         "select" => [],
+        "selectRaw" => "",
+        "aggregates" => false,
         "where" => [
             "columns" => [],
             "sql" => ""
@@ -34,6 +36,13 @@ class QueryBuilder
         QueryValidator::validateAllowedParameters($columns, $this->allowed, $this->table);
         $this->query["select"]=$columns;
 
+        return $this;
+    }
+
+    public function selectRaw(string $sql):QueryBuilder 
+    {
+        //QueryValidator::validateSelect($this->query);
+        $this->query["selectRaw"]=$sql;
         return $this;
     }
 
