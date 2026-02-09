@@ -7,34 +7,25 @@ use App\Models\Model;
 use Src\Queries\Repository;
 use Src\Queries\QueryValidator;
 use Src\Queries\WhereBuilder;
+use Src\Queries\QueryParts;
 
 class QueryBuilder
 {
-
-    private array $query=[
-        "select" => [],
-        "selectRaw" => "",
-        "aggregates" => false,
-        "where" => [
-            "columns" => [],
-            "sql" => ""
-        ],
-        "groupBy" => "", 
-        "orderBy" => "",
-        "limit" => 0
-    ];
+    private QueryParts $queryParts;
 
     public function __construct(
         private string $table, 
         private string $modelClass, 
         private array $allowed
-    ){}
+    ){
+        $this->queryParts = new QueryParts();
+    }
 
 
     public function select(array $columns):QueryBuilder 
     {
         QueryValidator::validateAllowedParameters($columns, $this->allowed, $this->table);
-        $this->query["select"]=$columns;
+        $this->queryParts->select=$columns;
 
         return $this;
     }
@@ -42,7 +33,7 @@ class QueryBuilder
     public function selectRaw(string $sql):QueryBuilder 
     {
         //QueryValidator::validateSelect($this->query);
-        $this->query["selectRaw"]=$sql;
+        $this->queryParts->selectRaw=$sql;
         return $this;
     }
 
@@ -51,37 +42,68 @@ class QueryBuilder
         QueryValidator::validateAllowedParameters(array_keys($param), $this->allowed, $this->table);
         $normalizedParam=QueryNormalizer::normalizeWhere($param);
 
-        $this->query["where"]=WhereBuilder::build($normalizedParam);
+        $this->queryParts->where=WhereBuilder::build($normalizedParam);
         return $this;
     }
 
+    public function sum(string $column):QueryBuilder
+    {
+        QueryValidator::validateAllowedParameters([$column], $this->allowed, $this->table);
+        $this->queryParts->select="SUM($column) ";
+        $this->queryParts->aggregates=true;
+        return $this;
+    }
+
+    public function min(string $column):mixed 
+    {
+        QueryValidator::validateAllowedParameters([$column], $this->allowed, $this->table);
+        return new Repository($this->table,$this->allowed, $this->modelClass)->getAggregateResult($column, "MIN");
+    }
+
+    public function max(string $column):mixed 
+    {
+        QueryValidator::validateAllowedParameters([$column], $this->allowed, $this->table);
+        return new Repository($this->table,$this->allowed, $this->modelClass)->getAggregateResult($column, "MAX");
+    }
+
+    public function avg(string $column):mixed 
+    {
+        QueryValidator::validateAllowedParameters([$column], $this->allowed, $this->table);
+        return new Repository($this->table,$this->allowed, $this->modelClass)->getAggregateResult($column, "AVG");
+    }
 
     public function groupBy(string $param):QueryBuilder
     {
-        $this->query["groupBy"]=" GROUP BY " . $param;
+        $this->queryParts->groupBy=" GROUP BY " . $param;
         return $this;
     }
 
     public function orderBy(string $param,string $direction="ASC"):QueryBuilder
     {
-        $this->query["orderBy"]=" ORDER BY " . $param . " " . strtoupper($direction) . "";
+        $this->queryParts->orderBy=" ORDER BY " . $param . " " . strtoupper($direction) . "";
         return $this;
     }
 
     public function take(int $param):QueryBuilder
     {
-        $this->query["limit"]=" LIMIT " . $param;
+        $this->queryParts->limit=" LIMIT " . $param;
         return $this;
     }
 
     public function get():array
     {
-        return new Repository($this->table,$this->allowed, $this->modelClass)->select($this->query);
+        return new Repository($this->table,$this->allowed, $this->modelClass)->select($this->queryParts);
+    }
+
+    public function getScalar():mixed
+    {
+        //QueryValidator::validateAggregates($this->query);
+        return new Repository($this->table,$this->allowed, $this->modelClass)->selectScalar($this->queryParts);
     }
 
     public function first():?Model
     {
-        $res=new Repository($this->table,$this->allowed, $this->modelClass)->select($this->query);
+        $res=new Repository($this->table,$this->allowed, $this->modelClass)->select($this->queryParts);
         if(!empty($res))
             return $res[0];
         return null;

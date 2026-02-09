@@ -2,6 +2,7 @@
 
 namespace Src\Queries;
 
+use App\Http\Requests\Request;
 use Src\Models\ModelHydrator;
 use Src\Queries\QueryBuilder;
 use Src\Queries\QuerySqlBuilder;
@@ -9,7 +10,7 @@ use Src\Queries\QueryExecutor;
 use Src\Queries\TableSchema;
 use Src\Database;
 use Src\Exceptions\RecordNotFoundException;
-use Src\Exceptions\ColumnNotInAllowedException;
+use Src\Exceptions\ColumnNotFoundinAllowedException;
 use Src\Exceptions\DeleteFailedException;
 use Src\Exceptions\InsertFailedException;
 use Src\Exceptions\UpdateFailedException;
@@ -29,9 +30,11 @@ class Repository{
         $this->pdo=Database::getConnection();
     }
 
-    public function select(array $query):array
+    public function select(QueryParts $queryParts):array
     {
-        [$sql,$param]=QuerySqlBuilder::buildSelect($this->table,$query);
+        [$sql,$param]=QuerySqlBuilder::buildSelect($this->table,$queryParts);
+        //print_r($sql); die();
+        //$sql="SELECT SUM(id) from exercises WHERE id in (:id_0,:id_1)";
         //die($sql);
         [$stdObjects,$columns]=QueryExecutor::executeSelect(
             $this->pdo, 
@@ -43,6 +46,13 @@ class Repository{
             throw new RecordNotFoundException;
 
         return ModelHydrator::hydrateObjects($this->table, $this->modelClass, $stdObjects, $columns);
+    }
+
+    public function selectScalar(QueryParts $queryParts):mixed
+    {
+        [$sql,$param]=QuerySqlBuilder::buildSelectScalar($this->table,$queryParts);
+
+        return true;
     }
 
     public function selectAll():array
@@ -80,7 +90,7 @@ class Repository{
         $all = $data instanceof Request ? $data->getAll() : $data;
         
         if(!$this->inAllowed($all))
-            throw new ColumnNotFoundInAllowedException;
+            throw new ColumnNotFoundinAllowedException;
 
         $timestamp = date('Y-m-d H:i:s', time());
         if(TableSchema::createdAtExist($this->table))
@@ -140,6 +150,14 @@ class Repository{
                 return false;
         }
         return true;
+    }
+
+    public function getAggregateResult(string $column, string $function):mixed
+    {
+        $sql=QuerySqlBuilder::buildAggregate($this->table, $column, $function);
+        $res=QueryExecutor::executeQuery($this->pdo, $sql);
+
+        return $res[0]->result;
     }
 
 }

@@ -2,10 +2,10 @@
 
 namespace Src\Queries;
 
-final readonly class QueryParts
+final class QueryParts
 {
     public function __construct(
-        public array $select = [],
+        public array|string $select = [],
         public string $selectRaw = "",
         public bool $aggregates = false,
         public array $where = [
@@ -14,6 +14,6 @@ final readonly class QueryParts
         ],
         public string $groupBy = "",
         public string $orderBy = "",
-        public int $limit= 0
+        public string $limit= ""
     ){}
 }
