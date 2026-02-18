@@ -16,6 +16,7 @@ class QueryExecutor{
             $meta=$stmt->getColumnMeta($i);
             $columns[]=$meta["name"];
         }
+        
         return [$stmt->fetchAll(),$columns];
     }
 
@@ -26,7 +27,6 @@ class QueryExecutor{
         
         return $stmt->fetchAll();
     }
-
 
     public static function executeNonQuery(PDO $pdo, string $sql, array $param=[]):bool 
     {

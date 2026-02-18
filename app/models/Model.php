@@ -14,9 +14,49 @@ abstract class Model
     //polja koja ce se kreirati kao posebne varijable u child klasi
     protected array $fields;
 
-    public static function query():QueryBuilder
+    public static function select(...$columns):QueryBuilder
     {
-        return static::createQueryBuilder();
+        return static::createQueryBuilder()->select($columns);
+    }
+
+    public static function selectRaw(string $sql):QueryBuilder 
+    {
+        return static::createQueryBuilder()->selectRaw($sql);
+    }
+
+    public static function count(string $column):QueryBuilder
+    {
+        return static::createQueryBuilder()->count($column);
+    }
+
+    public static function sum(string $column):QueryBuilder
+    {
+        return static::createQueryBuilder()->sum($column);
+    }
+
+    public static function min(string $column):mixed 
+    {
+        return static::createQueryBuilder()->min($column);
+    }
+
+    public static function max(string $column):mixed 
+    {
+        return static::createQueryBuilder()->max($column);
+    }
+
+    public static function avg(string $column):mixed 
+    {
+        return static::createQueryBuilder()->avg($column);
+    }
+
+    // public static function query():QueryBuilder
+    // {
+    //     return static::createQueryBuilder();
+    // }
+
+    public static function where(array $param):QueryBuilder 
+    {
+        return static::createQueryBuilder()->where($param);
     }
 
     public static function all():array 

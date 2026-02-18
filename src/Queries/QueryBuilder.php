@@ -6,72 +6,119 @@ use App\Http\Requests\Request;
 use App\Models\Model;
 use Src\Queries\Repository;
 use Src\Queries\QueryValidator;
+use Src\Queries\WhereBuilder;
+use Src\Queries\QueryParts;
 
 class QueryBuilder
 {
-
-    private array $query=[
-        "where" => [
-            "columns" => [],
-            "sql" => ""
-        ],
-        "groupBy" => "",
-        "orderBy" => "",
-        "limit" => 0
-    ];
+    private QueryParts $queryParts;
 
     public function __construct(
         private string $table, 
         private string $modelClass, 
         private array $allowed
-    ){}
+    ){
+        $this->queryParts = new QueryParts();
+    }
+
+
+    public function select(array $columns):QueryBuilder 
+    {
+        QueryValidator::validateAllowedParameters($columns, $this->allowed, $this->table);
+        $this->queryParts->select=$columns;
+
+        return $this;
+    }
+
+    public function selectRaw(string $sql):QueryBuilder 
+    {
+        //QueryValidator::validateSelect($this->query);
+        $this->queryParts->selectRaw=$sql;
+        return $this;
+    }
 
     public function where(array $param):QueryBuilder
     {
-        $temp=" WHERE ";
-        $i=0;
+        //print_r($this->queryParts); die();
+        QueryValidator::validateAllowedParameters(array_keys($param), $this->allowed, $this->table);
+        $normalizedParam=QueryNormalizer::normalizeWhere($param);
 
-        QueryValidator::validateAllowedParameters($param, $this->allowed, $this->table);
-        
-        foreach($param as $column => $value)
-        {
-            if($i>0)
-                $temp.="AND ";
-            $temp.=$column . "=:" . $column . " ";
-            $i++;
-            $this->query["where"]["columns"][$column]=$value;
-        }
-        $this->query["where"]["sql"]=$temp;
+        $this->queryParts->where=WhereBuilder::build($normalizedParam);
+        return $this;
+    }
 
+    public function sum(string $column):QueryBuilder
+    {
+        QueryValidator::validateAllowedParameters([$column], $this->allowed, $this->table);
+        $this->queryParts->select="SUM($column) ";
+        $this->queryParts->aggregates=true;
+        return $this;
+    }
+
+    public function count(string $column):QueryBuilder
+    {
+        QueryValidator::validateAllowedParameters([$column], $this->allowed, $this->table);
+        $this->queryParts->select="COUNT($column) ";
+        $this->queryParts->aggregates=true;
+        return $this;
+    }
+
+    public function min(string $column):QueryBuilder
+    {
+        QueryValidator::validateAllowedParameters([$column], $this->allowed, $this->table);
+        $this->queryParts->select="MIN($column) ";
+        $this->queryParts->aggregates=true;
+        return $this;
+    }
+
+    public function max(string $column):QueryBuilder
+    {
+        QueryValidator::validateAllowedParameters([$column], $this->allowed, $this->table);
+        $this->queryParts->select="MAX($column) ";
+        $this->queryParts->aggregates=true;
+        return $this;
+    }
+
+    public function avg(string $column):QueryBuilder
+    {
+        QueryValidator::validateAllowedParameters([$column], $this->allowed, $this->table);
+        $this->queryParts->select="AVG($column) ";
+        $this->queryParts->aggregates=true;
         return $this;
     }
 
     public function groupBy(string $param):QueryBuilder
     {
-        $this->query["groupBy"]=" GROUP BY " . $param;
+        $this->queryParts->groupBy=" GROUP BY " . $param;
         return $this;
     }
 
     public function orderBy(string $param,string $direction="ASC"):QueryBuilder
     {
-        $this->query["orderBy"]=" ORDER BY " . $param . " " . strtoupper($direction) . "";
+        $this->queryParts->orderBy=" ORDER BY " . $param . " " . strtoupper($direction) . "";
         return $this;
     }
 
     public function take(int $param):QueryBuilder
     {
-        $this->query["limit"]=" LIMIT " . $param;
+        $this->queryParts->limit=" LIMIT " . $param;
         return $this;
     }
 
     public function get():array
     {
-        return new Repository($this->table,$this->allowed, $this->modelClass)->select($this->query);
+        return new Repository($this->table,$this->allowed, $this->modelClass)->select($this->queryParts);
+    }
+
+    public function getScalar():mixed
+    {
+        QueryValidator::validateAggregates($this->queryParts);
+        return new Repository($this->table,$this->allowed, $this->modelClass)->selectScalar($this->queryParts);
     }
 
     public function first():?Model
     {
-        $res=new Repository($this->table,$this->allowed, $this->modelClass)->select($this->query);
+        $res=new Repository($this->table,$this->allowed, $this->modelClass)->select($this->queryParts);
         if(!empty($res))
             return $res[0];
         return null;
