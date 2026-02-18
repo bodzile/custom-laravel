@@ -117,12 +117,16 @@
 
 [FEATURE][QUERYBUILDER,MODEL] - Add expansion of model functionality 
 *using like +
-*add >,<, <=, >=
+*add >,<, <=, >= +
 *add functions SUM, COUNT, AVG, MIN, MAX
 *add group by functionality
 *add join
 
+[FIX] - Add readonly class for query parts because of usage of array outside of query builder
+
 [FIX] - buildSingleSelect in QuerySqlBuilder must equal primary key of table not id ++
+
+[FIX][ENUM]
 
 [REFACTOR][ROUTE] - Set all classes with namespace in Route
 

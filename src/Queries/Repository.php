@@ -14,7 +14,6 @@ use Src\Exceptions\ColumnNotFoundinAllowedException;
 use Src\Exceptions\DeleteFailedException;
 use Src\Exceptions\InsertFailedException;
 use Src\Exceptions\UpdateFailedException;
-
 use PDO;
 
 
@@ -33,9 +32,7 @@ class Repository{
     public function select(QueryParts $queryParts):array
     {
         [$sql,$param]=QuerySqlBuilder::buildSelect($this->table,$queryParts);
-        //print_r($sql); die();
-        //$sql="SELECT SUM(id) from exercises WHERE id in (:id_0,:id_1)";
-        //die($sql);
+
         [$stdObjects,$columns]=QueryExecutor::executeSelect(
             $this->pdo, 
             $sql, 
@@ -50,9 +47,21 @@ class Repository{
 
     public function selectScalar(QueryParts $queryParts):mixed
     {
-        [$sql,$param]=QuerySqlBuilder::buildSelectScalar($this->table,$queryParts);
+        [$sql,$param]=QuerySqlBuilder::buildSelect($this->table,$queryParts);
 
-        return true;
+//        $stdObjects=QueryExecutor::executeQuery(
+//            $this->pdo,
+//            $sql,
+//            $param
+//        );
+//
+//        if(!$stdObjects)
+//            throw new RecordNotFoundException;
+
+        $res=QueryExecutor::executeQuery($this->pdo, $sql,  $param);
+        print_r($res[0]->result); die();
+
+        return $res[0]->result;
     }
 
     public function selectAll():array

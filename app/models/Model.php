@@ -24,6 +24,31 @@ abstract class Model
         return static::createQueryBuilder()->selectRaw($sql);
     }
 
+    public static function count(string $column):QueryBuilder
+    {
+        return static::createQueryBuilder()->count($column);
+    }
+
+    public static function sum(string $column):QueryBuilder
+    {
+        return static::createQueryBuilder()->sum($column);
+    }
+
+    public static function min(string $column):mixed 
+    {
+        return static::createQueryBuilder()->min($column);
+    }
+
+    public static function max(string $column):mixed 
+    {
+        return static::createQueryBuilder()->max($column);
+    }
+
+    public static function avg(string $column):mixed 
+    {
+        return static::createQueryBuilder()->avg($column);
+    }
+
     // public static function query():QueryBuilder
     // {
     //     return static::createQueryBuilder();

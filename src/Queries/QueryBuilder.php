@@ -39,6 +39,7 @@ class QueryBuilder
 
     public function where(array $param):QueryBuilder
     {
+        //print_r($this->queryParts); die();
         QueryValidator::validateAllowedParameters(array_keys($param), $this->allowed, $this->table);
         $normalizedParam=QueryNormalizer::normalizeWhere($param);
 
@@ -54,22 +55,36 @@ class QueryBuilder
         return $this;
     }
 
-    public function min(string $column):mixed 
+    public function count(string $column):QueryBuilder
     {
         QueryValidator::validateAllowedParameters([$column], $this->allowed, $this->table);
-        return new Repository($this->table,$this->allowed, $this->modelClass)->getAggregateResult($column, "MIN");
+        $this->queryParts->select="COUNT($column) ";
+        $this->queryParts->aggregates=true;
+        return $this;
     }
 
-    public function max(string $column):mixed 
+    public function min(string $column):QueryBuilder
     {
         QueryValidator::validateAllowedParameters([$column], $this->allowed, $this->table);
-        return new Repository($this->table,$this->allowed, $this->modelClass)->getAggregateResult($column, "MAX");
+        $this->queryParts->select="MIN($column) ";
+        $this->queryParts->aggregates=true;
+        return $this;
     }
 
-    public function avg(string $column):mixed 
+    public function max(string $column):QueryBuilder
     {
         QueryValidator::validateAllowedParameters([$column], $this->allowed, $this->table);
-        return new Repository($this->table,$this->allowed, $this->modelClass)->getAggregateResult($column, "AVG");
+        $this->queryParts->select="MAX($column) ";
+        $this->queryParts->aggregates=true;
+        return $this;
+    }
+
+    public function avg(string $column):QueryBuilder
+    {
+        QueryValidator::validateAllowedParameters([$column], $this->allowed, $this->table);
+        $this->queryParts->select="AVG($column) ";
+        $this->queryParts->aggregates=true;
+        return $this;
     }
 
     public function groupBy(string $param):QueryBuilder
@@ -97,7 +112,7 @@ class QueryBuilder
 
     public function getScalar():mixed
     {
-        //QueryValidator::validateAggregates($this->query);
+        QueryValidator::validateAggregates($this->queryParts);
         return new Repository($this->table,$this->allowed, $this->modelClass)->selectScalar($this->queryParts);
     }
 

@@ -6,6 +6,7 @@ use Exception;
 use Src\Exceptions\ColumnNotFoundInAllowedException;
 use Src\Exceptions\InvalidAggregateQueryException;
 use Src\Queries\TableSchema;
+use Src\Queries\QueryBuilder;
 
 class QueryValidator{
 
@@ -23,10 +24,11 @@ class QueryValidator{
         }
     }
 
-    public static function validateAggregates(array $queryParts):void
+    public static function validateAggregates(QueryParts $queryParts):void
     {
-        if(!empty($queryParts["select"]) && $queryParts["aggregates"])
+        if(!$queryParts->aggregates)
             throw new InvalidAggregateQueryException;
+
     }
 
 }

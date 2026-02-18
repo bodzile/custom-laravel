@@ -14,11 +14,15 @@ class MyController extends Controller
 
         //trebalo bi da vrati ili objekat ili niz objekata instance MyModel ili Model da mogu da se setuju polja
         //$users=MyModel::query()->where(["difficulty" => "easy"])->get();
-        $users=MyModel::selectRaw("name, difficulty")->where([
+
+        $res=MyModel::sum("id")->where(["id" => ["in",[13,15]]])->getScalar();
+        print_r($res); die();
+        //die((string)$res);
+        $users=MyModel::where([
             //"difficulty" => "hard",
             "name" => ["like","%s%"],
             //"id" => ["in",[15,13]]
-        ])->take(3)->orderBy("id")->get();
+        ])->get();
 
         //$user=MyModel::find(100);
 

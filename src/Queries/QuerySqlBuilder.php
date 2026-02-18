@@ -10,6 +10,7 @@ class QuerySqlBuilder{
     {
         if(!empty($queryParts->select) && !$queryParts->aggregates)
         {
+
             $sql="SELECT ";
             $i=0;
             foreach($queryParts->select as $column)
@@ -25,7 +26,9 @@ class QuerySqlBuilder{
             $sql="SELECT "  . $queryParts->selectRaw . " from $table";
         else if($queryParts->aggregates)
         {
-            $sql="SELECT " . $queryParts->select . " from $table";
+
+            $sql="SELECT " . $queryParts->select . " AS result from $table";
+
         }
         else
             $sql="SELECT * from $table";
@@ -39,13 +42,14 @@ class QuerySqlBuilder{
                 if($key == "where")
                 {
                     $sql.=$value["sql"];
+                    //print_r($sql); die();
                     foreach($value["columns"] as $column => $columnValue)
                     {
                         $param[$column] = $columnValue;
                     }
                 }
 
-                else if($key != "select" && $key != "selectRaw")
+                else if($key != "select" && $key != "selectRaw" && $key!= "aggregates")
                     $sql.=$value;
             }
         }
@@ -70,8 +74,10 @@ class QuerySqlBuilder{
         return [$sql,$param];
     }
 
-    public static function buildSelectScalar($able,$query)
+    public static function buildSelectScalar($able,$query):array
     {
+
+        return ["", ""];
 
     }
 
