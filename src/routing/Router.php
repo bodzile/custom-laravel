@@ -45,6 +45,7 @@ class Router{
     {
         $url=RouterObjectBuilder::buildUrl();
         [$this->route, $routeParamValue]=RouterObjectBuilder::buildRouteAndParamValue($url);
+
         $this->request=RouterObjectBuilder::buildRequest($routeParamValue);
     }
 

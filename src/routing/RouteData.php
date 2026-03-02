@@ -2,7 +2,7 @@
 
 namespace Src\Routing;
 
-final readonly class RouteData{
+final class RouteData{
 
     public function __construct(
         public string $url="",

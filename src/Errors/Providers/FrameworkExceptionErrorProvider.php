@@ -24,7 +24,7 @@ class FrameworkExceptionErrorProvider implements ErrorProviderInterface{
         $errorData=ErrorDataAdapter::find($exceptionName);
         
         if(!$errorData)
-            return new ErrorData(900, "Unknown erro data","");
+            return new ErrorData(900, "Unknown error data","");
 
         return new ErrorData(
             $errorData->status_code,

@@ -27,13 +27,33 @@ Route::get("/pull/{s:MyModel}","MyController","showPull")
   ->build();
 
 
-Route::middleware(["Auth","Log"])->prefix("/admin/rnd")->group(function(){
+//Route::prefix("/c2")->name("c6.aa")->group(function(){++
+//    Route::view("/contact2","welcome")->build();
+//});
 
-  Route::get("/random","MyController","index")
-    ->name("admin.testPage2")->build();
+
+
+
+Route::middleware(["Auth","Log"])->name("admin.")->prefix("/admin/rnd1")->group(function(){
+
+  Route::get("/random","MyController","index")->prefix("/prefix")
+    ->name("testPage2")->build();
 
   Route::get("/random2","MyController","index2")
-    ->name("admin.addUser2")->build();
+    ->name("addUser2")->build();
+
+  Route::prefix("/c")->name("a2.")->group(function(){
+      Route::view("/contact","contact")->name("Contact")->build();
+
+      Route::prefix("/c2")->name("a3.")->group(function(){
+          Route::view("/kontakt-forma","contact")->name("kontakt-forma")->build();
+      });
+
+      Route::view("/nova-ruta","contact")->name("Contact2")->build();
+
+  });
+
+    Route::view("/random3", "contact")->name("contact")->build();
 
 });
   

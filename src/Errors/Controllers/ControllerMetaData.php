@@ -1,11 +1,11 @@
 <?php
 
-namespace Src\Controllers;
+namespace Src\Errors\Controllers;
 
 use App\Http\Controllers\Controller;
-use Src\Exceptions\ControllerMethodNotFoundException;
 use ReflectionClass;
 use ReflectionException;
+use Src\Exceptions\ControllerMethodNotFoundException;
 
 class ControllerMetaData{
 

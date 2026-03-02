@@ -8,7 +8,8 @@ use Src\Routing\RouteValidator;
 class Route
 {
     public static array $routes=[];
-    public static $groupActive=false;
+    public static array $groupStack=[];
+    public static bool $groupActive=false;
     private static array $tempRouteData=[
         "url" => "",
         "method" => "",
@@ -61,16 +62,21 @@ class Route
 
     public static function name(string $name):Route
     {
+        if(static::$groupActive)
+            $name=static::$tempRouteGroupData['name'] . $name;
+
         static::$tempRouteData=array_replace(static::$tempRouteData,[
             "name" => $name
         ]);
-
 
         return new self();
     }
 
     public static function prefix(string $prefix):Route
     {
+        if(static::$groupActive)
+            $prefix=static::$tempRouteGroupData['prefix'] . $prefix;
+
         static::$tempRouteData=array_replace(static::$tempRouteData, [
             "prefix" => $prefix
         ]);
@@ -88,10 +94,15 @@ class Route
             {
                 $temp[$i++]=$class_prefix . $middleware;
             }
+
+            if(static::$groupActive && !empty(static::$tempRouteGroupData['middlewares']))
+                $temp=array_merge(static::$tempRouteGroupData['middlewares'], $temp);
         }
         else
         {
             $temp=[$class_prefix . $all_middlewares];
+            if(static::$groupActive && !empty(static::$tempRouteGroupData['middlewares']))
+                $temp=array_merge(static::$tempRouteGroupData['middlewares'], $temp);
         }
 
         static::$tempRouteData=array_replace(static::$tempRouteData, [
@@ -103,17 +114,40 @@ class Route
 
     public static function group(callable $function):void
     {
-        static::$groupActive=true;
+        //print_r(static::$groupActive?"jeste":"nije"); die();
+
+//        echo "<br><h4>Group stack: </h4><br>";
+//        print_r(static::$groupStack);
+//        echo "<br>";
+
+        if(static::$groupActive)
+            static::concatTempGroupData();
+        else
+            static::$groupActive=true;
+
         static::$tempRouteGroupData=static::$tempRouteData;
+        static::$groupStack[]=static::$tempRouteGroupData;
         
         $function();
 
-        static::$groupActive=false;
+        array_pop(static::$groupStack);
+        if(count(static::$groupStack) >= 1)
+        {
+            static::$tempRouteData=static::$groupStack[count(static::$groupStack)-1];
+            static::$tempRouteGroupData=static::$tempRouteData;
+        }
+
+        if(empty(static::$groupStack))
+        {
+            static::$groupActive = false;
+            static::clearRouteData();
+        }
     }
 
     public function build():void
     {
         $route=$this->buildRouteData();
+        print_r("Url: " . $route->url . " Name: " . $route->name); echo "<br>";
         $this->resetRouteData();
         RouteValidator::validate($route);
 
@@ -145,20 +179,54 @@ class Route
         }
         else
         {
-            static::$tempRouteData=[
-                "url" => "",
-                "method" => "",
-                "prefix" => "",
-                "name" => "",
-                "controller" => "",
-                "function" => "",
-                "view" => "",
-                "middlewares" => [],
-                "params" => []
-            ];
-            static::$tempRouteGroupData=static::$tempRouteData;
+           static::clearRouteData();
         }
         
+    }
+
+    private static function clearRouteData():void
+    {
+        static::$tempRouteData=[
+            "url" => "",
+            "method" => "",
+            "prefix" => "",
+            "name" => "",
+            "controller" => "",
+            "function" => "",
+            "view" => "",
+            "middlewares" => [],
+            "params" => []
+        ];
+        static::$tempRouteGroupData=static::$tempRouteData;
+    }
+
+    //it on beginning of every tempRouteData values of tempRouteGroupData
+    //example:
+    //tempRouteData["middlewares"]=["LatestGroupMiddleware"]
+    //tempRouteData["middlewares"]=["ParenGroupMiddleware", "LatestGroupMiddleware"]
+    private static function concatTempGroupData():void
+    {
+
+        //prefix
+//        if(isset(static::$tempRouteData["prefix"]))
+//        {
+//            echo "Temp route data prefix : " . static::$tempRouteData["prefix"] . "<br>" . "Temp route group data prefix: " . static::$tempRouteGroupData["prefix"];
+//            static::$tempRouteData["prefix"]= static::$tempRouteGroupData["prefix"] . static::$tempRouteData["prefix"];
+//        }
+
+        //name
+//        echo "Temp route data :<br>";
+//        print_r( static::$tempRouteData); echo "<br>Tenmp route group data: "; print_r(static::$tempRouteGroupData); echo "<br>";
+//        if(isset(static::$tempRouteData["name"]))
+//        {
+//            static::$tempRouteGroupData["name"] = static::$tempRouteGroupData["name"] . static::$tempRouteData["name"];
+//            //echo static::$tempRouteGroupData["name"] . "<br>";
+//        }
+        //if(isset(static::$tempRouteData[""]))
+
+       // print_r(static::$tempRouteData["name"]);  die();
+        //middlewares
+
     }
 
 }

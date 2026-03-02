@@ -14,6 +14,7 @@
     <div style="max-width: 1200px; margin: 100px auto;">
         <h1 style="font-size: 3rem; ">[STATUS_CODE: <?php echo $data->statusCode ?> ] - <?php echo $data->title ?></h1>
         <h4 style="font-size: 1.5rem; color: rgba(136, 125, 125, 1);"><?php echo $data->description ?></h4>
+        <p><?php  ?></p>
     </div>
     
 </body>

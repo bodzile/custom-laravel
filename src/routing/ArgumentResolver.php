@@ -4,9 +4,9 @@ namespace Src\Routing;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Request;
-use Src\Models\ModelBinder;
-use Src\Controllers\ControllerMetaData;
+use Src\Errors\Controllers\ControllerMetaData;
 use Src\Exceptions\ModelNotMatchInRouteException;
+use Src\Models\ModelBinder;
 
 class ArgumentResolver{
 

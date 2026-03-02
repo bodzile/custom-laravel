@@ -115,18 +115,19 @@
 *add all errors in database with right status code
 [FEATURE][ERROR-HANDLING-05] - Handle PHP errors ++
 
-[FEATURE][QUERYBUILDER,MODEL] - Add expansion of model functionality 
-*using like +
+[FEATURE][QUERYBUILDER,MODEL] - Add expansion of model functionality +
+*using like + 
 *add >,<, <=, >= +
-*add functions SUM, COUNT, AVG, MIN, MAX
-*add group by functionality
-*add join
+*add functions SUM, COUNT, AVG, MIN, MAX + 
+*add group by functionality -
+*add join -
 
-[FIX] - Add readonly class for query parts because of usage of array outside of query builder
+[FIX] - Add readonly class for query parts because of usage of array outside of query builder +
 
 [FIX] - buildSingleSelect in QuerySqlBuilder must equal primary key of table not id ++
 
-[FIX][ENUM]
+[FIX][ENUM]  --
+*No need for enum, all errors data are stored in Errors table
 
 [REFACTOR][ROUTE] - Set all classes with namespace in Route
 

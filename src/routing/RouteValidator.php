@@ -36,7 +36,7 @@ class RouteValidator{
             if($this->route->url == $route->url)
                 throw new RouteAlreadyExistException;
             if( !empty($route->name) && ($this->route->name == $route->name) )
-                throw new RouteNameAlreadyExistException;       
+                throw new RouteNameAlreadyExistException;
         }
     }
 
