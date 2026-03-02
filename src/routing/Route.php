@@ -116,9 +116,6 @@ class Route
     {
         //print_r(static::$groupActive?"jeste":"nije"); die();
 
-//        echo "<br><h4>Group stack: </h4><br>";
-//        print_r(static::$groupStack);
-//        echo "<br>";
 
         if(static::$groupActive)
             static::concatTempGroupData();
