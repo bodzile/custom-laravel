@@ -11,6 +11,7 @@ class MyController extends Controller
     {
         //$users=MyModel::create(["name" => "barbel row", "difficulty" => "medium", "type" => "ledja"]);
 
+        require_once "database/migrations/migration1.php";
 
         //trebalo bi da vrati ili objekat ili niz objekata instance MyModel ili Model da mogu da se setuju polja
         //$users=MyModel::query()->where(["difficulty" => "easy"])->get();
