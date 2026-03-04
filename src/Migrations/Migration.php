@@ -2,7 +2,7 @@
 
 namespace Src\Migrations;
 
-use Src\Migrations\MigrationInterface;
+use Src\Migrations\Interfaces\MigrationInterface;
 
 abstract class Migration implements MigrationInterface
 {

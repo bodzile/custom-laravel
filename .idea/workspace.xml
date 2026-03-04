@@ -5,17 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ecb204f6-f270-46a1-8d21-3cb3523108f8" name="Changes" comment="[FIX] - Fixed aggreagate function logic">
-      <change afterPath="$PROJECT_DIR$/database/migrations/migration1.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Blueprint.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Migrations/ColumnDefinition.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Migrations/ColumnModifier.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Migrations/ColumnTypes.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Migration.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Migrations/MigrationInterface.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Schema.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Migrations/Definitions/KeyDefinition.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Migrations/Enums/KeyType.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/http/Controllers/MyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/http/Controllers/MyController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routing/Route.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/routing/Route.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/migration1.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/migration1.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Blueprint.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Schema/Blueprint.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/ColumnDefinition.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Definitions/ColumnDefinition.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/ColumnModifier.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Definitions/ColumnModifier.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/ColumnTypes.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Enums/ColumnTypes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Migration.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Migration.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/MigrationInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Interfaces/MigrationInterface.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Schema.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Schema/Schema.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +77,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "feature-migrations",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "last_opened_file_path": "C:/xampp/htdocs/custom laravel",
@@ -112,6 +112,7 @@
       <workItem from="1771405813326" duration="11781000" />
       <workItem from="1771932950512" duration="6310000" />
       <workItem from="1772190727841" duration="34344000" />
+      <workItem from="1772629105500" duration="10105000" />
     </task>
     <task id="LOCAL-00001" summary="Added QueryParts class">
       <option name="closed" value="true" />

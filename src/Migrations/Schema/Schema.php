@@ -1,8 +1,6 @@
 <?php
 
-namespace Src\Migrations;
-
-use Src\Migrations\Migration;
+namespace Src\Migrations\Schema;
 
 class Schema
 {

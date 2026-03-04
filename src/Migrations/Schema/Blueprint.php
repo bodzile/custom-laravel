@@ -1,29 +1,50 @@
 <?php
 
-namespace Src\Migrations;
+namespace Src\Migrations\Schema;
 
-use Src\Migrations\ColumnTypes;
-use Src\Migrations\ColumnDefinition;
-use Src\Migrations\ColumnModifier;
+use Src\Migrations\Definitions\ColumnDefinition;
+use Src\Migrations\Definitions\ColumnModifier;
+use Src\Migrations\Definitions\KeyDefinition;
+use Src\Migrations\Enums\ColumnTypes;
 
 class Blueprint
 {
 
     private static array $columns=[];
+    private static array $keys=[];
 
     public static function print()
     {
-        print_r(static::$columns);
+        foreach(static::$columns as $column)
+        {
+            echo "Column:<br>";
+            print_r($column);
+            echo "<br>";
+        }
+
+        echo "<br>Keys: ";
+        foreach(static::$keys as $key)
+        {
+            echo "<br>";
+            print_r($key);
+            echo "<br>";
+        }
     }
 
     public function id():void
     {
+        $this->createAndAddColumnDefinition("id", ColumnTypes::INTEGER)->primary()->autoIncrement();
+    }
 
+    public function foreignId(string $name):KeyDefinition
+    {
+        return $this->createAndAddColumnDefinition($name, ColumnTypes::INTEGER)->foreign();
     }
 
     public function timestamps():void
     {
-
+        $this->createAndAddColumnDefinition("created_at", ColumnTypes::TIMESTAMP)->default("CURRENT_TIMESTAMP");
+        $this->createAndAddColumnDefinition("updated_at", ColumnTypes::TIMESTAMP)->default("CURRENT_TIMESTAMP");
     }
     public function string(string $name, int $length=0):ColumnModifier
     {
@@ -80,11 +101,16 @@ class Blueprint
         return $this->createAndAddColumnDefinition($name, ColumnTypes::JSON);
     }
 
+    public function addKey(KeyDefinition $key):void
+    {
+        static::$keys[] = $key;
+    }
+
     private function createAndAddColumnDefinition(string $name, ColumnTypes $type, int $length=255):ColumnModifier
     {
         $column=new ColumnDefinition($type, $name, $length);
         static::$columns[]=$column;
-        return new ColumnModifier($column);
+        return new ColumnModifier($this, $column);
     }
 
     public function dropColumn(string|array $name):void

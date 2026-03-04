@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Migrations;
+namespace Src\Migrations\Interfaces;
 
 interface MigrationInterface
 {
