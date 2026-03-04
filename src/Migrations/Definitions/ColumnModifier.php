@@ -1,14 +1,29 @@
 <?php
 
-namespace Src\Migrations;
+namespace Src\Migrations\Definitions;
 
-use Src\Migrations\ColumnDefinition;
+
+use Src\Migrations\Enums\KeyType;
+use Src\Migrations\Schema\Blueprint;
 
 class ColumnModifier
 {
     public function __construct(
+        private Blueprint $table,
         private ColumnDefinition $column
     ){}
+
+    public function primary():ColumnModifier
+    {
+        $this->table->addKey(new KeyDefinition($this->column->name,KeyType::PRIMARY)); ;
+        return $this;
+    }
+    public function foreign():KeyDefinition
+    {
+        $key=new KeyDefinition($this->column->name, KeyType::FOREIGN);
+        $this->table->addKey($key); ;
+        return $key;
+    }
 
     public function default($value):ColumnModifier
     {
@@ -28,15 +43,11 @@ class ColumnModifier
         return $this;
     }
 
-    public function primary():ColumnModifier
-    {
-        $this->column->key="PRIMARY";
-        return $this;
-    }
+
 
     public function unique():ColumnModifier
     {
-        $this->column->key="UNIQUE";
+        $this->column->unique=true;
         return $this;
     }
 

@@ -1,18 +1,20 @@
 <?php
 
-namespace Src\Migrations;
+namespace Src\Migrations\Definitions;
 
-use Src\Migrations\ColumnTypes;
+use Src\Migrations\Enums\ColumnTypes;
 
 class ColumnDefinition
 {
 
+    public string $operation="ADD";
     public string|array $default="";
     public bool $nullable=false;
-    public string $key="";
+
+    public bool $unique=false;
     public bool $auto_increment=false;
 
-    public string $operation="ADD";
+
     public function __construct(
         public ColumnTypes $type,
         public string $name,
