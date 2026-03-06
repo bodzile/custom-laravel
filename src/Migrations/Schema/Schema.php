@@ -10,10 +10,10 @@ class Schema
 //        if(Schema::hasTable($tableName))
 //            throw new \Exception("Table '$tableName' already exists");
 
-        $table=new Blueprint();
-        $function($table);
-        Blueprint::print();
-//        $sql=SchemaSqlBuilder::buildBlueprint($table);
+        $blueprint=new Blueprint();
+        $function($blueprint);
+        //$blueprint->print();
+        $sql=SchemaSqlBuilder::create($tableName, $blueprint);
 //        SchemaExecutor::executeNonQuery($sql);
 //        print_r($table); die();
     }

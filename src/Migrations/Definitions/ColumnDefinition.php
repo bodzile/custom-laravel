@@ -7,7 +7,8 @@ use Src\Migrations\Enums\ColumnTypes;
 class ColumnDefinition
 {
 
-    public string $operation="ADD";
+    //add, alter
+    public string $operation="";
     public string|array $default="";
     public bool $nullable=false;
 
@@ -18,8 +19,13 @@ class ColumnDefinition
     public function __construct(
         public ColumnTypes $type,
         public string $name,
-        public int $length=255,
+        public ?int $length=null,
 
-    ){}
+    ){
+        if($this->length===null)
+            $this->length=$this->type->getDefaultLength();
+        else if($this->length == PHP_INT_MAX)
+            $this->length=$this->type->getMaxLength();
+    }
 
 }

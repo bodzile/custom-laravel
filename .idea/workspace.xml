@@ -4,18 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ecb204f6-f270-46a1-8d21-3cb3523108f8" name="Changes" comment="[FIX] - Fixed aggreagate function logic">
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Definitions/KeyDefinition.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Enums/KeyType.php" afterDir="false" />
+    <list default="true" id="ecb204f6-f270-46a1-8d21-3cb3523108f8" name="Changes" comment="Added id, timestamps and key logic in Blueprint">
+      <change afterPath="$PROJECT_DIR$/src/Migrations/Definitions/ColumnDefinitionToSqlConverter.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Migrations/Schema/SchemaSqlBuilder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/migration1.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/migration1.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/Blueprint.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Schema/Blueprint.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/ColumnDefinition.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Definitions/ColumnDefinition.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/ColumnModifier.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Definitions/ColumnModifier.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/ColumnTypes.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Enums/ColumnTypes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/Migration.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Migration.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/MigrationInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Interfaces/MigrationInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/Schema.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Schema/Schema.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Definitions/ColumnDefinition.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Definitions/ColumnDefinition.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Enums/ColumnTypes.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Enums/ColumnTypes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Schema/Blueprint.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Schema/Blueprint.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Schema/Schema.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Schema/Schema.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,28 +66,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "feature-migrations",
-    "ignore.virus.scanning.warn.message": "true",
-    "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "C:/xampp/htdocs/custom laravel",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature-migrations&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/custom laravel&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -112,7 +109,8 @@
       <workItem from="1771405813326" duration="11781000" />
       <workItem from="1771932950512" duration="6310000" />
       <workItem from="1772190727841" duration="34344000" />
-      <workItem from="1772629105500" duration="10105000" />
+      <workItem from="1772629105500" duration="16110000" />
+      <workItem from="1772735252200" duration="15827000" />
     </task>
     <task id="LOCAL-00001" summary="Added QueryParts class">
       <option name="closed" value="true" />
@@ -138,7 +136,31 @@
       <option name="project" value="LOCAL" />
       <updated>1771413483245</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added KeyDefinition and KeyType and refactored directories">
+      <option name="closed" value="true" />
+      <created>1772642076829</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1772642076829</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Fixed key constraints logic">
+      <option name="closed" value="true" />
+      <created>1772642162793</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1772642162793</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Added id, timestamps and key logic in Blueprint">
+      <option name="closed" value="true" />
+      <created>1772642184909</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1772642184909</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -159,6 +181,9 @@
     <MESSAGE value="Added QueryParts class" />
     <MESSAGE value="[REFACTOR] - Changed all use of query to QueryParts object" />
     <MESSAGE value="[FIX] - Fixed aggreagate function logic" />
-    <option name="LAST_COMMIT_MESSAGE" value="[FIX] - Fixed aggreagate function logic" />
+    <MESSAGE value="Added KeyDefinition and KeyType and refactored directories" />
+    <MESSAGE value="Fixed key constraints logic" />
+    <MESSAGE value="Added id, timestamps and key logic in Blueprint" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added id, timestamps and key logic in Blueprint" />
   </component>
 </project>

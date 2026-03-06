@@ -10,12 +10,12 @@ use Src\Migrations\Enums\ColumnTypes;
 class Blueprint
 {
 
-    private static array $columns=[];
-    private static array $keys=[];
+    private array $columns=[];
+    private array $keys=[];
 
-    public static function print()
+    public function print()
     {
-        foreach(static::$columns as $column)
+        foreach($this->columns as $column)
         {
             echo "Column:<br>";
             print_r($column);
@@ -23,7 +23,7 @@ class Blueprint
         }
 
         echo "<br>Keys: ";
-        foreach(static::$keys as $key)
+        foreach($this->keys as $key)
         {
             echo "<br>";
             print_r($key);
@@ -46,8 +46,9 @@ class Blueprint
         $this->createAndAddColumnDefinition("created_at", ColumnTypes::TIMESTAMP)->default("CURRENT_TIMESTAMP");
         $this->createAndAddColumnDefinition("updated_at", ColumnTypes::TIMESTAMP)->default("CURRENT_TIMESTAMP");
     }
-    public function string(string $name, int $length=0):ColumnModifier
+    public function string(string $name, ?int $length=null):ColumnModifier
     {
+        $length=$length ?? ColumnTypes::STRING->getDefaultLength();
         return $this->createAndAddColumnDefinition($name, ColumnTypes::STRING, $length);
     }
 
@@ -103,18 +104,28 @@ class Blueprint
 
     public function addKey(KeyDefinition $key):void
     {
-        static::$keys[] = $key;
+        $this->keys[] = $key;
     }
 
     private function createAndAddColumnDefinition(string $name, ColumnTypes $type, int $length=255):ColumnModifier
     {
         $column=new ColumnDefinition($type, $name, $length);
-        static::$columns[]=$column;
+        $this->columns[]=$column;
         return new ColumnModifier($this, $column);
     }
 
     public function dropColumn(string|array $name):void
     {
 
+    }
+
+    public function getColumns(): array
+    {
+        return $this->columns;
+    }
+
+    public function getKeys(): array
+    {
+        return $this->keys;
     }
 }

@@ -12,8 +12,8 @@ return new class extends Migration {
 
             $table->id();
 
-//            $table->string("test", 10)->default("aa");
-//            $table->string("name")->unique();
+            $table->string("test", 10)->default("aa")->nullable();
+            $table->string("name")->unique()->default("random");
             $table->foreignId("user_id")->references("id")->on("users");
 
             $table->timestamps();
