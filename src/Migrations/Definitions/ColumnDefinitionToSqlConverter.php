@@ -3,6 +3,7 @@
 namespace Src\Migrations\Definitions;
 
 use Src\Migrations\Enums\ColumnTypes;
+use Src\Migrations\Enums\SqlFunctions;
 
 class ColumnDefinitionToSqlConverter
 {
@@ -10,8 +11,10 @@ class ColumnDefinitionToSqlConverter
     {
         $type=self::typeToSql($column->type, $column->length);
         $null=self::nullableToSql($column->nullable);
+
         $default=self::defaultToSql($column->default);
-        $res=$column->operation . " " . $column->name . " " . $type . " " . $default . " " . $null ;  ;
+
+        $res=$column->operation . " " . $column->name . " " . $type . " " . $null . " " . $default  ;  ;
         return $res;
     }
 
@@ -23,15 +26,23 @@ class ColumnDefinitionToSqlConverter
         };
     }
 
-    public static function defaultToSql(string $default):string
+    public static function defaultToSql(mixed $default):string
     {
-        if($default=="")
+        if($default === "")
             return "";
-        $defaultValue=match($default){
-            "CURRENT_TIMESTAMP"=>"CURRENT_TIMESTAMP",
-            default => "'$default'"
-        };
-        return "DEFAULT $defaultValue";
+        if(is_string($default))
+            $res= "DEFAULT '$default'";
+        else if(is_bool($default))
+        {
+            $convertedBool = $default ? 'true' : 'false';
+            $res="DEFAULT " . strtoupper($convertedBool);
+        }
+        else if($default instanceof SqlFunctions)
+            $res="DEFAULT $default->value";
+        else
+            $res="DEFAULT $default";
+
+        return $res;
     }
 
     public static function nullableToSql(bool $nullable):string

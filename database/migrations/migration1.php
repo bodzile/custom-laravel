@@ -12,6 +12,7 @@ return new class extends Migration {
 
             $table->id();
 
+            $table->boolean("bul")->default(false)->nullable();
             $table->string("test", 10)->default("aa")->nullable();
             $table->string("name")->unique()->default("random");
             $table->foreignId("user_id")->references("id")->on("users");
@@ -26,4 +27,4 @@ return new class extends Migration {
         Schema::dropIfExists('test');
     }
 
-};
+}->up();

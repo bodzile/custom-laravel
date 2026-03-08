@@ -9,6 +9,9 @@ class MyController extends Controller
 {
     public function index(Request $request)
     {
+
+        require_once "database/migrations/migration1.php";
+
         $users = MyModel::where([
             "name" => ["like", "%s%"],
         ])->get();
@@ -28,7 +31,7 @@ class MyController extends Controller
         // echo $user->name . "<br>";
         // echo $user->difficulty . "<br>";
 
-        //require_once "database/migrations/migration1.php";
+
 
         // $user->name="novo";
         // $user->difficulty="hard";

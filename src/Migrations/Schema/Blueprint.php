@@ -6,6 +6,7 @@ use Src\Migrations\Definitions\ColumnDefinition;
 use Src\Migrations\Definitions\ColumnModifier;
 use Src\Migrations\Definitions\KeyDefinition;
 use Src\Migrations\Enums\ColumnTypes;
+use Src\Migrations\Enums\SqlFunctions;
 
 class Blueprint
 {
@@ -43,8 +44,8 @@ class Blueprint
 
     public function timestamps():void
     {
-        $this->createAndAddColumnDefinition("created_at", ColumnTypes::TIMESTAMP)->default("CURRENT_TIMESTAMP");
-        $this->createAndAddColumnDefinition("updated_at", ColumnTypes::TIMESTAMP)->default("CURRENT_TIMESTAMP");
+        $this->createAndAddColumnDefinition("created_at", ColumnTypes::TIMESTAMP)->default(SqlFunctions::CurrentTimestamp);
+        $this->createAndAddColumnDefinition("updated_at", ColumnTypes::TIMESTAMP)->default(SqlFunctions::CurrentTimestamp);
     }
     public function string(string $name, ?int $length=null):ColumnModifier
     {

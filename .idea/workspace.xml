@@ -4,16 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ecb204f6-f270-46a1-8d21-3cb3523108f8" name="Changes" comment="Added id, timestamps and key logic in Blueprint">
-      <change afterPath="$PROJECT_DIR$/cli.php" afterDir="false" />
+    <list default="true" id="ecb204f6-f270-46a1-8d21-3cb3523108f8" name="Changes" comment="Added cli command for test">
+      <change afterPath="$PROJECT_DIR$/src/Migrations/Enums/SqlFunctions.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/http/Controllers/MyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/http/Controllers/MyController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/MyModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/MyModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/migration1.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/migration1.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/global_functions.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/global_functions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/installed.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/installed.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Definitions/ColumnDefinition.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Definitions/ColumnDefinition.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Definitions/ColumnDefinitionToSqlConverter.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Definitions/ColumnDefinitionToSqlConverter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Definitions/ColumnModifier.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Definitions/ColumnModifier.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Schema/Blueprint.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Schema/Blueprint.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +114,8 @@
       <workItem from="1772190727841" duration="34344000" />
       <workItem from="1772629105500" duration="16110000" />
       <workItem from="1772735252200" duration="27711000" />
-      <workItem from="1772972286532" duration="630000" />
+      <workItem from="1772972286532" duration="752000" />
+      <workItem from="1773003199861" duration="4377000" />
     </task>
     <task id="LOCAL-00001" summary="Added QueryParts class">
       <option name="closed" value="true" />
@@ -165,7 +165,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772642184909</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Added cli command for test">
+      <option name="closed" value="true" />
+      <created>1772973699929</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1772973699929</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -189,6 +197,7 @@
     <MESSAGE value="Added KeyDefinition and KeyType and refactored directories" />
     <MESSAGE value="Fixed key constraints logic" />
     <MESSAGE value="Added id, timestamps and key logic in Blueprint" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added id, timestamps and key logic in Blueprint" />
+    <MESSAGE value="Added cli command for test" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added cli command for test" />
   </component>
 </project>

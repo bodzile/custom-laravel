@@ -9,9 +9,8 @@ class ColumnDefinition
 
     //add, alter
     public string $operation="";
-    public string|array $default="";
+    public mixed $default="";
     public bool $nullable=false;
-
     public bool $unique=false;
     public bool $auto_increment=false;
 

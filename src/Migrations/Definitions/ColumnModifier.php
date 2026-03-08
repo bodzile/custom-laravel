@@ -25,7 +25,7 @@ class ColumnModifier
         return $key;
     }
 
-    public function default($value):ColumnModifier
+    public function default(mixed $value):ColumnModifier
     {
         $this->column->default=$value;
         return $this;
