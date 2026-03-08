@@ -6,27 +6,12 @@ use Src\Routing\Route;
 
 require_once "vendor/autoload.php";
 
-enum Purpose:string {
-    case SINGLE_USE ="single";
-}
-
 
 function view($view,$data=[]):void
 {
     //extract otpakuje sve podatke
     extract($data);
     require_once "resources/views/{$view}.php";
-}
-
-// function viewRelative(string $viewPath, $data=[]):void
-// {
-//     extract($data);
-//     require_once  "/" . $viewPath . ".php";
-// }
-
-function getDatabaseParam()
-{
-    return Database::$db_info;
 }
 
 function root()
@@ -40,7 +25,7 @@ function redirect($path="")
     {
         header("Location: " . root() . $path);
     }   
-    return $this;
+    //return $this;
 }
 
 function route($route_name, array $param=[])
@@ -62,15 +47,4 @@ function route($route_name, array $param=[])
     }
 
     return root() . "/";
-}
-
-function compact2(...$keys)
-{
-    $result=[];
-    foreach($keys as $key)
-    {
-        global $$key;
-        $result[$key] = $$key;
-    }
-    return $result;
 }

@@ -9,11 +9,6 @@ class MyModel extends Model
     protected static array $allowed=[
         "name","type","difficulty"
     ];
-    
-    public function index()
-    {
-        return "Tabela: " ;
-    }
 
 
 }
