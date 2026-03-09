@@ -2,6 +2,8 @@
 
 namespace Src\Migrations\Schema;
 
+use Src\Queries\QueryExecutor;
+
 class Schema
 {
     public static function create(string $tableName, callable $function):void
@@ -12,10 +14,7 @@ class Schema
 
         $blueprint=new Blueprint();
         $function($blueprint);
-        //$blueprint->print();
-        $sql=SchemaSqlBuilder::create($tableName, $blueprint);
-//        SchemaExecutor::executeNonQuery($sql);
-//        print_r($table); die();
+        SchemaRepository::createTable($tableName, $blueprint);
     }
 
     public static function table(string $tableName, callable $function):void

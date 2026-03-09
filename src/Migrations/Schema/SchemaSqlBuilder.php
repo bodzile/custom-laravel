@@ -4,6 +4,7 @@ namespace Src\Migrations\Schema;
 
 use Src\Migrations\Definitions\ColumnDefinition;
 use Src\Migrations\Definitions\ColumnDefinitionToSqlConverter;
+use Src\Migrations\Definitions\KeyDefinitionToSqlConverter;
 
 class SchemaSqlBuilder
 {
@@ -11,25 +12,31 @@ class SchemaSqlBuilder
     {
         $columns=SchemaSqlBuilder::buildColumns($blueprint->getColumns());
         $keys=SchemaSqlBuilder::buildKeyConstraints($blueprint->getKeys());
+        if(!empty($keys))
+            $res=implode(",",[$columns,$keys]);
+        else
+            $res=$columns;
 
-        echo "<br>$columns<br>"; die();
-        $res="CREATE TABLE $table" . "($columns" . $keys . ");";
-
-        return $res;
+        return "CREATE TABLE $table($res);";
     }
 
     private static function buildColumns(array $columns):string
     {
-        $res="";
+        $res=[];
         foreach ($columns as $column)
         {
-            $res.=ColumnDefinitionToSqlConverter::convert($column) . ",<br>";
+            $res[]=ColumnDefinitionToSqlConverter::convert($column);
         }
-        return $res;
+        return implode(",", $res);
     }
 
     private static function buildKeyConstraints(array $keys):string
     {
-        return "";
+        $res=[];
+        foreach ($keys as $key)
+        {
+            $res[]=KeyDefinitionToSqlConverter::convert($key);
+        }
+        return implode(",", $res);
     }
 }
