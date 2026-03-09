@@ -34,12 +34,12 @@ class Blueprint
 
     public function id():void
     {
-        $this->createAndAddColumnDefinition("id", ColumnTypes::INTEGER)->primary()->autoIncrement();
+        $this->createAndAddColumnDefinition("id", ColumnTypes::BIG_INTEGER)->unsigned()->primary()->autoIncrement();
     }
 
     public function foreignId(string $name):KeyDefinition
     {
-        return $this->createAndAddColumnDefinition($name, ColumnTypes::INTEGER)->foreign();
+        return $this->createAndAddColumnDefinition($name, ColumnTypes::BIG_INTEGER)->unsigned()->foreign();
     }
 
     public function timestamps():void

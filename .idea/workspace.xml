@@ -4,15 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ecb204f6-f270-46a1-8d21-3cb3523108f8" name="Changes" comment="Added cli command for test">
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Enums/SqlFunctions.php" afterDir="false" />
+    <list default="true" id="ecb204f6-f270-46a1-8d21-3cb3523108f8" name="Changes" comment="Fix - Changed feature for default values in migrations">
+      <change afterPath="$PROJECT_DIR$/src/Migrations/Definitions/KeyDefinitionToSqlConverter.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Migrations/Schema/SchemaRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/http/Controllers/MyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/http/Controllers/MyController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/migration1.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/migration1.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Migrations/Definitions/ColumnDefinition.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Definitions/ColumnDefinition.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Migrations/Definitions/ColumnDefinitionToSqlConverter.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Definitions/ColumnDefinitionToSqlConverter.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Migrations/Definitions/ColumnModifier.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Definitions/ColumnModifier.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Migrations/Schema/Blueprint.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Schema/Blueprint.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Schema/Schema.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Schema/Schema.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Schema/SchemaSqlBuilder.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Schema/SchemaSqlBuilder.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +116,8 @@
       <workItem from="1772629105500" duration="16110000" />
       <workItem from="1772735252200" duration="27711000" />
       <workItem from="1772972286532" duration="752000" />
-      <workItem from="1773003199861" duration="4377000" />
+      <workItem from="1773003199861" duration="4502000" />
+      <workItem from="1773057182980" duration="8571000" />
     </task>
     <task id="LOCAL-00001" summary="Added QueryParts class">
       <option name="closed" value="true" />
@@ -173,7 +175,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772973699929</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Fix - Changed feature for default values in migrations">
+      <option name="closed" value="true" />
+      <created>1773008998260</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1773008998260</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -198,6 +208,7 @@
     <MESSAGE value="Fixed key constraints logic" />
     <MESSAGE value="Added id, timestamps and key logic in Blueprint" />
     <MESSAGE value="Added cli command for test" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added cli command for test" />
+    <MESSAGE value="Fix - Changed feature for default values in migrations" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix - Changed feature for default values in migrations" />
   </component>
 </project>

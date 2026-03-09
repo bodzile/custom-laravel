@@ -11,6 +11,7 @@ class ColumnDefinition
     public string $operation="";
     public mixed $default="";
     public bool $nullable=false;
+    public bool $unsigned=false;
     public bool $unique=false;
     public bool $auto_increment=false;
 

@@ -43,7 +43,11 @@ class ColumnModifier
         return $this;
     }
 
-
+    public function unsigned():ColumnModifier
+    {
+        $this->column->unsigned=true;
+        return $this;
+    }
 
     public function unique():ColumnModifier
     {
