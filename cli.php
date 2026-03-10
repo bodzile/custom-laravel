@@ -1,5 +1,8 @@
 <?php
 
+require __DIR__ . '/vendor/autoload.php';
 
-echo "Pozz";
-die();
+use Src\Console\CommandDispatcher;
+
+$dispatcher = new CommandDispatcher();
+$dispatcher->dispatch($argv);
