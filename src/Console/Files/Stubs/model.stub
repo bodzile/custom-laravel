@@ -1,0 +1,13 @@
+<?php
+
+namespace App\Models;
+
+class {Name} extends Model
+{
+
+    protected static string $table="";
+    protected static array $allowed=[
+
+    ];
+
+}

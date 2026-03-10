@@ -11,6 +11,7 @@ class SchemaRepository
 
     public static function createTable(string $tableName, Blueprint $blueprint):void
     {
+        //die($tableName);
         if(Schema::hasTable($tableName))
             throw new TableAlreadyExistException;
         $sql=SchemaSqlBuilder::create($tableName, $blueprint);
@@ -19,10 +20,15 @@ class SchemaRepository
 
     public static function tableExists(string $tableName):bool
     {
+
         $sql=SchemaSqlBuilder::tableExists($tableName);
         $res=QueryExecutor::executeQuery(Database::getConnection(), $sql);
+
         if($res[0]->result > 0)
+        {
             return true;
+        }
+
         return false;
     }
 

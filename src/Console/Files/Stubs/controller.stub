@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Request;
 use Src\Sessions\Session;
 
-abstract class Controller
+class {Name} extends Controller
 {
 
 
