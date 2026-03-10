@@ -10,7 +10,7 @@ class MyController extends Controller
     public function index(Request $request)
     {
 
-        require_once "database/migrations/migration1.php";
+        //require_once "database/migrations/migration1.php";
 
         $users = MyModel::where([
             "name" => ["like", "%s%"],

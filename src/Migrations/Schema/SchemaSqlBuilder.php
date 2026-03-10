@@ -2,6 +2,7 @@
 
 namespace Src\Migrations\Schema;
 
+use Src\Database;
 use Src\Migrations\Definitions\ColumnDefinition;
 use Src\Migrations\Definitions\ColumnDefinitionToSqlConverter;
 use Src\Migrations\Definitions\KeyDefinitionToSqlConverter;
@@ -18,6 +19,17 @@ class SchemaSqlBuilder
             $res=$columns;
 
         return "CREATE TABLE $table($res);";
+    }
+
+    public static function tableExists(string $table):string
+    {
+        $schemaName=Database::getSchemaName();
+        return "SELECT COUNT(*) AS result FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '$schemaName' AND TABLE_NAME = '$table';";
+    }
+
+    public static function dropTableIfExists(string $table):string
+    {
+        return "DROP TABLE IF EXISTS $table";
     }
 
     private static function buildColumns(array $columns):string

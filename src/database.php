@@ -20,6 +20,11 @@ class Database
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
     ];
 
+    public static function getSchemaName():string
+    {
+        return static::$db_info['db_name'];
+    }
+
     public static function getConnection():PDO
     {
         if(!isset(self::$pdo))

@@ -10,13 +10,9 @@ class Schema
 {
     public static function create(string $tableName, callable $function):void
     {
-        //check if table exist
-        if(Schema::hasTable($tableName))
-            throw new TableAlreadyExistException;
-
         $blueprint=new Blueprint();
         $function($blueprint);
-        //SchemaRepository::createTable($tableName, $blueprint);
+        SchemaRepository::createTable($tableName, $blueprint);
     }
 
     public static function table(string $tableName, callable $function):void
@@ -41,7 +37,7 @@ class Schema
 
     public static function dropIfExists($tableName):void
     {
-
+        SchemaRepository::dropTableIfExists($tableName);
     }
 
 }

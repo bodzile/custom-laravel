@@ -4,21 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ecb204f6-f270-46a1-8d21-3cb3523108f8" name="Changes" comment="Feature - Added sql builder and repository">
-      <change afterPath="$PROJECT_DIR$/src/Exceptions/ColumnAlreadyExistInBlueprintException.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Exceptions/DuplicatePrimaryKeyException.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Exceptions/PrimaryKeyNullableException.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Exceptions/TableAlreadyExistException.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Exceptions/TableNotFoundException.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Validators/BlueprintValidator.php" afterDir="false" />
+    <list default="true" id="ecb204f6-f270-46a1-8d21-3cb3523108f8" name="Changes" comment="Feature - Added BlueprrintValidator and exceptions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/http/Controllers/MyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/http/Controllers/MyController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/migration1.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/migration1.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Exceptions/ColumnNotFoundInAllowedException.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Exceptions/ColumnNotFoundInAllowedException.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/Definitions/ColumnModifier.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Definitions/ColumnModifier.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/Schema/Blueprint.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Schema/Blueprint.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Adapters/ErrorDataAdapter.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Adapters/ErrorDataAdapter.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Migrations/Schema/Schema.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Schema/Schema.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Migrations/Schema/SchemaRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Schema/SchemaRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Schema/SchemaSqlBuilder.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Schema/SchemaSqlBuilder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/database.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,7 +116,7 @@
       <workItem from="1772972286532" duration="752000" />
       <workItem from="1773003199861" duration="4502000" />
       <workItem from="1773057182980" duration="11901000" />
-      <workItem from="1773152329166" duration="6930000" />
+      <workItem from="1773152329166" duration="9197000" />
     </task>
     <task id="LOCAL-00001" summary="Added QueryParts class">
       <option name="closed" value="true" />
@@ -205,7 +198,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773069230785</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Feature - Added BlueprrintValidator and exceptions">
+      <option name="closed" value="true" />
+      <created>1773163300975</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1773163300975</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -233,6 +234,7 @@
     <MESSAGE value="Fix - Changed feature for default values in migrations" />
     <MESSAGE value="Fix - added sql functions use, unsigned function" />
     <MESSAGE value="Feature - Added sql builder and repository" />
-    <option name="LAST_COMMIT_MESSAGE" value="Feature - Added sql builder and repository" />
+    <MESSAGE value="Feature - Added BlueprrintValidator and exceptions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Feature - Added BlueprrintValidator and exceptions" />
   </component>
 </project>
