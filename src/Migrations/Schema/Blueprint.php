@@ -7,12 +7,19 @@ use Src\Migrations\Definitions\ColumnModifier;
 use Src\Migrations\Definitions\KeyDefinition;
 use Src\Migrations\Enums\ColumnTypes;
 use Src\Migrations\Enums\SqlFunctions;
+use Src\Migrations\Validators\BlueprintValidator;
 
 class Blueprint
 {
 
     private array $columns=[];
     private array $keys=[];
+    public BlueprintValidator $validator;
+
+    public function __construct()
+    {
+        $this->validator = new BlueprintValidator($this);
+    }
 
     public function print()
     {
@@ -110,6 +117,7 @@ class Blueprint
 
     private function createAndAddColumnDefinition(string $name, ColumnTypes $type, int $length=255):ColumnModifier
     {
+        $this->validator->validateColumnName($name);
         $column=new ColumnDefinition($type, $name, $length);
         $this->columns[]=$column;
         return new ColumnModifier($this, $column);

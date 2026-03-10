@@ -16,7 +16,7 @@ class MyController extends Controller
             "name" => ["like", "%s%"],
         ])->get();
 
-        $res = MyModel::sum("id")->where(["id" => ["in", [13, 15]]])->getScalar();
+        //$res = MyModel::sum("id")->where(["id" => ["in", [13, 15]]])->getScalar();
 
         view("test", compact("users"));
 

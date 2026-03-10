@@ -15,6 +15,7 @@ class ColumnModifier
 
     public function primary():ColumnModifier
     {
+        $this->table->validator->validatePrimaryKey();
         $this->table->addKey(new KeyDefinition($this->column->name,KeyType::PRIMARY)); ;
         return $this;
     }

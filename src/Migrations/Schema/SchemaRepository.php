@@ -14,4 +14,9 @@ class SchemaRepository
         QueryExecutor::executeNonQuery(Database::getConnection(), $sql);
     }
 
+    public static function tableExists(string $tableName):bool
+    {
+        return false;
+    }
+
 }
