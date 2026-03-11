@@ -1,0 +1,18 @@
+<?php
+
+namespace App\Http\Middlewares;
+
+use App\Http\Requests\Request;
+use Src\RedirectTrait;
+use Closure;
+
+class {Name} implements Middleware
+{
+
+    use RedirectTrait;
+
+    public static function handle(Request $request, Closure $next)
+    {
+
+    }
+}

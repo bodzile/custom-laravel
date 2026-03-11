@@ -1,6 +1,7 @@
 {
     "name": "laravel/laravel",
     "type": "project",
+
     "autoload": {
         "files": [
             "src/global_functions.php"
@@ -11,6 +12,9 @@
             "Routes\\": "routes/",
             "Requests\\": "app/Requests/"
         }
+    },
+    "scripts": {
+        "command":"php cli.php"
     },
     "authors": [
         {

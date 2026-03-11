@@ -9,22 +9,19 @@ class MyController extends Controller
 {
     public function index(Request $request)
     {
-        //$users=MyModel::create(["name" => "barbel row", "difficulty" => "medium", "type" => "ledja"]);
 
+        //require_once "database/migrations/migration1.php";
 
-        //trebalo bi da vrati ili objekat ili niz objekata instance MyModel ili Model da mogu da se setuju polja
-        //$users=MyModel::query()->where(["difficulty" => "easy"])->get();
-
-        $res=MyModel::sum("id")->where(["id" => ["in",[13,15]]])->getScalar();
-        print_r($res); die();
-        //die((string)$res);
-        $users=MyModel::where([
-            //"difficulty" => "hard",
-            "name" => ["like","%s%"],
-            //"id" => ["in",[15,13]]
+        $users = MyModel::where([
+            "name" => ["like", "%s%"],
         ])->get();
 
+        //$res = MyModel::sum("id")->where(["id" => ["in", [13, 15]]])->getScalar();
+
+        view("test", compact("users"));
+
         //$user=MyModel::find(100);
+        //print_r($res); die();
 
         //print_r($user); die();
 
@@ -33,6 +30,8 @@ class MyController extends Controller
         // echo $user->id . "<br>";
         // echo $user->name . "<br>";
         // echo $user->difficulty . "<br>";
+
+
 
         // $user->name="novo";
         // $user->difficulty="hard";
@@ -52,7 +51,7 @@ class MyController extends Controller
         // ]);
 
 
-        return $this->view("test",compact("users"));
+
     }
 
     public function index2()
@@ -70,13 +69,10 @@ class MyController extends Controller
         redirect()->back()->with("success","uspesno ste poslali");
     }
 
-    public function delete(Request $request, MyModel $id)
+    public function delete(Request $request, MyModel $model)
     {
-        // $post=Post::where(["id" => $id])->get();
-        print_r($id); die();
-
-        // $post->delete();
-        //$post->delete();
+        $model->delete();
+        $this->redirect()->back()->with("success","uspesno ste obrisali");
     }
 
     public function showPull(Request $request, string $exercise)

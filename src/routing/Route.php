@@ -144,7 +144,7 @@ class Route
     public function build():void
     {
         $route=$this->buildRouteData();
-        print_r("Url: " . $route->url . " Name: " . $route->name); echo "<br>";
+        //print_r("Url: " . $route->url . " Name: " . $route->name); echo "<br>";
         $this->resetRouteData();
         RouteValidator::validate($route);
 
