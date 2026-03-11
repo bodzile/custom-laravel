@@ -67,7 +67,7 @@ class MyController extends Controller
         //$request->validate();
         //die("poz");
 
-        $this->redirect()->back()->with("success","uspesno ste poslali");
+        redirect()->back()->with("success","uspesno ste poslali");
     }
 
     public function delete(Request $request, MyModel $id)

@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ecb204f6-f270-46a1-8d21-3cb3523108f8" name="Changes" comment="[FIX] - Fixed aggreagate function logic" />
+    <list default="true" id="ecb204f6-f270-46a1-8d21-3cb3523108f8" name="Changes" comment="Feature - Added commands 2">
+      <change afterPath="$PROJECT_DIR$/src/Utility/RedirectResponse.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/http/Controllers/MyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/http/Controllers/MyController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/global_functions.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/global_functions.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -12,7 +17,9 @@
   </component>
   <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution />
+    <execution>
+      <executable path="composer" />
+    </execution>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -62,10 +69,11 @@
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
     &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;fix-nested-group-bug&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature-migrations&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/custom laravel&quot;,
@@ -100,6 +108,12 @@
       <workItem from="1771405813326" duration="11781000" />
       <workItem from="1771932950512" duration="6310000" />
       <workItem from="1772190727841" duration="34344000" />
+      <workItem from="1772629105500" duration="16110000" />
+      <workItem from="1772735252200" duration="27711000" />
+      <workItem from="1772972286532" duration="752000" />
+      <workItem from="1773003199861" duration="4502000" />
+      <workItem from="1773057182980" duration="11901000" />
+      <workItem from="1773152329166" duration="19436000" />
     </task>
     <task id="LOCAL-00001" summary="Added QueryParts class">
       <option name="closed" value="true" />
@@ -125,7 +139,95 @@
       <option name="project" value="LOCAL" />
       <updated>1771413483245</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added KeyDefinition and KeyType and refactored directories">
+      <option name="closed" value="true" />
+      <created>1772642076829</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1772642076829</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Fixed key constraints logic">
+      <option name="closed" value="true" />
+      <created>1772642162793</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1772642162793</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Added id, timestamps and key logic in Blueprint">
+      <option name="closed" value="true" />
+      <created>1772642184909</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1772642184909</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Added cli command for test">
+      <option name="closed" value="true" />
+      <created>1772973699929</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1772973699929</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Fix - Changed feature for default values in migrations">
+      <option name="closed" value="true" />
+      <created>1773008998260</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1773008998260</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Fix - added sql functions use, unsigned function">
+      <option name="closed" value="true" />
+      <created>1773069210143</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1773069210143</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Feature - Added sql builder and repository">
+      <option name="closed" value="true" />
+      <created>1773069230785</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1773069230785</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Feature - Added BlueprrintValidator and exceptions">
+      <option name="closed" value="true" />
+      <created>1773163300975</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1773163300975</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Feature - Added Schema functions">
+      <option name="closed" value="true" />
+      <created>1773165600569</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1773165600569</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Feature - Added commands">
+      <option name="closed" value="true" />
+      <created>1773175249908</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1773175249908</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Feature - Added commands 2">
+      <option name="closed" value="true" />
+      <created>1773175260037</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1773175260037</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -146,6 +248,17 @@
     <MESSAGE value="Added QueryParts class" />
     <MESSAGE value="[REFACTOR] - Changed all use of query to QueryParts object" />
     <MESSAGE value="[FIX] - Fixed aggreagate function logic" />
-    <option name="LAST_COMMIT_MESSAGE" value="[FIX] - Fixed aggreagate function logic" />
+    <MESSAGE value="Added KeyDefinition and KeyType and refactored directories" />
+    <MESSAGE value="Fixed key constraints logic" />
+    <MESSAGE value="Added id, timestamps and key logic in Blueprint" />
+    <MESSAGE value="Added cli command for test" />
+    <MESSAGE value="Fix - Changed feature for default values in migrations" />
+    <MESSAGE value="Fix - added sql functions use, unsigned function" />
+    <MESSAGE value="Feature - Added sql builder and repository" />
+    <MESSAGE value="Feature - Added BlueprrintValidator and exceptions" />
+    <MESSAGE value="Feature - Added Schema functions" />
+    <MESSAGE value="Feature - Added commands" />
+    <MESSAGE value="Feature - Added commands 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Feature - Added commands 2" />
   </component>
 </project>
